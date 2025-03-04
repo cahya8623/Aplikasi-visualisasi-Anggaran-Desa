@@ -49,6 +49,7 @@ export default function Pengeluaran() {
                 <td>Lorem</td>
                 <td className="gap-2">
                   <Button></Button>
+                  asdasdsa
                 </td>
               </tr>
               <tr>
