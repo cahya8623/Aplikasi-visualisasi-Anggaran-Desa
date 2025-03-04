@@ -18,21 +18,20 @@
   width: 30vw;
   background-color: rgb(255, 255, 255, .2);
   border: white 3px solid;
+  position: relative;
 }
+
 .Pengeluaran{
   /* padding: 50px; */
   padding-left: 50px;
   padding-right: 50px;
-  /* margin-bottom: 50px; */
-  /* width: 50vw;
-  height: 50vh; */
+ 
 }
 .Home{
   position: absolute;
-  z-index: 0;
-  /* border: red 3px solid; */
+
   left: 22%;
-  width: 77vw;
+  width: 80vw;
   padding: 10px;
 }
 .clicked {

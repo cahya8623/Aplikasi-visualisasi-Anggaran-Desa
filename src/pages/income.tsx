@@ -13,7 +13,7 @@ export default function Income() {
         <button type="button" className=" ms-5 my-3 btn btn-success">
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <div className="ms-3 d-flex flex-column align-items-center">
+        <div className="ms-5">
           <TableIncome width="70vw" height="70vh" />
         </div>
       </div>

@@ -4,8 +4,8 @@ import React from "react";
 export class Button extends React.Component {
   render() {
     return (
-      <div>
-        <button type="button" className="m-1 btn btn-primary">
+      <div className="gap-2">
+        <button type="button" className="m-2 btn btn-primary">
           <i className="bi bi-pencil-fill"></i> Edit
         </button>
         <button type="button" className="btn btn-danger">
@@ -17,10 +17,47 @@ export class Button extends React.Component {
 }
 
 export default function Pengeluaran() {
+  const data = [
+    {
+      id: 1,
+      Tanggal: "12/2/2003",
+      Kebutuhan: "infastruktur",
+      Belanja: 2200000,
+      Keterangan: "bagus",
+    },
+    {
+      id: 2,
+      Tanggal: "30/5/2045",
+      Kebutuhan: "infastruktur",
+      Belanja: 30000000,
+      Keterangan: "bagus",
+    },
+    {
+      id: 3,
+      Tanggal: "22/4/2012",
+      Kebutuhan: "infastruktur",
+      Belanja: 560000000,
+      Keterangan: "bagus",
+    },
+    {
+      id: 4,
+      Tanggal: "11/6/2045",
+      Kebutuhan: "infastruktur",
+      Belanja: 230000000,
+      Keterangan: "bagus",
+    },
+    {
+      id: 5,
+      Tanggal: "11/6/2045",
+      Kebutuhan: "infastruktur",
+      Belanja: 230000000,
+      Keterangan: "bagus",
+    },
+  ];
   return (
     <div className="d-flex vw-100 vh-100">
       <Sidebar />
-      <div className="Home p-0 bg-light-subtle ">
+      <div className="Home p-0 bg-light-subtle vh-100">
         <section className=" bg-dark-subtle p-3 text-dark rounded py-20">
           <h1 className="fw-bold">Halaman Pengeluaran</h1>
         </section>
@@ -41,182 +78,18 @@ export default function Pengeluaran() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>12/2/2002</td>
-                <td>Kesehatan</td>
-                <td>500000000000000000000</td>
-                <td>Lorem</td>
-                <td className="gap-2">
-                  <Button></Button>
-                  asdasdsa
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>02/03/2003</td>
-                <td>Infrastruktur</td>
-                <td>Rp.23000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>02/03/2003</td>
-                <td>Infrastruktur</td>
-                <td>Rp.23000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>12/03/2025</td>
-                <td>Keamanan</td>
-                <td>Rp.2000000</td>
-                <td>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid sint possimus harum? Explicabo consequuntur corporis
-                  harum vero beatae corrupti reprehenderit aliquid facilis
-                  distinctio, assumenda eos incidunt ipsum autem? Unde, magni.
-                </td>
-                <td className="gap-2">
-                  <Button></Button>
-                </td>
-              </tr>
+              {data.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.Tanggal}</td>
+                  <td>{item.Kebutuhan}</td>
+                  <td>{item.Belanja}</td>
+                  <td>{item.Keterangan}</td>
+                  <td>
+                    <Button></Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
