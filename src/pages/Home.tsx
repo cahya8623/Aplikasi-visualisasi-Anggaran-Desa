@@ -1,7 +1,6 @@
 import Notes from "@/component/BudgetNotes";
 import Expense from "@/component/Expenses";
 import Filter from "@/component/filter";
-import ComparationChart from "@/component/lineChart";
 import Sidebar from "@/component/sidebar";
 
 export default function Home() {

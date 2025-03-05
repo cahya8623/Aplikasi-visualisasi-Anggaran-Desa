@@ -1,11 +1,14 @@
 import { Button } from "@/pages/Pengeluaran";
 
-type Box = {
+type TableIncomeProps = {
   width?: string;
   height?: string;
 };
 
-export default function TableIncome({ width = "90vw", height = "80vh" }: Box) {
+export default function TableIncome({
+  width = "90vw",
+  height = "80vh",
+}: TableIncomeProps) {
   const data = [
     { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
     { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
