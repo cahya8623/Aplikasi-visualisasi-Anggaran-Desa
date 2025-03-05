@@ -1,13 +1,14 @@
 import Notes from "@/component/BudgetNotes";
+import Expense from "@/component/Expenses";
 import Filter from "@/component/filter";
+import ComparationChart from "@/component/lineChart";
 import Sidebar from "@/component/sidebar";
-import Tables from "@/component/Table";
 
 export default function Home() {
   return (
     <div className="d-flex ">
       <Sidebar />
-      <div className="Home m-0 p-0 bg-light-subtle ">
+      <div className="Home m-0 p-0 bg-light-subtle">
         <section className=" mb-2 bg-dark-subtle p-3 text-dark rounded py-20">
           <h1 className="fw-bold">Halaman Home</h1>
         </section>
@@ -15,9 +16,7 @@ export default function Home() {
         <Notes />
         <Filter />
 
-        <div className="d-flex justify-content-center">
-          <Tables width="75vw" height="10vh" />
-        </div>
+        <Expense ShowTable={true} width="20vw" height="100px" />
       </div>
     </div>
   );

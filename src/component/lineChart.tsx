@@ -1,5 +1,10 @@
 import { Line } from "react-chartjs-2";
 
+export type measuringChart = {
+  width: string;
+  height: string;
+};
+
 export default function ComparationChart() {
   const dataDanaDesa = [
     { tahun: 2015, dana: 5000000 },

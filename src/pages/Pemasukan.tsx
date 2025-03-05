@@ -1,7 +1,7 @@
 import Sidebar from "@/component/sidebar";
 import TableIncome from "@/component/tabelIncome";
 
-export default function Income() {
+export default function Pemasukan() {
   return (
     <div className="d-flex vh-100">
       <Sidebar />

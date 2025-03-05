@@ -20,18 +20,27 @@
   border: white 3px solid;
   position: relative;
 }
+.scroll-keterangan {
+  /* max-height: 100px; Sesuaikan tinggi maksimal sebelum scroll muncul */
+  /* max-width: 700px; */
+  overflow-x: auto; /* Scroll hanya ke bawah */
+  white-space: normal; /* Agar teks tetap turun ke bawah */
+  word-wrap: break-word; /* Memastikan teks tetap dalam kolom */
+  padding: 5px; /* Opsional: Biar tampak lebih rapi */
+  margin-left: 25px;
+}
 
 .Pengeluaran{
   /* padding: 50px; */
-  padding-left: 50px;
-  padding-right: 50px;
- 
+  padding-left: 20px;
+  padding-right: 20px;
+  /* margin: 20px; */
 }
 .Home{
   position: absolute;
 
   left: 22%;
-  width: 80vw;
+  width: 77vw;
   padding: 10px;
 }
 .clicked {

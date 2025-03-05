@@ -33,9 +33,9 @@ export default function Sidebar() {
           </li>
           <li>
             <Link
-              href="/income"
+              href="/Pemasukan"
               className={`nav-link  text-white ${
-                pathName === "/income" ? "clicked" : ""
+                pathName === "/Pemasukan" ? "clicked" : ""
               }`}
             >
               Pemasukan

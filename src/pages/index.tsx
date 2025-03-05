@@ -15,6 +15,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import Expense from "@/component/Expenses";
 
 ChartJS.register(
   CategoryScale,
@@ -67,7 +68,7 @@ export default function Index() {
 
         {/* Rincian Anggaran */}
         <h1>Rincian Anggaran</h1>
-        <Tables />
+        <Expense ShowTable={false} width="700px" height="100px" />
         <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
         <div className="mt-5 ms-3 p-2">
           <ComparationChart />
