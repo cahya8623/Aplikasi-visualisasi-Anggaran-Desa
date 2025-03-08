@@ -7,7 +7,7 @@ export default function Sidebar() {
     <div className="vh-100 position-fixed">
       <div
         className="position-static d-flex vh-100 flex-column flex-shrink-0 p-3 text-white bg-dark"
-        style={{ width: "280px" }}
+        style={{ width: "100vw" }}
       >
         <Link
           href="/"

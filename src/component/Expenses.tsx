@@ -1,4 +1,4 @@
-import { Button } from "@/pages/Pengeluaran";
+import Button from "./Button";
 
 type Measuring = {
   width: string;
@@ -18,7 +18,7 @@ export default function Expense({
       Kebutuhan: "infastruktur",
       Belanja: 2200000,
       Keterangan:
-        "bagasdsadsadkjpaodkoawjdkopiwasdsadsadiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
+        "asdjasdasdasop asoijdoasijdaosidjoasijdoi adioasjdoiasjdoaisjdoiasj aoisdjasoidjaosidjsaoijoiajdoiasjdoiasj ioasjdoaisjdoiasj asoijdaosidjaoi asdasd",
     },
     {
       id: 2,
@@ -42,7 +42,7 @@ export default function Expense({
       Kebutuhan: "infastruktur",
       Belanja: 230000000,
       Keterangan:
-        "bagasdsadsadkjpaodkoawjdkopiwasdsadsadiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
+        "asdaspokdapsodkapsodkopaskdpoaskdpoaskdpoaskdpaosdkaspodkasopdkaspodksapod",
     },
     {
       id: 5,
@@ -55,7 +55,7 @@ export default function Expense({
   ];
   return (
     <div className="Pengeluaran">
-      <table className="table table-hover align-text-center  table-dark mt-1  ">
+      <table className="table table-hover align-text-center table-dark  mt-1  ">
         <thead>
           <tr className="text-center">
             <th scope="col">No</th>
@@ -80,7 +80,11 @@ export default function Expense({
               </td>
               {ShowTable && (
                 <td>
-                  <Button></Button>
+                  <Button
+                    label1="Kebutuhan"
+                    label2="Total Belanja"
+                    Shown={true}
+                  ></Button>
                 </td>
               )}
             </tr>

@@ -4,10 +4,11 @@ import TableIncome from "@/component/tabelIncome";
 
 export default function Pemasukan() {
   const { isModalShow, closeModal, showModal } = useModal();
+  console.log(isModalShow);
   return (
-    <div className="d-flex vh-100">
+    <div className=" w-100 d-flex vh-100">
       <Sidebar />
-      <div className="Home   p-0 bg-light-subtle ">
+      <div className="Home container-fluid p-0 bg-light-subtle ">
         <section className=" bg-dark-subtle p-3 text-dark rounded py-20">
           <h1 className="fw-bold">Halaman Pemasukan</h1>
         </section>
@@ -24,7 +25,13 @@ export default function Pemasukan() {
         </div>
       </div>
 
-      <ModalBox isShow={isModalShow} onCloseModal={closeModal} />
+      <ModalBox
+        first="Jumlah Pendapatan"
+        second="Sumber Pendapatan"
+        ShowInput={false}
+        isShow={isModalShow}
+        onCloseModal={closeModal}
+      />
     </div>
   );
 }

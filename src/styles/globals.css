@@ -13,14 +13,29 @@
 *{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.modal-keterangan{
+  max-width: 50vw;
+  height: 120px;
+  max-height: 200px;
+  text-align: justify;
+  margin-top: 25px;
+}
 .ModalBox{
-  width: 30vw;
-  height: 30vh;
-  background-color: aquamarine;
-  position: absolute;
+  padding: 20px;
+  border-radius: 20px;
+  width: 40vw;
+  background-color: rgb(31, 53, 65);
+  position: fixed;
   z-index: 999999;
-  left: 35%;
-  top: 30%;
+  left: 29%;
+  top: 20%;
+  transition: 1s;
+}
+.ModalBox button{
+  margin-left: 26%;
+  padding: 10px; 
+  width: 15rem;
+  border-radius: 20px;
 }
 .login-box{
   width: 30vw;
@@ -29,17 +44,22 @@
   position: relative;
 }
 .scroll-keterangan {
-  /* max-height: 100px; Sesuaikan tinggi maksimal sebelum scroll muncul */
-  /* max-width: 700px; */
-  overflow-x: auto; /* Scroll hanya ke bawah */
-  white-space: normal; /* Agar teks tetap turun ke bawah */
-  word-wrap: break-word; /* Memastikan teks tetap dalam kolom */
-  padding: 5px; /* Opsional: Biar tampak lebih rapi */
+  /* display: -webkit-box; */
+  /* -webkit-line-clamp: 3; Batasi 3 baris */
+  /* -webkit-box-orient: vertical; */
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  white-space: no-wrap; 
+  word-break: normal;
+  padding: 5px; 
   margin-left: 25px;
 }
 
+
+
 .Pengeluaran{
   /* padding: 50px; */
+  /* background-color: red; */
   padding-left: 20px;
   padding-right: 20px;
   /* margin: 20px; */

@@ -1,4 +1,4 @@
-import { Button } from "@/pages/Pengeluaran";
+import Button from "./Button";
 
 type TableIncomeProps = {
   width?: string;
@@ -36,10 +36,14 @@ export default function TableIncome({
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.Tanggal}</td>
-              <td>{item.Income}</td>
+              <td>Rp.{item.Income}</td>
               <td>{item.Source}</td>
               <td>
-                <Button></Button>
+                <Button
+                  Shown={false}
+                  label1="Jumlah Pendapatan"
+                  label2="Sumber Pendapatan"
+                ></Button>
               </td>
             </tr>
           ))}
