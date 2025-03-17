@@ -1,15 +1,19 @@
+import { useState } from "react";
 import Button from "./Button";
+import ModalBox, { useModal } from "./ModalBox";
 
 type Measuring = {
   width: string;
   height: string;
   ShowTable?: boolean;
+  TableHead?: string;
 };
 
 export default function Expense({
   width,
   height,
   ShowTable = true,
+  TableHead = "table-info",
 }: Measuring) {
   const data = [
     {
@@ -18,7 +22,7 @@ export default function Expense({
       Kebutuhan: "infastruktur",
       Belanja: 2200000,
       Keterangan:
-        "asdjasdasdasop asoijdoasijdaosidjoasijdoi adioasjdoiasjdoaisjdoiasj aoisdjasoidjaosidjsaoijoiajdoiasjdoiasj ioasjdoaisjdoiasj asoijdaosidjaoi asdasd",
+        "ini adalah contoh keterangan web desa gending yang dimana isinya keterangan dari sumber pendapatan desa asalnya dari mana yang mana ketika ada dana masuk maka harus di laporkan sumber pendapatannya itu wajib ",
     },
     {
       id: 2,
@@ -53,10 +57,17 @@ export default function Expense({
         "bagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopisbagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
     },
   ];
+
+  const { isModalShow, closeModal, showModal } = useModal();
+  const [selectedKeterangan, setSelectedKeterangan] = useState("");
+  function handleShowModal(keterangan: string) {
+    setSelectedKeterangan(keterangan);
+    showModal();
+  }
   return (
     <div className="Pengeluaran">
-      <table className="table table-hover align-text-center table-dark  mt-1  ">
-        <thead>
+      <table className="table table-hover align-text-center  mt-1  ">
+        <thead className={TableHead}>
           <tr className="text-center">
             <th scope="col">No</th>
             <th scope="col">Tanggal</th>
@@ -66,14 +77,14 @@ export default function Expense({
             {ShowTable && <th scope="col">Aksi</th>}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-light">
           {data.map((item) => (
             <tr key={item.id}>
               <td className="text-center">{item.id}</td>
               <td className="text-center">{item.Tanggal}</td>
               <td className="text-center">{item.Kebutuhan}</td>
               <td className="text-center">Rp.{item.Belanja}</td>
-              <td>
+              <td onClick={() => handleShowModal(item.Keterangan)}>
                 <div className="scroll-keterangan" style={{ width, height }}>
                   {item.Keterangan}
                 </div>
@@ -91,6 +102,14 @@ export default function Expense({
           ))}
         </tbody>
       </table>
+      <ModalBox
+        first="Kebutuhan"
+        second={selectedKeterangan}
+        ShowInput={true}
+        ShowForm={false}
+        isShow={isModalShow}
+        onCloseModal={closeModal}
+      />
     </div>
   );
 }

@@ -16,11 +16,12 @@ export const useModal = () => {
 };
 
 export type ModalBoxProps = {
-  first: string;
-  second: string;
+  first?: string;
+  second?: string;
   isShow: boolean;
   onCloseModal: () => void;
   ShowInput?: boolean;
+  ShowForm?: boolean;
 };
 
 export default function ModalBox(props: ModalBoxProps) {
@@ -36,42 +37,58 @@ export default function ModalBox(props: ModalBoxProps) {
       }}
     >
       <div onClick={(e) => e.stopPropagation()} className="ModalBox">
-        <form>
-          <div className="p-2 ">
-            <div className=" m-2">
-              <input
-                type="text"
-                className="rounded-5 mb-3 form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder={props.first}
-              />
-              <input
-                type="text"
-                className="rounded-5 form-control"
-                id="exampleInputPassword1"
-                placeholder={props.second}
-              />
-            </div>
-            {props.ShowInput && (
-              <div className=" m-2 form-group">
-                <textarea
-                  typeof="text"
-                  className=" modal-keterangan form-control"
-                  id="exampleInputPassword1"
-                  placeholder="keterangan"
-                />
-              </div>
-            )}
-          </div>
+        {props.ShowForm ? (
+          <div>
+            <div>
+              <form>
+                <div className="p-2 ">
+                  <div className=" m-2">
+                    <input
+                      type="text"
+                      className="rounded-5 mb-3 form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder={props.first}
+                    />
+                    <input
+                      type="text"
+                      className="rounded-5 form-control"
+                      id="exampleInputPassword1"
+                      placeholder={props.second}
+                    />
+                  </div>
+                  {props.ShowInput && (
+                    <div className=" m-2 form-group">
+                      <textarea
+                        typeof="text"
+                        className=" modal-keterangan form-control"
+                        id="exampleInputPassword1"
+                        placeholder="keterangan"
+                      />
+                    </div>
+                  )}
+                </div>
 
-          <button type="submit" className="btn btn-outline-success">
-            Submit
-          </button>
-        </form>
+                <button
+                  type="submit"
+                  className="btn  btn-outline-success"
+                  style={{ marginRight: "110px" }}
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        ) : null}
+
+        {props.ShowForm ? null : (
+          <div className="Modal-content">
+            <p className="props-keterangan text-white">{props.second}</p>{" "}
+          </div>
+        )}
         <i
           onClick={props.onCloseModal}
-          className="fs-5  bi bi-x-circle-fill"
+          className="transition fs-5 text-light bi bi-x-circle-fill"
           style={{
             position: "absolute",
             top: "2.5%",

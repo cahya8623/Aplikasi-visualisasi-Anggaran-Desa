@@ -24,6 +24,7 @@ export default function Pengeluaran() {
           first="Kebutuhan"
           second="Total Belanja"
           ShowInput={true}
+          ShowForm={true}
           isShow={isModalShow}
           onCloseModal={closeModal}
         />

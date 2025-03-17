@@ -19,6 +19,30 @@
   max-height: 200px;
   text-align: justify;
   margin-top: 25px;
+  transition: 1s;
+}
+.scroll-keterangan {
+  /* max-width: 20vw; */
+  white-space: nowrap; /* Mencegah teks turun */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Tambahkan titik tiga jika teks terlalu panjang */
+  max-width: 80vw;
+  transition: 1s;
+}
+.props-keterangan {
+  max-width: 80vw;
+  text-align: justify;
+  transition: 1s;
+  /* white-space: normal; */
+}
+.Modal-content{
+  max-width: 100%;         /* Modal tidak terlalu lebar */
+  padding-top: 20px;
+  /* background: white; */
+  border-radius: 8px;
+  /* overflow: hidden; */
+
+  word-wrap: break-word;
 }
 .ModalBox{
   padding: 20px;
@@ -43,16 +67,9 @@
   border: white 3px solid;
   position: relative;
 }
-.scroll-keterangan {
-  /* display: -webkit-box; */
-  /* -webkit-line-clamp: 3; Batasi 3 baris */
-  /* -webkit-box-orient: vertical; */
-  text-overflow: ellipsis;
-  overflow: hidden; 
-  white-space: no-wrap; 
-  word-break: normal;
-  padding: 5px; 
-  margin-left: 25px;
+
+.transition{
+  transition: 1s; 
 }
 
 
@@ -66,7 +83,7 @@
 }
 .Home{
   position: absolute;
-
+  height: 100%;
   left: 22%;
   width: 77vw;
   padding: 10px;

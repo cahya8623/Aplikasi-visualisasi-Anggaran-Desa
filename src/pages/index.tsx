@@ -2,9 +2,7 @@ import Notes from "@/component/BudgetNotes";
 import DoughnutChart from "@/component/Dougnut";
 import Filter from "@/component/filter";
 import ComparationChart from "@/component/lineChart";
-import Tables from "@/component/Table";
 import React from "react";
-import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,6 +14,7 @@ import {
   Legend,
 } from "chart.js";
 import Expense from "@/component/Expenses";
+import TableIncome from "@/component/tabelIncome";
 
 ChartJS.register(
   CategoryScale,
@@ -68,9 +67,23 @@ export default function Index() {
 
         {/* Rincian Anggaran */}
         <h1>Rincian Anggaran</h1>
-        <Expense ShowTable={false} width="700px" height="100px" />
+        <div
+          className="flex-row p-1 ms-5 text-center"
+          style={{ width: "80vw" }}
+        >
+          <h1 className="my-4">Daftar Pengeluaran</h1>
+          <Expense
+            TableHead="table-dark"
+            ShowTable={false}
+            width="20vw"
+            height="10vh"
+          />
+
+          <h1 className="my-4">Daftar Pemasukan</h1>
+          <TableIncome TableHead="table-dark" width="80vw" height="50vh" />
+        </div>
         <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
-        <div className="mt-5 ms-3 p-2">
+        <div className="mt-5 ms-3 p-2 ">
           <ComparationChart />
         </div>
       </div>

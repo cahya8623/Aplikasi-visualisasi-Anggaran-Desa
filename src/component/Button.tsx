@@ -25,6 +25,7 @@ export default function Button(props: ButtonClick) {
         second={props.label2}
         ShowInput={props.Shown}
         isShow={isModalShow}
+        ShowForm={true}
         onCloseModal={closeModal}
       />
     </div>

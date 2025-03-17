@@ -29,6 +29,7 @@ export default function Pemasukan() {
         first="Jumlah Pendapatan"
         second="Sumber Pendapatan"
         ShowInput={false}
+        ShowForm={true}
         isShow={isModalShow}
         onCloseModal={closeModal}
       />

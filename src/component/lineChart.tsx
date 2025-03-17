@@ -53,5 +53,9 @@ export default function ComparationChart() {
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <div style={{ width: "80vw" }}>
+      <Line data={data} options={options} />
+    </div>
+  );
 }
