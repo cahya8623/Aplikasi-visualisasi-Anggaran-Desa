@@ -21,7 +21,7 @@ export default function Pemasukan() {
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
         <div className="ms-5">
-          <TableIncome width="70vw" height="70vh" />
+          <TableIncome showTable={true} width="70vw" height="70vh" />
         </div>
       </div>
 

@@ -8,8 +8,8 @@ export default function Pengeluaran() {
   return (
     <div className="d-flex vw-100 vh-100">
       <Sidebar />
-      <div className="Home p-0 bg-light-subtle ">
-        <section className=" bg-dark-subtle p-3 text-dark rounded py-20">
+      <div className="Home pb-3 bg-light-subtle " style={{ height: "110%" }}>
+        <section className=" bg-dark-subtle p-3 text-dark rounded ">
           <h1 className="fw-bold">Halaman Pengeluaran</h1>
         </section>
         <button

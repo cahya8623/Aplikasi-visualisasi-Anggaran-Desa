@@ -56,8 +56,49 @@ export default function Expense({
       Keterangan:
         "bagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopisbagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
     },
+    {
+      id: 6,
+      Tanggal: "11/6/2045",
+      Kebutuhan: "infastruktur",
+      Belanja: 230000000,
+      Keterangan:
+        "bagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopisbagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
+    },
   ];
+  const [page, setPage] = useState(1);
 
+  console.log(page);
+
+  const maxVisible = 1;
+
+  const getPaginationRange = () => {
+    let startPage, endPage;
+    if (totalPage <= maxVisible) {
+      startPage = 1;
+      endPage = totalPage;
+    } else {
+      const middle = Math.floor(maxVisible / 2);
+      if (page <= middle + 1) {
+        startPage = 1;
+        endPage = maxVisible;
+      } else if (page + middle >= totalPage) {
+        startPage = totalPage - maxVisible + 1;
+        endPage = totalPage;
+      } else {
+        startPage = page - middle;
+        endPage = page + middle;
+      }
+    }
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
+    );
+  };
+  const limit = 5;
+  const totalPage = Math.ceil(data.length / limit);
+
+  const start = (page - 1) * limit;
+  const end = start + limit;
   const { isModalShow, closeModal, showModal } = useModal();
   const [selectedKeterangan, setSelectedKeterangan] = useState("");
   function handleShowModal(keterangan: string) {
@@ -78,7 +119,7 @@ export default function Expense({
           </tr>
         </thead>
         <tbody className="table-light">
-          {data.map((item) => (
+          {data.slice(start, end).map((item) => (
             <tr key={item.id}>
               <td className="text-center">{item.id}</td>
               <td className="text-center">{item.Tanggal}</td>
@@ -102,6 +143,48 @@ export default function Expense({
           ))}
         </tbody>
       </table>
+      <div>
+        <button
+          onClick={() => setPage(1)}
+          disabled={page === 1}
+          className="p-2  bg-gray-200 rounded"
+        >
+          &lt;First
+        </button>
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+          className="p-2  bg-gray-200 rounded"
+        >
+          &lt; Prev
+        </button>
+
+        {getPaginationRange().map((page) => (
+          <button
+            key={page}
+            onClick={() => setPage(page)}
+            disabled={true}
+            className={`p-2  rounded `}
+          >
+            {page}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setPage((prev) => Math.min(prev + 1, totalPage))}
+          disabled={page >= totalPage}
+          className="p-2 bg-gray-200 rounded"
+        >
+          Next &gt;
+        </button>
+        <button
+          onClick={() => setPage(totalPage)}
+          disabled={page >= totalPage}
+          className="p-2 bg-gray-200 rounded"
+        >
+          Last&gt;
+        </button>
+      </div>
       <ModalBox
         first="Kebutuhan"
         second={selectedKeterangan}

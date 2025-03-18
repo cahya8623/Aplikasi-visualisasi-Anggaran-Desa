@@ -4,15 +4,18 @@ import Button from "./Button";
 type TableIncomeProps = {
   width?: string;
   height?: string;
-  TableHead: string;
+  TableHead?: string;
+  showTable: boolean;
 };
 
 export default function TableIncome({
   width = "90vw",
   height = "80vh",
   TableHead = "table-info",
+  showTable = false,
 }: TableIncomeProps) {
   const [page, setPage] = useState(1);
+
   const data = [
     { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
     { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
@@ -90,7 +93,7 @@ export default function TableIncome({
             <th scope="col">Tanggal</th>
             <th scope="col">Jumlah Pendapatan</th>
             <th scope="col">Sumber Pendapatan</th>
-            <th scope="col">Aksi</th>
+            {showTable && <th scope="col">Aksi</th>}
           </tr>
         </thead>
         <tbody>
@@ -100,13 +103,15 @@ export default function TableIncome({
               <td className="text-center">{item.Tanggal}</td>
               <td className="text-center">Rp.{item.Income}</td>
               <td className="text-center">{item.Source}</td>
-              <td>
-                <Button
-                  Shown={false}
-                  label1="Jumlah Pendapatan"
-                  label2="Sumber Pendapatan"
-                ></Button>
-              </td>
+              {showTable && (
+                <td>
+                  <Button
+                    Shown={false}
+                    label1="Jumlah Pendapatan"
+                    label2="Sumber Pendapatan"
+                  ></Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -1,54 +1,68 @@
 import { useState } from "react";
-import Button from "./Button";
+
+interface DataItem {
+  Kebutuhan: string;
+  total: number;
+  keterangan: string;
+}
 
 export default function Paginition() {
-  const data = [
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 3, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 4, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 5, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 3, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 4, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 5, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 3, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 4, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 5, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 3, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 4, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 5, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 3, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 4, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 5, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 3, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 4, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 5, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-  ];
+  const [Kebutuhan, setKebutuhan] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
+  const [keterangan, setKeterangan] = useState<string>("");
 
-  const [page, setPage] = useState(1);
-  const limit = 4;
-  const totalPage = Math.ceil(data.length / limit);
+  const [submit, setSubmit] = useState<DataItem[]>([]);
 
-  const start = (page - 1) * limit;
-  const end = start + limit;
+  console.log(submit);
+
+  const onClickSubmit = () => {
+    if (Kebutuhan === "" || isNaN(total) || keterangan === "") {
+      alert("isi input terlebih dahulu");
+      return;
+    }
+    setSubmit((item) =>
+      item.concat({
+        Kebutuhan: Kebutuhan,
+        total: total,
+        keterangan: keterangan,
+      })
+    );
+  };
+
+  function onClickDelete(index: number) {
+    setSubmit(submit.filter((_, id) => id != index));
+  }
   return (
-    <div>
-      {Array.from(Array(totalPage)).map((_, index) => (
-        <button className="p-5" key={index} onClick={() => setPage(index + 1)}>
-          {index + 1}
-        </button>
-      ))}
+    <div className="vh-100 d-flex flex-column bg-secondary">
+      <input
+        onChange={(e) => setKebutuhan(e.target.value)}
+        type="text"
+        placeholder="Kebutuhan"
+      />
+      <input
+        onChange={(e) => setTotal(parseInt(e.target.value))}
+        type="text"
+        placeholder="total belanja"
+      />
+      <input
+        onChange={(e) => setKeterangan(e.target.value)}
+        type="text"
+        placeholder="keterangan"
+      />
+      <button onClick={onClickSubmit} type="submit">
+        Submit
+      </button>
+      <ul>
+        {submit.map((item, Index) => (
+          <div key={item.keterangan}>
+            <li> {item.Kebutuhan}</li>
+            <li> {item.total}</li>
+            <li> {item.keterangan}</li>
+            <button onClick={() => onClickDelete(Index)}>Delete</button>
+            <li>=================</li>
+          </div>
+        ))}
+      </ul>
     </div>
   );
 }

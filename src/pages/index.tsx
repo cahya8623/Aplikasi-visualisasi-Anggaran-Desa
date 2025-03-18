@@ -80,7 +80,12 @@ export default function Index() {
           />
 
           <h1 className="my-4">Daftar Pemasukan</h1>
-          <TableIncome TableHead="table-dark" width="80vw" height="50vh" />
+          <TableIncome
+            showTable={false}
+            TableHead="table-dark"
+            width="80vw"
+            height="50vh"
+          />
         </div>
         <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
         <div className="mt-5 ms-3 p-2 ">

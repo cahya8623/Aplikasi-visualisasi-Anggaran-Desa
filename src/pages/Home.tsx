@@ -15,7 +15,7 @@ export default function Home() {
         <Notes />
         <Filter />
 
-        <Expense ShowTable={true} width="20vw" height="100px" />
+        <Expense ShowTable={false} width="20vw" height="100px" />
       </div>
     </div>
   );
