@@ -2,7 +2,7 @@ import Notes from "@/component/BudgetNotes";
 import DoughnutChart from "@/component/Dougnut";
 import Filter from "@/component/filter";
 import ComparationChart from "@/component/lineChart";
-import React from "react";
+import React, { useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,8 +25,17 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+interface DataItem {
+  jmlPendapatan: number;
+  Sumber: string;
+}
 
 export default function Index() {
+  const [expenseSubmit, setExpenseSubmit] = useState<
+    { Kebutuhan: string; total: number; keterangan: string }[]
+  >([]);
+
+  const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
   return (
     <div className="max-vh-100 bg-light ">
       {/* Navbar */}
@@ -73,6 +82,8 @@ export default function Index() {
         >
           <h1 className="my-4">Daftar Pengeluaran</h1>
           <Expense
+            submit={expenseSubmit}
+            setSubmit={setExpenseSubmit}
             TableHead="table-dark"
             ShowTable={false}
             width="20vw"
@@ -81,6 +92,8 @@ export default function Index() {
 
           <h1 className="my-4">Daftar Pemasukan</h1>
           <TableIncome
+            submit={incomeSubmit}
+            setSubmit={setIncomeSubmit}
             showTable={false}
             TableHead="table-dark"
             width="80vw"

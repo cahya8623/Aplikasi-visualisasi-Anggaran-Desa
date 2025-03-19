@@ -1,4 +1,4 @@
-import ModalBox, { useModal } from "./ModalBox";
+import ModalBox, { useModal } from "./ModalBoxExpense";
 
 type ButtonClick = {
   label1: string;

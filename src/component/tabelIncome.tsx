@@ -1,57 +1,35 @@
 import { useState } from "react";
 import Button from "./Button";
+import ModalBoxIncome, { useModal } from "./ModalBoxIncome";
 
 type TableIncomeProps = {
   width?: string;
   height?: string;
   TableHead?: string;
   showTable: boolean;
+  submit: DataItem[];
+  setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
 };
+interface DataItem {
+  jmlPendapatan: number;
+  Sumber: string;
+}
 
 export default function TableIncome({
   width = "90vw",
   height = "80vh",
   TableHead = "table-info",
   showTable = false,
+  submit,
+  setSubmit,
 }: TableIncomeProps) {
   const [page, setPage] = useState(1);
 
-  const data = [
-    { id: 1, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 2, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 3, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 4, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 5, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 6, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 7, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 8, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 9, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 10, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 11, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 12, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 13, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 14, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 15, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 16, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 17, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 18, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 19, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 20, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 21, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 22, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 23, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 24, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 25, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 26, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 27, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 28, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 29, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-    { id: 30, Tanggal: "21/3/2034", Income: 1200000, Source: "Desa" },
-  ];
-
   console.log(page);
 
+  const limit = 4;
   const maxVisible = 1;
+  const totalPage = Math.ceil(submit.length / limit);
 
   const getPaginationRange = () => {
     let startPage, endPage;
@@ -76,8 +54,7 @@ export default function TableIncome({
       (_, i) => startPage + i
     );
   };
-  const limit = 4;
-  const totalPage = Math.ceil(data.length / limit);
+  const { isModalShow, closeModal } = useModal();
 
   const start = (page - 1) * limit;
   const end = start + limit;
@@ -97,12 +74,12 @@ export default function TableIncome({
           </tr>
         </thead>
         <tbody>
-          {data.slice(start, end).map((item) => (
-            <tr key={item.id}>
-              <td className="text-center">{item.id}</td>
-              <td className="text-center">{item.Tanggal}</td>
-              <td className="text-center">Rp.{item.Income}</td>
-              <td className="text-center">{item.Source}</td>
+          {submit.slice(start, end).map((item, index) => (
+            <tr key={index}>
+              <td className="text-center">{index + 1}</td>
+              <td className="text-center">{Date.now()}</td>
+              <td className="text-center">Rp.{item.jmlPendapatan}</td>
+              <td className="text-center">{item.Sumber}</td>
               {showTable && (
                 <td>
                   <Button
@@ -158,6 +135,15 @@ export default function TableIncome({
           Last&gt;
         </button>
       </div>
+      <ModalBoxIncome
+        first="Kebutuhan"
+        ShowInput={true}
+        ShowForm={false}
+        isShow={isModalShow}
+        onCloseModal={closeModal}
+        submit={submit}
+        setSubmit={setSubmit}
+      />
     </div>
   );
 }

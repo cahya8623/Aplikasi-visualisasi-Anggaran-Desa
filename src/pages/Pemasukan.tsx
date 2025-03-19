@@ -1,9 +1,16 @@
-import ModalBox, { useModal } from "@/component/ModalBox";
+import ModalBoxIncome, { useModal } from "@/component/ModalBoxIncome";
 import Sidebar from "@/component/sidebar";
 import TableIncome from "@/component/tabelIncome";
+import { useState } from "react";
+
+interface DataItem {
+  jmlPendapatan: number;
+  Sumber: string;
+}
 
 export default function Pemasukan() {
   const { isModalShow, closeModal, showModal } = useModal();
+  const [submit, setSubmit] = useState<DataItem[]>([]);
   console.log(isModalShow);
   return (
     <div className=" w-100 d-flex vh-100">
@@ -21,11 +28,19 @@ export default function Pemasukan() {
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
         <div className="ms-5">
-          <TableIncome showTable={true} width="70vw" height="70vh" />
+          <TableIncome
+            setSubmit={setSubmit}
+            submit={submit}
+            showTable={true}
+            width="70vw"
+            height="70vh"
+          />
         </div>
       </div>
 
-      <ModalBox
+      <ModalBoxIncome
+        submit={submit}
+        setSubmit={setSubmit}
         first="Jumlah Pendapatan"
         second="Sumber Pendapatan"
         ShowInput={false}

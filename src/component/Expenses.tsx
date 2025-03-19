@@ -1,73 +1,30 @@
 import { useState } from "react";
 import Button from "./Button";
-import ModalBox, { useModal } from "./ModalBox";
+import ModalBox, { useModal } from "./ModalBoxExpense";
 
 type Measuring = {
   width: string;
   height: string;
   ShowTable?: boolean;
   TableHead?: string;
+  submit: DataItem[];
+  setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
 };
 
+interface DataItem {
+  total: number;
+  Kebutuhan: string;
+  keterangan: string;
+}
 export default function Expense({
   width,
   height,
   ShowTable = true,
   TableHead = "table-info",
+  submit,
+  setSubmit,
 }: Measuring) {
-  const data = [
-    {
-      id: 1,
-      Tanggal: "12/2/2003",
-      Kebutuhan: "infastruktur",
-      Belanja: 2200000,
-      Keterangan:
-        "ini adalah contoh keterangan web desa gending yang dimana isinya keterangan dari sumber pendapatan desa asalnya dari mana yang mana ketika ada dana masuk maka harus di laporkan sumber pendapatannya itu wajib ",
-    },
-    {
-      id: 2,
-      Tanggal: "30/5/2045",
-      Kebutuhan: "infastruktur",
-      Belanja: 30000000,
-      Keterangan:
-        "bagasdsadsadkjpaodkoawjdkopiwasdsadsadiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
-    },
-    {
-      id: 3,
-      Tanggal: "22/4/2012",
-      Kebutuhan: "infastruktur",
-      Belanja: 560000000,
-      Keterangan:
-        "bagasdsadsadkjpaodkoawjdkopiwasdsadsadiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
-    },
-    {
-      id: 4,
-      Tanggal: "11/6/2045",
-      Kebutuhan: "infastruktur",
-      Belanja: 230000000,
-      Keterangan:
-        "asdaspokdapsodkapsodkopaskdpoaskdpoaskdpoaskdpaosdkaspodkasopdkaspodksapod",
-    },
-    {
-      id: 5,
-      Tanggal: "11/6/2045",
-      Kebutuhan: "infastruktur",
-      Belanja: 230000000,
-      Keterangan:
-        "bagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopisbagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
-    },
-    {
-      id: 6,
-      Tanggal: "11/6/2045",
-      Kebutuhan: "infastruktur",
-      Belanja: 230000000,
-      Keterangan:
-        "bagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopisbagasdsadsadkjpaodkoawjdkopiwasdsadsaaspdlas[pdl[aspdl[sapdl[pdiosahjdp9oihjohdsgiofugdhsfiusdofgiousdhiousgdhiouasdasdiksadopkjadopkjadpjadaddopaiajdoipaodihjoasidjiasdopjksadopkjaopjdwkpowajdpioajdiosado0padjsopis",
-    },
-  ];
   const [page, setPage] = useState(1);
-
-  console.log(page);
 
   const maxVisible = 1;
 
@@ -95,16 +52,17 @@ export default function Expense({
     );
   };
   const limit = 5;
-  const totalPage = Math.ceil(data.length / limit);
+  const totalPage = Math.ceil(submit.length / limit);
+  const { isModalShow, closeModal, showModal } = useModal();
 
   const start = (page - 1) * limit;
   const end = start + limit;
-  const { isModalShow, closeModal, showModal } = useModal();
   const [selectedKeterangan, setSelectedKeterangan] = useState("");
   function handleShowModal(keterangan: string) {
     setSelectedKeterangan(keterangan);
     showModal();
   }
+
   return (
     <div className="Pengeluaran">
       <table className="table table-hover align-text-center  mt-1  ">
@@ -119,7 +77,29 @@ export default function Expense({
           </tr>
         </thead>
         <tbody className="table-light">
-          {data.slice(start, end).map((item) => (
+          {submit.slice(start, end).map((item, index) => (
+            <tr key={index}>
+              <td className="text-center">{index + 1}</td>
+              <td className="text-center">{Date.now()}</td>
+              <td className="text-center">{item.Kebutuhan}</td>
+              <td className="text-center">Rp.{item.total}</td>
+              <td onClick={() => handleShowModal(item.keterangan)}>
+                <div className="scroll-keterangan" style={{ width, height }}>
+                  {item.keterangan}
+                </div>
+              </td>
+              {ShowTable && (
+                <td>
+                  <Button
+                    label1="Kebutuhan"
+                    label2="Total Belanja"
+                    Shown={true}
+                  ></Button>
+                </td>
+              )}
+            </tr>
+          ))}
+          {/* {data.slice(start, end).map((item) => (
             <tr key={item.id}>
               <td className="text-center">{item.id}</td>
               <td className="text-center">{item.Tanggal}</td>
@@ -140,7 +120,7 @@ export default function Expense({
                 </td>
               )}
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </table>
       <div>
@@ -192,6 +172,8 @@ export default function Expense({
         ShowForm={false}
         isShow={isModalShow}
         onCloseModal={closeModal}
+        submit={submit}
+        setSubmit={setSubmit}
       />
     </div>
   );

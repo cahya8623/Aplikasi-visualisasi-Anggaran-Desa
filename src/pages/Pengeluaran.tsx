@@ -1,10 +1,17 @@
 import Expense from "@/component/Expenses";
-import ModalBox, { useModal } from "@/component/ModalBox";
+import ModalBoxExpense, { useModal } from "@/component/ModalBoxExpense";
+// import ModalBoxExpense from "@/component/ModalBoxExpense";
 import Sidebar from "@/component/sidebar";
-import React from "react";
+import React, { useState } from "react";
 
+interface DataItem {
+  total: number;
+  Kebutuhan: string;
+  keterangan: string;
+}
 export default function Pengeluaran() {
   const { isModalShow, closeModal, showModal } = useModal();
+  const [submit, setSubmit] = useState<DataItem[]>([]);
   return (
     <div className="d-flex vw-100 vh-100">
       <Sidebar />
@@ -19,8 +26,17 @@ export default function Pengeluaran() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <Expense ShowTable={true} width="20vw" height="50px" />
-        <ModalBox
+        <Expense
+          setSubmit={setSubmit}
+          submit={submit}
+          ShowTable={true}
+          width="20vw"
+          height="50px"
+        />
+
+        <ModalBoxExpense
+          submit={submit}
+          setSubmit={setSubmit}
           first="Kebutuhan"
           second="Total Belanja"
           ShowInput={true}
