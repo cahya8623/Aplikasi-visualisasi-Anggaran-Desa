@@ -38,19 +38,32 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const [Sumber, setSumber] = useState<string>("");
   const [jmlPendapatan, setJmlPendapatan] = useState<number>(0);
 
-  const onClickSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onClickSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Mencegah reload halaman
+
     if (Sumber === "" || isNaN(jmlPendapatan)) {
-      console.log(Sumber);
-      alert("isi input terlebih dahulu");
+      alert("Isi input terlebih dahulu");
       return;
     }
-    props.setSubmit((item) =>
-      item.concat({
-        jmlPendapatan: jmlPendapatan,
-        Sumber: Sumber,
-      })
-    );
+
+    try {
+      const response = await fetch("http://localhost:3000/api/pemasukan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jmlPendapatan, Sumber }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // Update state submit agar data muncul di tabel
+        props.setSubmit((item) => [...item, { jmlPendapatan, Sumber }]);
+      } else {
+        alert(data.message || "Gagal menyimpan data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan, coba lagi!");
+    }
   };
 
   return props.isShow ? (
@@ -73,7 +86,9 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                   <div className=" m-2">
                     <input
                       type="text"
-                      onChange={(e) => setSumber(e.target.value)}
+                      onChange={(e) =>
+                        setJmlPendapatan(parseInt(e.target.value))
+                      }
                       className="rounded-5 mb-3 form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
@@ -81,9 +96,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                     />
                     <input
                       type="text"
-                      onChange={(e) =>
-                        setJmlPendapatan(parseInt(e.target.value))
-                      }
+                      onChange={(e) => setSumber(e.target.value)}
                       className="rounded-5 form-control"
                       id="exampleInputPassword1"
                       placeholder={props.second}

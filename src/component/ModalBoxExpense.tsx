@@ -20,8 +20,8 @@ export const useModal = () => {
 };
 
 interface DataItem {
+  kebutuhan: string;
   total: number;
-  Kebutuhan: string;
   keterangan: string;
 }
 export type ModalBoxProps = {
@@ -36,23 +36,35 @@ export type ModalBoxProps = {
 };
 
 export default function ModalBoxExpense(props: ModalBoxProps) {
-  const [Kebutuhan, setKebutuhan] = useState<string>("");
+  const [kebutuhan, setKebutuhan] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
   const [keterangan, setKeterangan] = useState<string>("");
 
-  const onClickSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (Kebutuhan === "" || isNaN(total) || keterangan === "") {
-      alert("isi input terlebih dahulu");
+  const onClickSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Mencegah reload halaman
+
+    if (kebutuhan === "" || total <= 0 || keterangan == "") {
+      alert("Isi data terlebih dahulu");
       return;
     }
-    props.setSubmit((item) =>
-      item.concat({
-        total: total,
-        Kebutuhan: Kebutuhan,
-        keterangan: keterangan,
-      })
-    );
+    try {
+      const response = await fetch("http://localhost:3000/api/pengeluaran", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kebutuhan, total, keterangan }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // Update state submit agar data muncul di tabel
+        props.setSubmit((item) => [...item, { kebutuhan, total, keterangan }]);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan, coba lagi!");
+    }
   };
 
   return props.isShow ? (

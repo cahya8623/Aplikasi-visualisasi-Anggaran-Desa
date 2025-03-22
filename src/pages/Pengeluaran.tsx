@@ -5,8 +5,8 @@ import Sidebar from "@/component/sidebar";
 import React, { useState } from "react";
 
 interface DataItem {
+  kebutuhan: string;
   total: number;
-  Kebutuhan: string;
   keterangan: string;
 }
 export default function Pengeluaran() {
@@ -37,7 +37,7 @@ export default function Pengeluaran() {
         <ModalBoxExpense
           submit={submit}
           setSubmit={setSubmit}
-          first="Kebutuhan"
+          first="kebutuhan"
           second="Total Belanja"
           ShowInput={true}
           ShowForm={true}

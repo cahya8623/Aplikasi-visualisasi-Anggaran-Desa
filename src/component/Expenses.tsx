@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import ModalBox, { useModal } from "./ModalBoxExpense";
 
@@ -11,9 +11,17 @@ type Measuring = {
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
 };
 
+type Databases = {
+  id: number;
+  date: string;
+  kebutuhan: number;
+  expense: string;
+  keterangan: string;
+};
+
 interface DataItem {
+  kebutuhan: string;
   total: number;
-  Kebutuhan: string;
   keterangan: string;
 }
 export default function Expense({
@@ -25,6 +33,14 @@ export default function Expense({
   setSubmit,
 }: Measuring) {
   const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/pengeluaran")
+      .then((response) => response.json())
+      .then((data) => setData(data.data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [data]);
 
   const maxVisible = 1;
 
@@ -52,7 +68,7 @@ export default function Expense({
     );
   };
   const limit = 5;
-  const totalPage = Math.ceil(submit.length / limit);
+  const totalPage = Math.ceil(data.length / limit);
   const { isModalShow, closeModal, showModal } = useModal();
 
   const start = (page - 1) * limit;
@@ -77,12 +93,12 @@ export default function Expense({
           </tr>
         </thead>
         <tbody className="table-light">
-          {submit.slice(start, end).map((item, index) => (
-            <tr key={index}>
-              <td className="text-center">{index + 1}</td>
-              <td className="text-center">{Date.now()}</td>
-              <td className="text-center">{item.Kebutuhan}</td>
-              <td className="text-center">Rp.{item.total}</td>
+          {data.slice(start, end).map((item: Databases) => (
+            <tr key={item.id}>
+              <td className="text-center">{item.id}</td>
+              <td className="text-center">{item.date}</td>
+              <td className="text-center">{item.kebutuhan}</td>
+              <td className="text-center">Rp.{item.expense}</td>
               <td onClick={() => handleShowModal(item.keterangan)}>
                 <div className="scroll-keterangan" style={{ width, height }}>
                   {item.keterangan}

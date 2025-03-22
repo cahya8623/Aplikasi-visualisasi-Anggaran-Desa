@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import ModalBoxIncome, { useModal } from "./ModalBoxIncome";
+
+type Databases = {
+  id: number;
+  amount: number;
+  source: string;
+  keterangan: string;
+  date: string;
+};
 
 type TableIncomeProps = {
   width?: string;
@@ -23,13 +31,21 @@ export default function TableIncome({
   submit,
   setSubmit,
 }: TableIncomeProps) {
+  const { isModalShow, closeModal } = useModal();
   const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
 
-  console.log(page);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/pemasukan")
+      .then((response) => response.json())
+      .then((data) => setData(data.data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [data]);
 
-  const limit = 4;
+  console.log(data);
+  const limit = 5;
   const maxVisible = 1;
-  const totalPage = Math.ceil(submit.length / limit);
+  const totalPage = Math.ceil(data.length / limit);
 
   const getPaginationRange = () => {
     let startPage, endPage;
@@ -54,7 +70,6 @@ export default function TableIncome({
       (_, i) => startPage + i
     );
   };
-  const { isModalShow, closeModal } = useModal();
 
   const start = (page - 1) * limit;
   const end = start + limit;
@@ -74,12 +89,12 @@ export default function TableIncome({
           </tr>
         </thead>
         <tbody>
-          {submit.slice(start, end).map((item, index) => (
-            <tr key={index}>
-              <td className="text-center">{index + 1}</td>
-              <td className="text-center">{Date.now()}</td>
-              <td className="text-center">Rp.{item.jmlPendapatan}</td>
-              <td className="text-center">{item.Sumber}</td>
+          {data.slice(start, end).map((item: Databases) => (
+            <tr key={item.id}>
+              <td className="text-center">{item.id}</td>
+              <td className="text-center">{item.date}</td>
+              <td className="text-center">Rp.{item.amount}</td>
+              <td className="text-center">{item.source}</td>
               {showTable && (
                 <td>
                   <Button
@@ -135,6 +150,7 @@ export default function TableIncome({
           Last&gt;
         </button>
       </div>
+
       <ModalBoxIncome
         first="Kebutuhan"
         ShowInput={true}

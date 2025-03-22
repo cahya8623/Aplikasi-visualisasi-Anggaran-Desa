@@ -2,12 +2,19 @@ import Notes from "@/component/BudgetNotes";
 import Expense from "@/component/Expenses";
 import Filter from "@/component/filter";
 import Sidebar from "@/component/sidebar";
+import { useState } from "react";
 
 export default function Home() {
+  const [expenseSubmit, setExpenseSubmit] = useState<
+    { Kebutuhan: string; total: number; keterangan: string }[]
+  >([]);
   return (
-    <div className="d-flex ">
+    <div className="d-flex w-100 d-flex vh-100">
       <Sidebar />
-      <div className="Home m-0 p-0 bg-light-subtle">
+      <div
+        className="Home container-fluid m-0 p-0 bg-light-subtle"
+        style={{ height: "110%" }}
+      >
         <section className=" mb-2 bg-dark-subtle p-3 text-dark rounded py-20">
           <h1 className="fw-bold">Halaman Home</h1>
         </section>
@@ -15,7 +22,13 @@ export default function Home() {
         <Notes />
         <Filter />
 
-        <Expense ShowTable={false} width="20vw" height="100px" />
+        <Expense
+          submit={expenseSubmit}
+          setSubmit={setExpenseSubmit}
+          ShowTable={false}
+          width="20vw"
+          height="100px"
+        />
       </div>
     </div>
   );
