@@ -29,11 +29,14 @@ interface DataItem {
   jmlPendapatan: number;
   Sumber: string;
 }
+interface Expenses {
+  kebutuhan: string;
+  total: number;
+  keterangan: string;
+}
 
 export default function Index() {
-  const [expenseSubmit, setExpenseSubmit] = useState<
-    { Kebutuhan: string; total: number; keterangan: string }[]
-  >([]);
+  const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
 
   const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
   return (
@@ -53,6 +56,7 @@ export default function Index() {
       </section>
 
       {/* Box Content */}
+
       <div
         className="min-vh-100 mt-4 p-3 rounded container-lg text-black bg-info-subtle"
         style={{ border: "5px dashed grey" }}

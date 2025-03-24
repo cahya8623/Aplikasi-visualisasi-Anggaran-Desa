@@ -1,41 +1,55 @@
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { useEffect, useState } from "react";
 ChartJS.register(Title, Tooltip, Legend, ArcElement, ChartDataLabels);
 
 type DoughnutChartProps = {
   width?: string;
   height?: string;
 };
+
+type Databases = {
+  id: number;
+  date: string;
+  kebutuhan: string;
+  expense: number;
+  keterangan: string;
+};
 export default function DoughnutChart({
   width = "100vw",
   height = "100vh",
 }: DoughnutChartProps) {
-  const data = [
-    { name: "data A", value: 3000000 },
-    { name: "data B", value: 25000000 },
-    { name: "data C", value: 24000000 },
-    { name: "data E", value: 50000000 },
-    { name: "data F", value: 123000000 },
-  ];
+  const [data, setData] = useState<Databases[]>([]);
 
-  const totalValue = data.reduce((acc, item) => acc + item.value, 0);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/pengeluaran")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setData(data.data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  const totalValue = data.reduce((acc, item) => acc + item.expense, 0);
 
   // Menghitung persentase untuk setiap nilai
 
+  const getRandomColor = () => {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  };
+
+  const backgroundColors = data.map(() => getRandomColor());
+  console.log(backgroundColors);
+
   const config = {
-    labels: data.map((item) => item.name),
+    labels: data.map((item) => item.kebutuhan),
     datasets: [
       {
-        data: data.map((item) => item.value),
+        data: data.map((item) => item.expense),
 
-        backgroundColor: [
-          "#FF6384",
-          "#FF9F40",
-          "#FFCD56",
-          "#4BC0C0",
-          "#36A2EB",
-        ],
+        backgroundColor: backgroundColors,
       },
     ],
   };

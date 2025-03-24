@@ -41,9 +41,11 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Mencegah reload halaman
 
-    if (Sumber === "" || isNaN(jmlPendapatan)) {
-      alert("Isi input terlebih dahulu");
+    if (Sumber === "" || jmlPendapatan <= 0) {
+      alert("Isi Data Terlebih Dahulu");
       return;
+    } else if (isNaN(jmlPendapatan) || typeof Sumber !== "string") {
+      return alert("Isi Data Sesuai Format");
     }
 
     try {

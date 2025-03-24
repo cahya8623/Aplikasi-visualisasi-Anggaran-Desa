@@ -1,4 +1,22 @@
+import { useEffect, useState } from "react";
+
 export default function Notes() {
+  const [DataBudget, setDataBudget] = useState<{ total: number }[]>([]);
+  const [DataExpenses, setDataExpenses] = useState<{ kebutuhan: string }[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/income")
+      .then((res) => res.json())
+      .then((data) => setDataBudget(data.data))
+      .catch((err) => console.log(`error fetching${err}`));
+
+    fetch("http://localhost:3000/api/expense")
+      .then((res) => res.json())
+      .then((data) => setDataExpenses(data.data))
+      .catch((err) => console.log(`error fetching${err}`));
+  }, []);
+
+  // console.log(DataExpenses);
   return (
     <div className=" container d-flex flex-row ">
       <div
@@ -7,7 +25,10 @@ export default function Notes() {
       >
         <p className="fw-bold" style={{ color: "#16611a" }}>
           Total Budget <br />
-          IDR.100.000.000
+          Rp.
+          {DataBudget.length > 0
+            ? DataBudget[0].total.toLocaleString()
+            : "Loading..."}
         </p>
         <p></p>
       </div>
@@ -21,7 +42,7 @@ export default function Notes() {
       >
         <p className="fw-bold" style={{ color: "#095885" }}>
           Alokasi Dana Terbesar <br />
-          Makan
+          {DataExpenses.length > 0 ? DataExpenses[0].kebutuhan : "Loading..."}
         </p>
       </div>
     </div>

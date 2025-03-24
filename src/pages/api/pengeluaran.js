@@ -29,11 +29,13 @@ export default async function handler(req, res) {
 
             // Validasi input
             if (kebutuhan === "" || total <= 0 || keterangan == "") {
-                return res.status(400).json({ success: false, message: "Data tidak valid" });
-            }
+                return res.status(400).json({ success: false, message: "Isi Data Terlebih Dahulu" });
+            } else if (isNaN(total) || typeof kebutuhan !== "string" || typeof keterangan !== "string") {
+                return res.status(400).json({ success: false, message: "Isi Data Sesuai Format" });
 
+            }
             const [result] = await pool.execute(
-                "INSERT INTO pengeluaran (kebutuhan, expense,keterangan) VALUES (?, ?,?)",
+                "INSERT INTO pengeluaran(kebutuhan, expense,keterangan) VALUES (?, ?,?)",
                 [kebutuhan, total, keterangan]
             );
 

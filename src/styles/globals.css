@@ -22,11 +22,11 @@
   transition: 1s;
 }
 .scroll-keterangan {
-  /* max-width: 20vw; */
-  white-space: nowrap; /* Mencegah teks turun */
+  /* width: 10px; */
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Tambahkan titik tiga jika teks terlalu panjang */
-  max-width: 80vw;
+  text-overflow: ellipsis;
+  max-width: 20vw;
   transition: 1s;
 }
 .props-keterangan {
@@ -74,19 +74,11 @@
 
 
 
-.Pengeluaran{
-  /* padding: 50px; */
-  /* background-color: red; */
-  padding-left: 20px;
-  padding-right: 20px;
-  /* margin: 20px; */
-}
+
 .Home{
   position: absolute;
-  /* height: 100%; */
   left: 22%;
   width: 77vw;
-  /* padding: 10px; */
 }
 .clicked {
   background-color: rgba(255, 255, 255, 0.568);

@@ -14,8 +14,8 @@ type Measuring = {
 type Databases = {
   id: number;
   date: string;
-  kebutuhan: number;
-  expense: string;
+  kebutuhan: string;
+  expense: number;
   keterangan: string;
 };
 
@@ -25,8 +25,6 @@ interface DataItem {
   keterangan: string;
 }
 export default function Expense({
-  width,
-  height,
   ShowTable = true,
   TableHead = "table-info",
   submit,
@@ -40,7 +38,7 @@ export default function Expense({
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [data]);
+  }, [submit]);
 
   const maxVisible = 1;
 
@@ -93,16 +91,16 @@ export default function Expense({
           </tr>
         </thead>
         <tbody className="table-light">
-          {data.slice(start, end).map((item: Databases) => (
+          {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
-              <td className="text-center">{item.id}</td>
+              <td className="text-center">{index + 1}</td>
               <td className="text-center">{item.date}</td>
               <td className="text-center">{item.kebutuhan}</td>
-              <td className="text-center">Rp.{item.expense}</td>
+              <td className="text-center">
+                Rp.{item.expense.toLocaleString()}
+              </td>
               <td onClick={() => handleShowModal(item.keterangan)}>
-                <div className="scroll-keterangan" style={{ width, height }}>
-                  {item.keterangan}
-                </div>
+                <div className="scroll-keterangan">{item.keterangan}</div>
               </td>
               {ShowTable && (
                 <td>
@@ -115,28 +113,6 @@ export default function Expense({
               )}
             </tr>
           ))}
-          {/* {data.slice(start, end).map((item) => (
-            <tr key={item.id}>
-              <td className="text-center">{item.id}</td>
-              <td className="text-center">{item.Tanggal}</td>
-              <td className="text-center">{item.Kebutuhan}</td>
-              <td className="text-center">Rp.{item.Belanja}</td>
-              <td onClick={() => handleShowModal(item.Keterangan)}>
-                <div className="scroll-keterangan" style={{ width, height }}>
-                  {item.Keterangan}
-                </div>
-              </td>
-              {ShowTable && (
-                <td>
-                  <Button
-                    label1="Kebutuhan"
-                    label2="Total Belanja"
-                    Shown={true}
-                  ></Button>
-                </td>
-              )}
-            </tr>
-          ))} */}
         </tbody>
       </table>
       <div>

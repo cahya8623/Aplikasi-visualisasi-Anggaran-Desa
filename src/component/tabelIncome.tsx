@@ -40,7 +40,7 @@ export default function TableIncome({
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [data]);
+  }, [submit]);
 
   console.log(data);
   const limit = 5;
@@ -89,11 +89,11 @@ export default function TableIncome({
           </tr>
         </thead>
         <tbody>
-          {data.slice(start, end).map((item: Databases) => (
+          {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
-              <td className="text-center">{item.id}</td>
+              <td className="text-center">{index + 1}</td>
               <td className="text-center">{item.date}</td>
-              <td className="text-center">Rp.{item.amount}</td>
+              <td className="text-center">Rp.{item.amount.toLocaleString()}</td>
               <td className="text-center">{item.source}</td>
               {showTable && (
                 <td>

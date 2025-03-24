@@ -4,10 +4,13 @@ import Filter from "@/component/filter";
 import Sidebar from "@/component/sidebar";
 import { useState } from "react";
 
+interface Expenses {
+  kebutuhan: string;
+  total: number;
+  keterangan: string;
+}
 export default function Home() {
-  const [expenseSubmit, setExpenseSubmit] = useState<
-    { Kebutuhan: string; total: number; keterangan: string }[]
-  >([]);
+  const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
   return (
     <div className="d-flex w-100 d-flex vh-100">
       <Sidebar />

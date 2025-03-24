@@ -1,13 +1,29 @@
+import { useEffect, useState } from "react";
+
 export default function Filter() {
+  const [data, setData] = useState<{ tahun: number }[]>([]);
+  const [SelectYear, setSelectYear] = useState<number>();
+  useEffect(() => {
+    fetch("http://localhost:3000/api/filter")
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data.data);
+        setData(data.data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  const Selected = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectYear(parseInt(e.target.value));
+  };
   return (
-    <div>
-      <select
-        className="my-3 ms-3 p-2 border-0 rounded "
-        style={{ width: "15vw" }}
-      >
-        <option value="">2021</option>
-        <option value="">2022</option>
-        <option value="">2023</option>
+    <div className="ms-3 mt-3 p-2">
+      <select onChange={Selected} className=" p-2 rounded">
+        {data.map((item) => (
+          <option key={item.tahun} value={item.tahun}>
+            {item.tahun}
+          </option>
+        ))}
       </select>
     </div>
   );

@@ -1,68 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface DataItem {
-  Kebutuhan: string;
-  total: number;
-  keterangan: string;
-}
+export default function Filter() {
+  const [data, setData] = useState<{ tahun: number }[]>([]);
+  const [Select, setSelect] = useState<number>();
 
-export default function Paginition() {
-  const [Kebutuhan, setKebutuhan] = useState<string>("");
-  const [total, setTotal] = useState<number>(0);
-  const [keterangan, setKeterangan] = useState<string>("");
-
-  const [submit, setSubmit] = useState<DataItem[]>([]);
-
-  console.log(submit);
-
-  const onClickSubmit = () => {
-    if (Kebutuhan === "" || isNaN(total) || keterangan === "") {
-      alert("isi input terlebih dahulu");
-      return;
-    }
-    setSubmit((item) =>
-      item.concat({
-        Kebutuhan: Kebutuhan,
-        total: total,
-        keterangan: keterangan,
+  useEffect(() => {
+    fetch("http://localhost:3000/api/filter")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.data);
+        setData(data.data);
       })
-    );
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  const Selected = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelect(parseInt(e.target.value));
   };
 
-  function onClickDelete(index: number) {
-    setSubmit(submit.filter((_, id) => id != index));
-  }
+  console.log(Select);
   return (
-    <div className="vh-100 d-flex flex-column bg-secondary">
-      <input
-        onChange={(e) => setKebutuhan(e.target.value)}
-        type="text"
-        placeholder="Kebutuhan"
-      />
-      <input
-        onChange={(e) => setTotal(parseInt(e.target.value))}
-        type="text"
-        placeholder="total belanja"
-      />
-      <input
-        onChange={(e) => setKeterangan(e.target.value)}
-        type="text"
-        placeholder="keterangan"
-      />
-      <button onClick={onClickSubmit} type="submit">
-        Submit
-      </button>
-      <ul>
-        {submit.map((item, Index) => (
-          <div key={item.keterangan}>
-            <li> {item.Kebutuhan}</li>
-            <li> {item.total}</li>
-            <li> {item.keterangan}</li>
-            <button onClick={() => onClickDelete(Index)}>Delete</button>
-            <li>=================</li>
-          </div>
+    <div>
+      <select onChange={Selected}>
+        {data.map((item) => (
+          <option key={item.tahun} value={item.tahun}>
+            {item.tahun}
+          </option>
         ))}
-      </ul>
+      </select>
     </div>
   );
 }

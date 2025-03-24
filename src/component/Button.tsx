@@ -8,15 +8,11 @@ type ButtonClick = {
 export default function Button(props: ButtonClick) {
   const { closeModal, isModalShow, showModal } = useModal();
   return (
-    <div className="gap-2">
+    <div className="gap-2 d-flex">
       <button onClick={showModal} type="button" className="m-2 btn btn-primary">
         <i className="bi bi-pencil-fill"></i> Edit
       </button>
-      <button
-        onClick={() => console.log("hapus")}
-        type="button"
-        className="btn btn-danger"
-      >
+      <button type="button" className="m-2 btn btn-danger">
         <i className="bi bi-trash3-fill"></i> Hapus
       </button>
 

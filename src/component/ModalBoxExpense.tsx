@@ -42,10 +42,15 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
 
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Mencegah reload halaman
-
     if (kebutuhan === "" || total <= 0 || keterangan == "") {
-      alert("Isi data terlebih dahulu");
+      alert("Isi Data Terlebih Dahulu");
       return;
+    } else if (
+      isNaN(total) ||
+      typeof kebutuhan !== "string" ||
+      typeof keterangan !== "string"
+    ) {
+      return alert("Isi Data Sesuai Format");
     }
     try {
       const response = await fetch("http://localhost:3000/api/pengeluaran", {

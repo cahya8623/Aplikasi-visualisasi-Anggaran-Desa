@@ -28,6 +28,14 @@ export default async function handler(req, res) {
       const { jmlPendapatan, Sumber } = req.body;
 
       // Validasi input
+      if (Sumber === "" || jmlPendapatan <= 0) {
+
+        return res.status(400).json({ success: false, message: "Masukkan Data Terlebih Dahulu" });
+      } else if (isNaN(jmlPendapatan) || typeof Sumber !== "string") {
+        return res.status(400).json({ success: false, message: "Masukkan Data Sesuai Format" });
+      }
+
+
       if (Sumber === "" || isNaN(jmlPendapatan)) {
         return res.status(400).json({ success: false, message: "Data tidak valid" });
       }

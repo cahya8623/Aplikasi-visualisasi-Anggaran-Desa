@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
 export type measuringChart = {
@@ -5,25 +6,27 @@ export type measuringChart = {
   height: string;
 };
 
+type Database = {
+  tahun: number;
+  total: string;
+};
 export default function ComparationChart() {
-  const dataDanaDesa = [
-    { tahun: 2015, dana: 5000000 },
-    { tahun: 2016, dana: 70000000 },
-    { tahun: 2017, dana: 8000000 },
-    { tahun: 2018, dana: 300000000 },
-    { tahun: 2019, dana: 120000000 },
-    { tahun: 2020, dana: 150000000 },
-    { tahun: 2021, dana: 140000000 },
-    { tahun: 2022, dana: 170000000 },
-    { tahun: 2023, dana: 190000000 },
-    { tahun: 2024, dana: 210000000 },
-  ];
+  const [dataChart, setdataChart] = useState<Database[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/lineChart")
+      .then((res) => res.json())
+      .then((data) => setdataChart(data.data))
+      .catch((err) => console.log(`error fetching${err}`));
+  }, []);
+
+  console.log(dataChart);
 
   const data = {
-    labels: dataDanaDesa.map((item) => item.tahun),
+    labels: dataChart.map((item) => item.tahun),
     datasets: [
       {
-        data: dataDanaDesa.map((item) => item.dana),
+        data: dataChart.map((item) => item.total),
         borderColor: "blue",
         backgroundColor: "rgba(0, 0, 255, 0.2)",
         borderWidth: 2,
