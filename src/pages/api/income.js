@@ -16,7 +16,12 @@ export default async function handler(req, res) {
             const [rows] = await pool.execute(
                 "select sum(amount) as total from pemasukan"
             );
-            res.status(200).json({ success: true, data: rows });
+
+            const parsedRows = rows.map((row) => ({ ...row, total: parseInt(row.total) }))
+
+            console.log("parsedRows", parsedRows)
+
+            res.status(200).json({ success: true, data: parsedRows });
         } catch (error) {
             console.error("Database Error:", error);
             res.status(500).json({ success: false, message: "Gagal mengambil data" });

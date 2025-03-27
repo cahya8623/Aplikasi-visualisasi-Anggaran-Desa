@@ -33,14 +33,14 @@ export default function TableIncome({
 }: TableIncomeProps) {
   const { isModalShow, closeModal } = useModal();
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/pemasukan")
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit]);
+  }, [submit, data]);
 
   console.log(data);
   const limit = 5;
@@ -91,13 +91,16 @@ export default function TableIncome({
         <tbody>
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
-              <td className="text-center">{index + 1}</td>
+              <td className="text-center">{(page - 1) * limit + index + 1}</td>
               <td className="text-center">{item.date}</td>
               <td className="text-center">Rp.{item.amount.toLocaleString()}</td>
               <td className="text-center">{item.source}</td>
               {showTable && (
                 <td>
                   <Button
+                    data={data}
+                    setData={setData}
+                    item={item}
                     Shown={false}
                     label1="Jumlah Pendapatan"
                     label2="Sumber Pendapatan"

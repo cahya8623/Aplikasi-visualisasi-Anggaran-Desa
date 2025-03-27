@@ -33,6 +33,8 @@ export default function Expense({
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
+  console.log(data);
+
   useEffect(() => {
     fetch("http://localhost:3000/api/pengeluaran")
       .then((response) => response.json())
@@ -69,6 +71,8 @@ export default function Expense({
   const totalPage = Math.ceil(data.length / limit);
   const { isModalShow, closeModal, showModal } = useModal();
 
+  // const Number = (page - 1) * limit + index
+
   const start = (page - 1) * limit;
   const end = start + limit;
   const [selectedKeterangan, setSelectedKeterangan] = useState("");
@@ -93,7 +97,7 @@ export default function Expense({
         <tbody className="table-light">
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
-              <td className="text-center">{index + 1}</td>
+              <td className="text-center">{(page - 1) * limit + index + 1}</td>
               <td className="text-center">{item.date}</td>
               <td className="text-center">{item.kebutuhan}</td>
               <td className="text-center">
@@ -105,6 +109,9 @@ export default function Expense({
               {ShowTable && (
                 <td>
                   <Button
+                    data={data}
+                    setData={setData}
+                    item={item}
                     label1="Kebutuhan"
                     label2="Total Belanja"
                     Shown={true}

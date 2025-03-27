@@ -20,17 +20,6 @@ export default function Sidebar() {
         </Link>
         <hr />
         <ul className="nav Dashboard-sidebar nav-pills flex-column mb-auto">
-          <li className="nav-item">
-            <Link
-              href="/Home"
-              className={` nav-link text-white ${
-                pathName === "/Home" ? "clicked" : ""
-              }`}
-              aria-current="page"
-            >
-              Home
-            </Link>
-          </li>
           <li>
             <Link
               href="/Pemasukan"

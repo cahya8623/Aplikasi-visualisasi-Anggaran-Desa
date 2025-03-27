@@ -52,7 +52,36 @@ export default async function handler(req, res) {
     }
   }
 
+  else if (req.method === "DELETE") {
+    if (req.method === "DELETE") {
+      const { id } = req.query; // Ambil ID dari query parameter
+
+      if (!id) {
+        return res.status(400).json({ message: "ID diperlukan untuk menghapus data" });
+      }
+      console.log(id)
+      try {
+        // Hapus data berdasarkan ID
+        const result = await pool.query("DELETE FROM pemasukan WHERE id = ?", [id]);
+
+        if (result[0].affectedRows === 0) {
+          return res.status(404).json({ message: "Data tidak ditemukan" });
+        }
+
+        return res.status(200).json({ message: "Data berhasil dihapus" });
+      } catch (error) {
+        console.error("Error deleting data:", error);
+        return res.status(500).json({ message: "Terjadi kesalahan server" });
+      }
+    }
+
+    // Jika method selain DELETE
+    res.setHeader("Allow", ["DELETE"]);
+  }
+
   else {
     res.status(405).json({ success: false, message: "Method Not Allowed" });
   }
+
+
 }

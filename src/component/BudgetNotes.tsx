@@ -16,6 +16,7 @@ export default function Notes() {
       .catch((err) => console.log(`error fetching${err}`));
   }, []);
 
+  // const total = parseInt(DataBudget[0]);
   // console.log(DataExpenses);
   return (
     <div className=" container d-flex flex-row ">
@@ -27,7 +28,7 @@ export default function Notes() {
           Total Budget <br />
           Rp.
           {DataBudget.length > 0
-            ? DataBudget[0].total.toLocaleString()
+            ? DataBudget[0].total.toLocaleString("id")
             : "Loading..."}
         </p>
         <p></p>
