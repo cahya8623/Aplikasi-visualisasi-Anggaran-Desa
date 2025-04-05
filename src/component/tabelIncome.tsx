@@ -6,7 +6,7 @@ type Databases = {
   id: number;
   amount: number;
   source: string;
-  keterangan: string;
+  keterangan?: string;
   date: string;
 };
 
@@ -31,18 +31,18 @@ export default function TableIncome({
   submit,
   setSubmit,
 }: TableIncomeProps) {
-  const { isModalShow, closeModal } = useModal();
+  const { isModalShow, closeModal, showModal } = useModal();
   const [page, setPage] = useState(1);
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Databases[]>([]);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/api/pemasukan")
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit, data]);
+  }, [submit]);
 
-  console.log(data);
   const limit = 5;
   const maxVisible = 1;
   const totalPage = Math.ceil(data.length / limit);
@@ -71,6 +71,33 @@ export default function TableIncome({
     );
   };
 
+  function onClickDelete(id) {
+    const confirmDelete = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (!confirmDelete) return;
+    fetch(`/api/pemasukan?id=${id}`, { method: "DELETE" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal menghapus data.");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setData(data.filter((item) => item.id !== id));
+        alert("Data berhasil dihapus!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Terjadi kesalahan.");
+      });
+  }
+
+  function onClickEdit(item) {
+    setInputValue(item);
+    showModal();
+  }
+
   const start = (page - 1) * limit;
   const end = start + limit;
   return (
@@ -97,14 +124,23 @@ export default function TableIncome({
               <td className="text-center">{item.source}</td>
               {showTable && (
                 <td>
-                  <Button
-                    data={data}
-                    setData={setData}
-                    item={item}
-                    Shown={false}
-                    label1="Jumlah Pendapatan"
-                    label2="Sumber Pendapatan"
-                  ></Button>
+                  <div className="gap-2 d-flex">
+                    <button
+                      onClick={() => onClickEdit(item.id)}
+                      type="button"
+                      className="m-2 btn btn-primary"
+                    >
+                      <i className="bi bi-pencil-fill"></i> Edit
+                    </button>
+
+                    <button
+                      onClick={() => onClickDelete(item.id)}
+                      type="button"
+                      className="m-2 btn btn-danger"
+                    >
+                      <i className="bi bi-trash3-fill"></i> Hapus
+                    </button>
+                  </div>
                 </td>
               )}
             </tr>
@@ -155,9 +191,13 @@ export default function TableIncome({
       </div>
 
       <ModalBoxIncome
-        first="Kebutuhan"
+        ShowValue={true}
+        selectedValue={inputValue}
+        ShowSubmit={false}
+        first="Jumlah Pendapatan"
         ShowInput={true}
-        ShowForm={false}
+        ShowForm={true}
+        second="Sumber Pendapatan"
         isShow={isModalShow}
         onCloseModal={closeModal}
         submit={submit}

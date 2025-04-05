@@ -12,6 +12,7 @@ interface DataItem {
 export default function Pengeluaran() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
+
   return (
     <div className="d-flex vw-100 vh-100">
       <Sidebar />
@@ -26,24 +27,26 @@ export default function Pengeluaran() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <Expense
-          setSubmit={setSubmit}
-          submit={submit}
-          ShowTable={true}
-          width="20vw"
-          height="50px"
-        />
+        <div className="px-5">
+          <Expense
+            setSubmit={setSubmit}
+            submit={submit}
+            ShowTable={true}
+            width="20vw"
+            height="50px"
+          />
 
-        <ModalBoxExpense
-          submit={submit}
-          setSubmit={setSubmit}
-          first="kebutuhan"
-          second="Total Belanja"
-          ShowInput={true}
-          ShowForm={true}
-          isShow={isModalShow}
-          onCloseModal={closeModal}
-        />
+          <ModalBoxExpense
+            submit={submit}
+            setSubmit={setSubmit}
+            first="kebutuhan"
+            second="Total Belanja"
+            ShowInput={true}
+            ShowForm={true}
+            isShow={isModalShow}
+            onCloseModal={closeModal}
+          />
+        </div>
       </div>
     </div>
   );

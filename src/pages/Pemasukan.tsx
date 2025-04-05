@@ -11,7 +11,6 @@ interface DataItem {
 export default function Pemasukan() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
-  console.log(isModalShow);
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
@@ -39,6 +38,8 @@ export default function Pemasukan() {
       </div>
 
       <ModalBoxIncome
+        ShowValue={false}
+        ShowSubmit={true}
         submit={submit}
         setSubmit={setSubmit}
         first="Jumlah Pendapatan"

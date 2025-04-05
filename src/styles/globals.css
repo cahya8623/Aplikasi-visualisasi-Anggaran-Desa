@@ -48,6 +48,7 @@
   padding: 20px;
   border-radius: 20px;
   width: 40vw;
+  color: white;
   background-color: rgb(31, 53, 65);
   position: fixed;
   z-index: 999999;

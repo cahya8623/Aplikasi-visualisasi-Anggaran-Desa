@@ -13,6 +13,9 @@ export default function Filter() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  console.log(data)
+
+
   const Selected = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectYear(parseInt(e.target.value));
   };

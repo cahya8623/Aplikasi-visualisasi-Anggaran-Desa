@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import ModalBox, { useModal } from "./ModalBoxExpense";
+import ModalBoxExpense from "./ModalBoxExpense";
 
 type Measuring = {
   width: string;
@@ -31,9 +32,7 @@ export default function Expense({
   setSubmit,
 }: Measuring) {
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
-
-  console.log(data);
+  const [data, setData] = useState<Databases[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/pengeluaran")
@@ -70,15 +69,35 @@ export default function Expense({
   const limit = 5;
   const totalPage = Math.ceil(data.length / limit);
   const { isModalShow, closeModal, showModal } = useModal();
+  const [selectedKeterangan, setSelectedKeterangan] = useState(null);
 
   // const Number = (page - 1) * limit + index
+  function onClickDelete(id) {
+    const confirmDelete = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (!confirmDelete) return;
+    fetch(`/api/pengeluaran?id=${id}`, { method: "DELETE" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal menghapus data.");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setData(data.filter((item) => item.id !== id));
+        alert("Data berhasil dihapus!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Terjadi kesalahan.");
+      });
+  }
 
   const start = (page - 1) * limit;
   const end = start + limit;
-  const [selectedKeterangan, setSelectedKeterangan] = useState("");
-  function handleShowModal(keterangan: string) {
+  function handleShowModal(keterangan) {
     setSelectedKeterangan(keterangan);
-    showModal();
   }
 
   return (
@@ -108,20 +127,42 @@ export default function Expense({
               </td>
               {ShowTable && (
                 <td>
-                  <Button
-                    data={data}
-                    setData={setData}
-                    item={item}
-                    label1="Kebutuhan"
-                    label2="Total Belanja"
-                    Shown={true}
-                  ></Button>
+                  <div className="gap-2 d-flex">
+                    <button
+                      onClick={showModal}
+                      type="button"
+                      className="m-2 btn btn-primary"
+                    >
+                      <i className="bi bi-pencil-fill"></i> Edit
+                    </button>
+                    <button
+                      onClick={() => onClickDelete(item.id)}
+                      type="button"
+                      className="m-2 btn btn-danger"
+                    >
+                      <i className="bi bi-trash3-fill"></i> Hapus
+                    </button>
+                  </div>
                 </td>
               )}
             </tr>
           ))}
         </tbody>
       </table>
+      {selectedKeterangan && (
+        <div
+          onClick={() => setSelectedKeterangan(null)}
+          className="vw-100 vh-100 position-fixed "
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            top: 0,
+            left: 0,
+            minHeight: "100vh",
+          }}
+        >
+          <div className="ModalBox">{selectedKeterangan}</div>
+        </div>
+      )}
       <div>
         <button
           onClick={() => setPage(1)}
@@ -164,15 +205,15 @@ export default function Expense({
           Last&gt;
         </button>
       </div>
-      <ModalBox
-        first="Kebutuhan"
-        second={selectedKeterangan}
-        ShowInput={true}
-        ShowForm={false}
-        isShow={isModalShow}
-        onCloseModal={closeModal}
+      <ModalBoxExpense
         submit={submit}
         setSubmit={setSubmit}
+        first="kebutuhan"
+        second="Total Belanja"
+        ShowInput={true}
+        ShowForm={true}
+        isShow={isModalShow}
+        onCloseModal={closeModal}
       />
     </div>
   );

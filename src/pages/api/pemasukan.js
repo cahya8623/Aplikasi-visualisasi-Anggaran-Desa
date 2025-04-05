@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const [rows] = await pool.execute(
-        "SELECT id, amount, source, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan"
+        "SELECT id, amount, source, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan ORDER BY date DESC, id DESC"
       );
       res.status(200).json({ success: true, data: rows });
     } catch (error) {
@@ -28,10 +28,10 @@ export default async function handler(req, res) {
       const { jmlPendapatan, Sumber } = req.body;
 
       // Validasi input
-      if (Sumber === "" || jmlPendapatan <= 0) {
+      if (Sumber === "" || (jmlPendapatan && Sumber === undefined) || jmlPendapatan <= 0) {
 
         return res.status(400).json({ success: false, message: "Masukkan Data Terlebih Dahulu" });
-      } else if (isNaN(jmlPendapatan) || typeof Sumber !== "string") {
+      } else if (isNaN(jmlPendapatan) || !isNaN(Number(Sumber))) {
         return res.status(400).json({ success: false, message: "Masukkan Data Sesuai Format" });
       }
 
@@ -53,32 +53,56 @@ export default async function handler(req, res) {
   }
 
   else if (req.method === "DELETE") {
-    if (req.method === "DELETE") {
-      const { id } = req.query; // Ambil ID dari query parameter
 
-      if (!id) {
-        return res.status(400).json({ message: "ID diperlukan untuk menghapus data" });
+    const { id } = req.query; // Ambil ID dari query parameter
+    console.log(id)
+    if (!id) {
+      return res.status(400).json({ message: "ID diperlukan untuk menghapus data" });
+    }
+    console.log(id)
+    try {
+
+      const result = await pool.query("DELETE FROM pemasukan WHERE id = ?", [id]);
+
+      if (result[0].affectedRows === 0) {
+        return res.status(404).json({ message: "Data tidak ditemukan" });
       }
-      console.log(id)
-      try {
-        // Hapus data berdasarkan ID
-        const result = await pool.query("DELETE FROM pemasukan WHERE id = ?", [id]);
 
-        if (result[0].affectedRows === 0) {
-          return res.status(404).json({ message: "Data tidak ditemukan" });
-        }
-
-        return res.status(200).json({ message: "Data berhasil dihapus" });
-      } catch (error) {
-        console.error("Error deleting data:", error);
-        return res.status(500).json({ message: "Terjadi kesalahan server" });
-      }
+      return res.status(200).json({ message: "Data berhasil dihapus" });
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      return res.status(500).json({ message: "Terjadi kesalahan server" });
     }
 
-    // Jika method selain DELETE
-    res.setHeader("Allow", ["DELETE"]);
-  }
 
+
+  } else if (req.method === "PUT") {
+    const { id } = req.query; // Ambil ID dari query parameter
+    const { jmlPendapatan, Sumber } = req.body;
+
+    if (!id || !jmlPendapatan || !Sumber) {
+      return res.status(400).json({ success: false, message: "Data tidak lengkap" });
+    }
+
+    try {
+      const [result] = await connection.execute(
+        "UPDATE pemasukan SET amount = ?, source = ? WHERE id = ?",
+        [jmlPendapatan, Sumber, id]
+      );
+
+      if (result.affectedRows > 0) {
+        return res.status(200).json({ success: true, message: "Data berhasil diupdate!" });
+      } else {
+        return res.status(404).json({ success: false, message: "Data tidak ditemukan!" });
+      }
+    } catch (error) {
+      return res.status(500).json({ success: false, message: "Terjadi kesalahan", error });
+    } finally {
+      connection.end();
+    }
+
+
+  }
   else {
     res.status(405).json({ success: false, message: "Method Not Allowed" });
   }

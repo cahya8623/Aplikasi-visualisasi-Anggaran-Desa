@@ -11,7 +11,6 @@ export const useModal = () => {
     setIsModalShow(false);
   }
 
-  console.log(isModalShow);
   return {
     isModalShow,
     showModal,

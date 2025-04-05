@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     if (req.method === "GET") {
         try {
             const [rows] = await pool.execute(
-                "SELECT YEAR(date) AS tahun FROM pemasukan ORDER BY tahun ASC"
+                "SELECT DISTINCT YEAR(date) AS tahun FROM pemasukan ORDER BY tahun DESC"
             );
             res.status(200).json({ success: true, data: rows });
         } catch (error) {
