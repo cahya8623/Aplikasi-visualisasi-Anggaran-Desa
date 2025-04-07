@@ -2,6 +2,7 @@ import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { useEffect, useState } from "react";
+import { useYear } from "./ContexAPI";
 ChartJS.register(Title, Tooltip, Legend, ArcElement, ChartDataLabels);
 
 type DoughnutChartProps = {
@@ -21,27 +22,26 @@ export default function DoughnutChart({
   height = "100vh",
 }: DoughnutChartProps) {
   const [data, setData] = useState<Databases[]>([]);
+  const { selectedYear } = useYear();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/pengeluaran")
+    if (!selectedYear) return;
+    fetch(`http://localhost:3000/api/pengeluaran?year=${selectedYear}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setData(data.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  }, [selectedYear]);
 
   const totalValue = data.reduce((acc, item) => acc + item.expense, 0);
-
-  // Menghitung persentase untuk setiap nilai
 
   const getRandomColor = () => {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   };
 
   const backgroundColors = data.map(() => getRandomColor());
-  console.log(backgroundColors);
 
   const config = {
     labels: data.map((item) => item.kebutuhan),
@@ -89,7 +89,11 @@ export default function DoughnutChart({
         height,
       }}
     >
-      <Pie data={config} options={options} />
+      {data.length <= 0 ? (
+        <h1>Tidak Ada Data</h1>
+      ) : (
+        <Pie data={config} options={options} />
+      )}
     </div>
   );
 }

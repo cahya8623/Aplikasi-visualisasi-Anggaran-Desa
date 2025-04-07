@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import ModalBox, { useModal } from "./ModalBoxExpense";
 import ModalBoxExpense from "./ModalBoxExpense";
+import { useYear } from "./ContexAPI";
 
 type Measuring = {
   width: string;
@@ -10,6 +11,7 @@ type Measuring = {
   TableHead?: string;
   submit: DataItem[];
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
+  isShow: boolean;
 };
 
 type Databases = {
@@ -30,16 +32,21 @@ export default function Expense({
   TableHead = "table-info",
   submit,
   setSubmit,
+  isShow,
 }: Measuring) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState<Databases[]>([]);
+  const { selectedYear } = useYear();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/pengeluaran")
+    const url = isShow
+      ? `http://localhost:3000/api/pengeluaran?year=${selectedYear}`
+      : `http://localhost:3000/api/pengeluaran`;
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit]);
+  }, [submit, selectedYear]);
 
   const maxVisible = 1;
 

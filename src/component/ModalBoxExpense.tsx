@@ -68,6 +68,8 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     } catch (error) {
       console.error("Error:", error);
       alert("Terjadi kesalahan, coba lagi!");
+    } finally {
+      alert("Data Sudah Ditambahkan");
     }
   };
 

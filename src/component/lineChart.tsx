@@ -20,8 +20,6 @@ export default function ComparationChart() {
       .catch((err) => console.log(`error fetching${err}`));
   }, []);
 
-  console.log(dataChart);
-
   const data = {
     labels: dataChart.map((item) => item.tahun),
     datasets: [

@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
+import { useYear } from "./ContexAPI";
 
 export default function Notes() {
   const [DataBudget, setDataBudget] = useState<{ total: number }[]>([]);
   const [DataExpenses, setDataExpenses] = useState<{ kebutuhan: string }[]>([]);
+  const { selectedYear } = useYear();
+
+  console.log("data budget " + DataExpenses);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/income")
+    fetch(`http://localhost:3000/api/income?year=${selectedYear}`)
       .then((res) => res.json())
       .then((data) => setDataBudget(data.data))
       .catch((err) => console.log(`error fetching${err}`));
 
-    fetch("http://localhost:3000/api/expense")
+    fetch(`http://localhost:3000/api/expense?year=${selectedYear}`)
       .then((res) => res.json())
       .then((data) => setDataExpenses(data.data))
       .catch((err) => console.log(`error fetching${err}`));
-  }, []);
+  }, [selectedYear]);
 
   // const total = parseInt(DataBudget[0]);
   // console.log(DataExpenses);
@@ -42,7 +46,7 @@ export default function Notes() {
         }}
       >
         <p className="fw-bold" style={{ color: "#095885" }}>
-          Alokasi Dana Terbesar <br />
+          Total Alokasi Dana Terbesar <br />
           {DataExpenses.length > 0 ? DataExpenses[0].kebutuhan : "Loading..."}
         </p>
       </div>

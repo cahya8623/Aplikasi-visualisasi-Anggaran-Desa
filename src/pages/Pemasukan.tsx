@@ -28,6 +28,7 @@ export default function Pemasukan() {
         </button>
         <div className="ms-5">
           <TableIncome
+            isShow={false}
             setSubmit={setSubmit}
             submit={submit}
             showTable={true}

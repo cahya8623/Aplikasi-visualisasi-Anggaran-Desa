@@ -29,6 +29,7 @@ export default function Pengeluaran() {
         </button>
         <div className="px-5">
           <Expense
+            isShow={false}
             setSubmit={setSubmit}
             submit={submit}
             ShowTable={true}

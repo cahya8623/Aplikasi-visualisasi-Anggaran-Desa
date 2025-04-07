@@ -12,11 +12,24 @@ const pool = mysql.createPool({
 
 export default async function handler(req, res) {
     if (req.method === "GET") {
+
+        const { year } = req.query;
+
         try {
-            const [rows] = await pool.execute(
-                "SELECT id,DATE_FORMAT(date, '%Y-%m-%d') as date,kebutuhan,expense,keterangan FROM pengeluaran ORDER BY date DESC, id DESC"
-            );
+            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, kebutuhan, expense, keterangan FROM pengeluaran";
+            const params = [];
+
+            if (year) {
+                query += " WHERE YEAR(date) = ?";
+                params.push(year);
+            }
+
+            query += " ORDER BY date DESC, id DESC";
+
+            const [rows] = await pool.execute(query, params);
             res.status(200).json({ success: true, data: rows });
+
+
         } catch (error) {
             console.error("Database Error:", error);
             res.status(500).json({ success: false, message: "Gagal mengambil data" });

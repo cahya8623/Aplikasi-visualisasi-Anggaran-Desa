@@ -12,9 +12,12 @@ const pool = mysql.createPool({
 
 export default async function handler(req, res) {
     if (req.method === "GET") {
+        const { year } = req.query
         try {
             const [rows] = await pool.execute(
-                "select sum(amount) as total from pemasukan"
+                "SELECT SUM(amount) AS total, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan WHERE YEAR(date) = ? GROUP BY DATE_FORMAT(date, '%Y-%m-%d') ORDER BY date",
+                [year]
+
             );
 
             const parsedRows = rows.map((row) => ({ ...row, total: parseInt(row.total) }))

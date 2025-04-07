@@ -12,9 +12,12 @@ const pool = mysql.createPool({
 
 export default async function handler(req, res) {
     if (req.method === "GET") {
+        const { year } = req.query
+
         try {
             const [rows] = await pool.execute(
-                "SELECT kebutuhan  FROM pengeluaran ORDER BY expense DESC LIMIT 1; "
+                " SELECT SUM(expense) AS total, kebutuhan FROM pengeluaran WHERE YEAR(date) = ? GROUP BY kebutuhan ORDER BY total DESC LIMIT 1",
+                [year]
             );
             res.status(200).json({ success: true, data: rows });
         } catch (error) {

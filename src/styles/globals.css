@@ -44,6 +44,11 @@
 
   word-wrap: break-word;
 }
+
+.Scroll-options{
+  max-height: 50px;
+  /* background-color: re; */
+}
 .ModalBox{
   padding: 20px;
   border-radius: 20px;

@@ -2,28 +2,29 @@ import { useEffect, useState } from "react";
 
 export default function Filter() {
   const [data, setData] = useState<{ tahun: number }[]>([]);
-  const [Select, setSelect] = useState<number>();
+  const [SelectYear, setSelectYear] = useState<string>();
 
   useEffect(() => {
     fetch("http://localhost:3000/api/filter")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data);
         setData(data.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const Selected = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect(parseInt(e.target.value));
-  };
+  console.info("Selected year : " + SelectYear);
 
-  console.log(Select);
+  const Selected = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectYear(e.target.value);
+  };
   return (
-    <div>
-      <select onChange={Selected}>
+    <div className="vh-100 bg-secondary ">
+      <p>{SelectYear}</p>
+
+      <select onChange={Selected} className="Scroll-options p-2 rounded">
         {data.map((item) => (
-          <option key={item.tahun} value={item.tahun}>
+          <option className="" key={item.tahun} value={item.tahun}>
             {item.tahun}
           </option>
         ))}

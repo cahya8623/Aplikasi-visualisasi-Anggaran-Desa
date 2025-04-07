@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import ModalBoxIncome, { useModal } from "./ModalBoxIncome";
+import { useYear } from "./ContexAPI";
 
 type Databases = {
   id: number;
@@ -17,6 +18,7 @@ type TableIncomeProps = {
   showTable: boolean;
   submit: DataItem[];
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
+  isShow: boolean;
 };
 interface DataItem {
   jmlPendapatan: number;
@@ -30,18 +32,23 @@ export default function TableIncome({
   showTable = false,
   submit,
   setSubmit,
+  isShow,
 }: TableIncomeProps) {
   const { isModalShow, closeModal, showModal } = useModal();
   const [page, setPage] = useState(1);
   const [data, setData] = useState<Databases[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const { selectedYear } = useYear();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/pemasukan")
+    const url = isShow
+      ? `http://localhost:3000/api/pemasukan?year=${selectedYear}`
+      : `http://localhost:3000/api/pemasukan`;
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit]);
+  }, [submit, selectedYear]);
 
   const limit = 5;
   const maxVisible = 1;

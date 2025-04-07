@@ -41,12 +41,6 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const [jmlPendapatan, setJmlPendapatan] = useState(0);
   const [edit, setEdit] = useState([]);
 
-  console.log("ini adalah  Sumber : " + Sumber);
-  console.log("ini Jumlah Pendapatan : " + jmlPendapatan);
-
-  // console.log(20);
-  // console.log("20");
-  // console.log(isNaN(12));
   useEffect(() => {
     setSumber(props.selectedValue);
     setJmlPendapatan(props.selectedValue);

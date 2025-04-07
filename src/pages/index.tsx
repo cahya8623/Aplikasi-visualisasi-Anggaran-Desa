@@ -15,6 +15,7 @@ import {
 } from "chart.js";
 import Expense from "@/component/Expenses";
 import TableIncome from "@/component/tabelIncome";
+import { useYear } from "@/component/ContexAPI";
 
 ChartJS.register(
   CategoryScale,
@@ -37,8 +38,11 @@ interface Expenses {
 
 export default function Index() {
   const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
-
   const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
+  const { selectedYear } = useYear();
+
+  console.log("Select Year : " + selectedYear);
+
   return (
     <div className="max-vh-100 bg-light ">
       {/* Navbar */}
@@ -86,6 +90,7 @@ export default function Index() {
         >
           <h1 className="my-4">Daftar Pengeluaran</h1>
           <Expense
+            isShow={true}
             submit={expenseSubmit}
             setSubmit={setExpenseSubmit}
             TableHead="table-dark"
@@ -96,6 +101,7 @@ export default function Index() {
 
           <h1 className="my-4">Daftar Pemasukan</h1>
           <TableIncome
+            isShow={true}
             submit={incomeSubmit}
             setSubmit={setIncomeSubmit}
             showTable={false}
