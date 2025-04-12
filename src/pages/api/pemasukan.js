@@ -98,7 +98,7 @@ export default async function handler(req, res) {
     }
 
     try {
-      const [result] = await connection.execute(
+      const [result] = await pool.execute(
         "UPDATE pemasukan SET amount = ?, source = ? WHERE id = ?",
         [jmlPendapatan, Sumber, id]
       );
@@ -110,8 +110,6 @@ export default async function handler(req, res) {
       }
     } catch (error) {
       return res.status(500).json({ success: false, message: "Terjadi kesalahan", error });
-    } finally {
-      connection.end();
     }
 
 

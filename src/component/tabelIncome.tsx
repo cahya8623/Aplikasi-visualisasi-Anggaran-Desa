@@ -40,6 +40,8 @@ export default function TableIncome({
   const [inputValue, setInputValue] = useState("");
   const { selectedYear } = useYear();
 
+  console.log(submit);
+
   useEffect(() => {
     const url = isShow
       ? `http://localhost:3000/api/pemasukan?year=${selectedYear}`

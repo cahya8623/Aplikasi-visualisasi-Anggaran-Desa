@@ -5,7 +5,6 @@ type YearContextType = {
   setSelectedYear: (year: string) => void;
 };
 
-// 1. Buat context
 const YearContext = createContext<YearContextType | undefined>(undefined);
 
 export const YearProvider = ({ children }) => {

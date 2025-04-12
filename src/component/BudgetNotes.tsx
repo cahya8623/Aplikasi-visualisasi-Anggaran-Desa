@@ -47,7 +47,9 @@ export default function Notes() {
       >
         <p className="fw-bold" style={{ color: "#095885" }}>
           Total Alokasi Dana Terbesar <br />
-          {DataExpenses.length > 0 ? DataExpenses[0].kebutuhan : "Loading..."}
+          {DataExpenses.length > 0
+            ? DataExpenses[0].kebutuhan
+            : "Tidak Ada Data"}
         </p>
       </div>
     </div>

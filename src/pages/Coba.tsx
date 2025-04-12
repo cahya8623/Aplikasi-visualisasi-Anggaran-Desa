@@ -1,34 +1,54 @@
-import { useEffect, useState } from "react";
+"use client"; // kalau pakai app router
 
-export default function Filter() {
-  const [data, setData] = useState<{ tahun: number }[]>([]);
-  const [SelectYear, setSelectYear] = useState<string>();
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/filter")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+export default function Coba() {
+  const [open, setOpen] = useState(false);
 
-  console.info("Selected year : " + SelectYear);
-
-  const Selected = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectYear(e.target.value);
+  const toggleDropdown = () => {
+    setOpen(!open);
   };
-  return (
-    <div className="vh-100 bg-secondary ">
-      <p>{SelectYear}</p>
 
-      <select onChange={Selected} className="Scroll-options p-2 rounded">
-        {data.map((item) => (
-          <option className="" key={item.tahun} value={item.tahun}>
-            {item.tahun}
-          </option>
-        ))}
-      </select>
+  return (
+    <div className="vh-100 bg-secondary d-flex justify-content-between position-relative">
+      <div className="Box px-5 vw-100 d-flex justify-content-between ">
+        <p>Menu</p>
+        <button
+          className="btn btn-primary d-flex align-items-center"
+          onClick={toggleDropdown}
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {open && (
+          <ul
+            className="dropdown-menu show mt-2"
+            style={{ display: "block", position: "absolute" }}
+          >
+            <li>
+              <a className="dropdown-item" href="#">
+                Beranda
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                Tentang Kami
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                Layanan
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                Kontak
+              </a>
+            </li>
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

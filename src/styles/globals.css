@@ -93,9 +93,16 @@
 
 .Dashboard-sidebar li:hover {
   background-color: rgba(206, 206, 220, 0.167);
-
-
 }
+
+
+/* Coba */
+.Box{
+  margin-top: 20px;
+  height: 50px;
+}
+
+
 
 .wrap{
   background: rgb(15,59,50);

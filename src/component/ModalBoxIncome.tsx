@@ -72,6 +72,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         setEdit((prev) =>
           prev.id === id ? { ...prev, jmlPendapatan, Sumber } : prev
         );
+        alert(data.message || "Berhasil Mengubah data");
       } else {
         alert(data.message || "Gagal menyimpan data");
       }
