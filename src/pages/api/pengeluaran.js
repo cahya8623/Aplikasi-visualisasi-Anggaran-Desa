@@ -82,8 +82,39 @@ export default async function handler(req, res) {
             }
         }
 
-        // Jika method selain DELETE
+
         res.setHeader("Allow", ["DELETE"]);
+    } else if (req.method === "PUT") {
+        const { id } = req.query;
+        const { kebutuhan, total, keterangan } = req.body;
+
+        if (kebutuhan === "" || total <= 0 || keterangan == "") {
+            alert("Isi Data Terlebih Dahulu");
+            return;
+        } else if (
+            isNaN(total) ||
+            typeof kebutuhan !== "string" ||
+            typeof keterangan !== "string"
+        ) {
+            return alert("Isi Data Sesuai Format");
+        }
+
+        try {
+            const [result] = await pool.execute(
+                "UPDATE pengeluaran SET kebutuhan = ?, expense = ?, keterangan = ? WHERE id = ?",
+                [kebutuhan, total, keterangan, id]
+            );
+
+            if (result.affectedRows > 0) {
+                return res.status(200).json({ success: true, message: "Data berhasil diupdate!" });
+            } else {
+                return res.status(404).json({ success: false, message: "Data tidak ditemukan!" });
+            }
+        } catch (error) {
+            return res.status(500).json({ success: false, message: "Terjadi kesalahan", error });
+        }
+
+
     }
 
     else {

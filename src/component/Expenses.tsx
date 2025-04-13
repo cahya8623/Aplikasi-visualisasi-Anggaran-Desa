@@ -36,7 +36,8 @@ export default function Expense({
 }: Measuring) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState<Databases[]>([]);
-  const { selectedYear } = useYear();
+  const [inputValue, setInputValue] = useState("");
+  const { selectedYear, confirm } = useYear();
 
   useEffect(() => {
     const url = isShow
@@ -46,7 +47,12 @@ export default function Expense({
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit, selectedYear]);
+  }, [submit, selectedYear, confirm]);
+
+  function onClickEdit(item) {
+    setInputValue(item);
+    showModal();
+  }
 
   const maxVisible = 1;
 
@@ -136,7 +142,7 @@ export default function Expense({
                 <td>
                   <div className="gap-2 d-flex">
                     <button
-                      onClick={showModal}
+                      onClick={() => onClickEdit(item.id)}
                       type="button"
                       className="m-2 btn btn-primary"
                     >
@@ -213,9 +219,11 @@ export default function Expense({
         </button>
       </div>
       <ModalBoxExpense
+        selectedValue={inputValue}
         submit={submit}
         setSubmit={setSubmit}
         first="kebutuhan"
+        ShowSubmit={false}
         second="Total Belanja"
         ShowInput={true}
         ShowForm={true}

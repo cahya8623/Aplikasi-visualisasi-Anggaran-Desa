@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useYear } from "./ContexAPI";
 
 export const useModal = () => {
   const [isModalShow, setIsModalShow] = useState(false);
+  const { setConfirm } = useYear();
 
   function showModal() {
     setIsModalShow(true);
@@ -9,6 +11,7 @@ export const useModal = () => {
 
   function closeModal() {
     setIsModalShow(false);
+    setConfirm(false);
   }
 
   return {
@@ -32,12 +35,63 @@ export type ModalBoxProps = {
   ShowForm?: boolean;
   submit: DataItem[];
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
+  selectedValue?: string | number;
+  ShowSubmit: boolean;
 };
 
 export default function ModalBoxExpense(props: ModalBoxProps) {
   const [kebutuhan, setKebutuhan] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
   const [keterangan, setKeterangan] = useState<string>("");
+  const { setEdit, setConfirm } = useYear();
+
+  useEffect(() => {
+    setKebutuhan(props.selectedValue);
+    setTotal(props.selectedValue);
+    setKeterangan(props.selectedValue);
+  }, [props.selectedValue]);
+
+  const onClickEdit = async (
+    id: number,
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
+    if (kebutuhan === "" || total <= 0 || keterangan == "") {
+      alert("Isi Data Terlebih Dahulu");
+      return;
+    } else if (
+      isNaN(total) ||
+      typeof kebutuhan !== "string" ||
+      typeof keterangan !== "string"
+    ) {
+      return alert("Isi Data Sesuai Format");
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/pengeluaran?id=${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ kebutuhan, total, keterangan }),
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        setEdit((prev) =>
+          prev.id === id ? { ...prev, kebutuhan, total, keterangan } : prev
+        );
+        setConfirm(true);
+        alert(data.message || "Data Sudah Diganti");
+      } else {
+        alert(data.message || "Gagal menyimpan data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan, coba lagi!");
+    }
+  };
 
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Mencegah reload halaman
@@ -120,14 +174,25 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                   )}
                 </div>
 
-                <button
-                  onClick={onClickSubmit}
-                  type="submit"
-                  className="btn  btn-outline-success"
-                  style={{ marginRight: "110px" }}
-                >
-                  Submit
-                </button>
+                {props.ShowSubmit ? (
+                  <button
+                    onClick={onClickSubmit}
+                    type="submit"
+                    className="btn  btn-outline-success"
+                    style={{ marginRight: "110px" }}
+                  >
+                    Submit
+                  </button>
+                ) : (
+                  <button
+                    onClick={(e) => onClickEdit(props.selectedValue, e)}
+                    type="submit"
+                    className="btn  btn-outline-success"
+                    style={{ marginRight: "110px" }}
+                  >
+                    Submit
+                  </button>
+                )}
               </form>
             </div>
           </div>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useYear } from "./ContexAPI";
 
 export const useModal = () => {
   const [isModalShow, setIsModalShow] = useState(false);
+  const { setConfirm } = useYear();
 
   function showModal() {
     setIsModalShow(true);
@@ -9,6 +11,7 @@ export const useModal = () => {
 
   function closeModal() {
     setIsModalShow(false);
+    setConfirm(false);
   }
 
   return {
@@ -39,7 +42,7 @@ export type ModalBoxProps = {
 export default function ModalBoxIncome(props: ModalBoxProps) {
   const [Sumber, setSumber] = useState<string>("");
   const [jmlPendapatan, setJmlPendapatan] = useState(0);
-  const [edit, setEdit] = useState([]);
+  const { setEdit, setConfirm } = useYear();
 
   useEffect(() => {
     setSumber(props.selectedValue);
@@ -72,7 +75,8 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         setEdit((prev) =>
           prev.id === id ? { ...prev, jmlPendapatan, Sumber } : prev
         );
-        alert(data.message || "Berhasil Mengubah data");
+        setConfirm(true);
+        alert(data.message || "Data Sudah Diganti");
       } else {
         alert(data.message || "Gagal menyimpan data");
       }

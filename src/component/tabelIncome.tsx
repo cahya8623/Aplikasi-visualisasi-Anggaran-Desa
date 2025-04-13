@@ -38,9 +38,9 @@ export default function TableIncome({
   const [page, setPage] = useState(1);
   const [data, setData] = useState<Databases[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const { selectedYear } = useYear();
+  const { selectedYear, confirm, edit } = useYear();
 
-  console.log(submit);
+  console.log(confirm);
 
   useEffect(() => {
     const url = isShow
@@ -50,7 +50,7 @@ export default function TableIncome({
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit, selectedYear]);
+  }, [submit, selectedYear, confirm]);
 
   const limit = 5;
   const maxVisible = 1;
