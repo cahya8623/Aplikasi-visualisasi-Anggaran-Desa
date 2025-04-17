@@ -94,7 +94,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
   };
 
   const onClickSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Mencegah reload halaman
+    e.preventDefault();
     if (kebutuhan === "" || total <= 0 || keterangan == "") {
       alert("Isi Data Terlebih Dahulu");
       return;
@@ -114,7 +114,6 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
 
       const data = await response.json();
       if (response.ok) {
-        // Update state submit agar data muncul di tabel
         props.setSubmit((item) => [...item, { kebutuhan, total, keterangan }]);
       } else {
         alert(data.message);

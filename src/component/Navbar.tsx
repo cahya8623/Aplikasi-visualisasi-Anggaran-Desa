@@ -1,101 +1,84 @@
-"use client";
+import logo from "@/asset/Kabupaten.png";
 
-import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, BarChart2, Home, Info, Phone } from "lucide-react";
+import { useState } from "react";
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  // Close mobile menu when clicking a link
-  const handleLinkClick = () => {
-    setIsMenuOpen(false);
+  const toggleDropdown = () => {
+    setOpen(!open);
   };
 
   return (
-    <nav className="bg-[#0055cc] text-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0 flex items-center">
-              <BarChart2 className="h-8 w-8 mr-2" />
-              <span className="font-bold text-xl">Menu</span>
+    <div className="navbar vw-100  px-5 py-4 ">
+      <div className="d-flex ms-4">
+        <Link href="/">
+          <Image src={logo} alt="Logo Desa" width={50} height={60} />
+        </Link>
+        <div className="font lh-2 py-1 ms-3">
+          <p className="fw-bold fst-italic m-0">Desa Gending</p>
+          <p className="m-0 fw-light fst-italic">Kabupaten Probolinggo</p>
+        </div>
+      </div>
+      <div className="d-flex justify-content-around align-items-center me-5 ">
+        <ul
+          className="list-unstyled fs-5 d-flex justify-content-between text-center m-0 "
+          style={{ width: "300px" }}
+        >
+          <li>
+            <Link href="/">
+              <p>Home</p>
             </Link>
-          </div>
-
-          {/* Desktop menu */}
-          <div className="hidden md:flex md:items-center md:space-x-4">
-            <Link
-              href="/"
-              className="px-3 py-2 rounded-md text-sm font-medium hover:bg-[#0066ee] hover:text-white transition-colors"
-            >
-              Beranda
+          </li>
+          <li>
+            <Link href="/">
+              <p>Kontak</p>
             </Link>
-            <Link
-              href="/tentang"
-              className="px-3 py-2 rounded-md text-sm font-medium hover:bg-[#0066ee] hover:text-white transition-colors"
-            >
-              Tentang
-            </Link>
-            <Link
-              href="/kontak"
-              className="px-3 py-2 rounded-md text-sm font-medium hover:bg-[#0066ee] hover:text-white transition-colors"
-            >
-              Kontak
-            </Link>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="flex md:hidden items-center">
+          </li>
+          <li>
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-[#0066ee] focus:outline-none transition-colors"
-              aria-expanded={isMenuOpen}
+              className="border-0 bg-none d-flex align-items-center"
+              onClick={toggleDropdown}
+              style={{
+                width: "auto",
+                marginTop: "2px",
+                padding: "0",
+                color: "black",
+                background: "none",
+              }}
             >
-              <span className="sr-only">Buka menu</span>
-              {isMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
-              )}
+              <p>APBDesa</p>
+              {open ? <X size={24} /> : <Menu size={24} />}
             </button>
-          </div>
-        </div>
-      </div>
+          </li>
+        </ul>
 
-      {/* Mobile menu */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#0055cc] border-t border-[#0066ee]">
-          <Link
-            href="/"
-            className="flex items-center px-3 py-2 rounded-md text-base font-medium hover:bg-[#0066ee] hover:text-white transition-colors"
-            onClick={handleLinkClick}
+        {open && (
+          <ul
+            className="dropdown-menu show mt-2"
+            style={{
+              display: "block",
+              position: "absolute",
+              right: "60px",
+              top: "70px",
+            }}
           >
-            <Home className="mr-2 h-5 w-5" />
-            Beranda
-          </Link>
-          <Link
-            href="/tentang"
-            className="flex items-center px-3 py-2 rounded-md text-base font-medium hover:bg-[#0066ee] hover:text-white transition-colors"
-            onClick={handleLinkClick}
-          >
-            <Info className="mr-2 h-5 w-5" />
-            Tentang
-          </Link>
-          <Link
-            href="/kontak"
-            className="flex items-center px-3 py-2 rounded-md text-base font-medium hover:bg-[#0066ee] hover:text-white transition-colors"
-            onClick={handleLinkClick}
-          >
-            <Phone className="mr-2 h-5 w-5" />
-            Kontak
-          </Link>
-        </div>
+            <li>
+              <Link className="dropdown-item" href="/Income">
+                <p>Pemasukan</p>
+              </Link>
+            </li>
+            <li>
+              <Link className="dropdown-item" href="/Expenses">
+                <p>Pengeluaran</p>
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
-    </nav>
+    </div>
   );
 }

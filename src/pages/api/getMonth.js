@@ -11,20 +11,19 @@ const pool = mysql.createPool({
 });
 
 export default async function handler(req, res) {
+
+
+
     if (req.method === "GET") {
-        const { year } = req.query
+        const { year } = req.query;
+
+
         try {
             const [rows] = await pool.execute(
-                "SELECT SUM(amount) AS total, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan WHERE YEAR(date) = ? GROUP BY DATE_FORMAT(date, '%Y-%m-%d') ORDER BY date",
+                "SELECT YEAR(date) AS tahun, DATE_FORMAT(date, '%M') AS bulan, amount FROM pemasukan WHERE YEAR(date) = ? ORDER BY YEAR(date), MONTH(date)",
                 [year]
-
             );
-
-            const parsedRows = rows.map((row) => ({ ...row, total: parseInt(row.total) }))
-
-            console.log("parsedRows", parsedRows)
-
-            res.status(200).json({ success: true, data: parsedRows });
+            res.status(200).json({ success: true, data: rows });
         } catch (error) {
             console.error("Database Error:", error);
             res.status(500).json({ success: false, message: "Gagal mengambil data" });

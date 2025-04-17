@@ -40,7 +40,7 @@ export default function Pengeluaran() {
           <ModalBoxExpense
             submit={submit}
             setSubmit={setSubmit}
-            ShowSubmit={false}
+            ShowSubmit={true}
             first="kebutuhan"
             second="Total Belanja"
             ShowInput={true}

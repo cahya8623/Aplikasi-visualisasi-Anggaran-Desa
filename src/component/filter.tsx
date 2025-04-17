@@ -27,7 +27,7 @@ export default function Filter() {
         className="Scroll-options p-2 rounded"
       >
         {data.map((item) => (
-          <option className="" key={item.tahun} value={item.tahun}>
+          <option key={item.tahun} value={item.tahun}>
             {item.tahun}
           </option>
         ))}

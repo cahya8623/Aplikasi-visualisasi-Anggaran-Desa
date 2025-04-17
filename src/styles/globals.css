@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manjari:wght@100;400;700&family=Merriweather:ital,opsz,wdth,wght@0,18..144,99.8,900;1,18..144,99.8,900&family=Noto+Sans+Symbols:wght@100..900&display=swap');
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -78,8 +80,26 @@
   transition: 1s; 
 }
 
-
-
+.navbar{
+  background-color: #D9D9D9;
+  color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* margin-bottom: 120px; */
+  height: 100px;
+  box-shadow: 0px 2px 30px 0px black;
+  
+  z-index: 1000;
+}
+.color{
+background-color: #D9D9D9;
+color: #0a0a0a;
+}
+.main{
+  padding-top: 140px;
+}
 
 .Home{
   position: absolute;
@@ -96,13 +116,73 @@
 }
 
 
-/* Coba */
-.Box{
-  margin-top: 20px;
-  height: 50px;
+.font {
+  font-family: "instrument sans",sans-serif;
+  font-weight: 900; 
 }
 
+.Box{
+  margin-left: 10px;
+  position: relative;
+  margin-right: 10px;
+  height: 250px;
+  display: flex;
+  justify-content: center; /* tengah secara horizontal */
+  align-items: center; 
+  width: 400px;
+  box-shadow: 0 8px 20px 1px rgba(0,0,0,0.42);
+}
 
+.Content p{
+ font-family: "Manjari";
+ font-weight: 900;
+ max-width: 800px;
+}
+ul p{
+  margin: 0;
+}
+
+.APBD{
+  margin-top: 100px;
+  padding: 20px;
+}
+
+.Dana-box{
+  padding: 20px;
+  margin-top: 10px;
+  width: 700px;
+  height: 140px;
+  border-radius: 5px;
+  background-color: #D9D9D9;
+  box-shadow: -9px 8px 7px 3px rgba(0, 0, 0, 0.25);
+}
+
+.Font-Data{
+  font-size: 40px;
+  font-weight: 700;  
+  /* margin-top: 2px; */
+  text-shadow: -2px 3px 5px rgba(0,0,0,0.5);
+  text-align: center;
+  
+}
+.Label{
+  color: white;
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+  text-shadow: -2px 8px 10px rgba(0,0,0,0.5);
+}
+
+.sub-content h1{
+  color: red;
+  font-weight: 700;
+  /* text-shadow:   0px 6px 1px rgba(235, 235, 235, 0.958); */
+  font-family: "Noto Sans Symbols";
+}
+.sub-content{
+  font-family: "Noto Sans Symbols";
+  width: 100vw;
+}
 
 .wrap{
   background: rgb(15,59,50);

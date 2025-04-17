@@ -20,10 +20,13 @@ export default function ComparationChart() {
       .catch((err) => console.log(`error fetching${err}`));
   }, []);
 
+  console.log(dataChart);
+
   const data = {
     labels: dataChart.map((item) => item.tahun),
     datasets: [
       {
+        label: "Total",
         data: dataChart.map((item) => item.total),
         borderColor: "blue",
         backgroundColor: "rgba(0, 0, 255, 0.2)",

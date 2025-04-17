@@ -1,118 +1,88 @@
-import Notes from "@/component/BudgetNotes";
-import DoughnutChart from "@/component/Dougnut";
-import Filter from "@/component/filter";
-import ComparationChart from "@/component/lineChart";
-import React, { useState } from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import Expense from "@/component/Expenses";
-import TableIncome from "@/component/tabelIncome";
+import Navbar from "@/component/Navbar";
+import Home from "@/asset/Home.png";
+import Computer from "@/asset/Computer.png";
+import Chart from "@/asset/Chart.png";
+import Book from "@/asset/Book.png";
+import Image from "next/image";
 import { useYear } from "@/component/ContexAPI";
+import Notes from "../component/BudgetNotes";
+import Filter from "@/component/filter";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-interface DataItem {
-  jmlPendapatan: number;
-  Sumber: string;
-}
-interface Expenses {
-  kebutuhan: string;
-  total: number;
-  keterangan: string;
-}
-
-export default function Index() {
-  const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
-  const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
+export default function Coba() {
   const { selectedYear } = useYear();
-
-  console.log("Select Year : " + selectedYear);
-
   return (
-    <div className="max-vh-100 bg-light ">
-      {/* Navbar */}
-      <section className=" bg-primary p-3 text-white py-20">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">
-            Visualisasi Anggaran Desa Gending
-          </h1>
-          <p className="text-xl">
-            Selamat datang di platform visualisasi anggaran desa gending. Di
-            sini, Anda dapat melihat bagaimana desa kami mengalokasikan sumber
-            daya dan melacak anggaran dari waktu ke waktu.
+    <div className="color ">
+      <Navbar />
+      <div className="main ">
+        <h1 className="font text-center">WEBSITE ANGGARAN</h1>
+        <h1 className=" text-center">DESA GENDING</h1>
+      </div>
+      <div className="Content">
+        <div className="fs-5 px-5 ms-1   mt-5 py-5 d-flex">
+          <p>
+            Selamat datang di situs visualisasi resmi Desa Gending, Kabupaten
+            Probolinggo. Melalui platform ini, kami berkomitmen menyajikan
+            informasi desa secara mudah diakses, cepat diperoleh, dan akurat
+            disajikan untuk seluruh masyarakat. Dapatkan informasi terkini
+            mengenai anggaran desa, program pembangunan, laporan keuangan, serta
+            berita dan kegiatan desa dalam satu tempat yang transparan dan
+            terpercaya.
+          </p>
+          <div className="Box">
+            <Image src={Home} alt="Logo" width={140} height={120} />
+            <Image
+              style={{ position: "absolute", top: "110px", left: "180px" }}
+              src={Computer}
+              alt="Logo"
+              width={80}
+              height={80}
+            />
+          </div>
+        </div>
+        <div className="fs-5 px-5 me-1 text-end  mt-5 py-5 d-flex">
+          <div className="Box">
+            <Image src={Chart} alt="Logo" width={140} height={120} />
+          </div>
+          <p>
+            Tujuan utama dari platform ini adalah untuk memberikan kemudahan
+            bagi masyarakat dalam memahami, memantau, dan ikut serta mengawasi
+            pengelolaan anggaran desa secara terbuka dan bertanggung jawab.
+            Melalui visualisasi data dan informasi yang disajikan secara
+            sistematis, diharapkan masyarakat dapat lebih aktif dalam menjaga
+            transparansi, serta mendorong terciptanya pemerintahan desa yang
+            akuntabel dan partisipatif.
           </p>
         </div>
-      </section>
+      </div>
+      <div className="APBD d-flex px-5">
+        <Image
+          className="mt-5"
+          src={Book}
+          width={450}
+          height={450}
+          alt="Book Icon"
+        />
 
-      {/* Box Content */}
+        <div className="sub-content">
+          <h1>APB DESA {selectedYear}</h1>
+          <p style={{ fontSize: "20px" }}>
+            Berikut merupakan akumulasi dar pendapatan desa seperti{" "}
+            <span style={{ color: "#085946", fontWeight: "700" }}>
+              Pendapatan Desa
+            </span>
+            ,{" "}
+            <span style={{ color: "#ff1500", fontWeight: "700" }}>
+              Belanja Desa
+            </span>{" "}
+            dan{" "}
+            <span style={{ color: "#00a2ff", fontWeight: "700" }}>
+              Alokasi Dana Terbesar
+            </span>{" "}
+            pada tahun {selectedYear}
+          </p>
+          <Filter />
 
-      <div
-        className="min-vh-100 mt-4 p-3 rounded container-lg text-black bg-info-subtle"
-        style={{ border: "5px dashed grey" }}
-      >
-        <h1 className="fs-3 fw-bolder text-center m-4">CATATAN ANGGARAN</h1>
-        {/* Budget Notes */}
-        <Notes />
-
-        <Filter />
-
-        {/* Pie Chart */}
-        <div style={{ marginLeft: "21vw" }}>
-          <DoughnutChart />
-        </div>
-        <p className="mt-5 fs-5 text-center">
-          Diagram di atas menunjukkan alokasi dana anggaran desa, menggambarkan
-          bagaimana setiap pos anggaran dialokasikan untuk berbagai kebutuhan
-          guna memastikan transparansi dan efektivitas dalam pengelolaan
-          keuangan desa
-        </p>
-
-        {/* Rincian Anggaran */}
-        <h1>Rincian Anggaran</h1>
-        <div
-          className="flex-row p-1 ms-5 text-center"
-          style={{ width: "80vw" }}
-        >
-          <h1 className="my-4">Daftar Pengeluaran</h1>
-          <Expense
-            isShow={true}
-            submit={expenseSubmit}
-            setSubmit={setExpenseSubmit}
-            TableHead="table-dark"
-            ShowTable={false}
-            width="20vw"
-            height="10vh"
-          />
-
-          <h1 className="my-4">Daftar Pemasukan</h1>
-          <TableIncome
-            isShow={true}
-            submit={incomeSubmit}
-            setSubmit={setIncomeSubmit}
-            showTable={false}
-            TableHead="table-dark"
-            width="80vw"
-            height="50vh"
-          />
-        </div>
-        <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
-        <div className="mt-5 ms-3 p-2 ">
-          <ComparationChart />
+          <Notes />
         </div>
       </div>
     </div>
