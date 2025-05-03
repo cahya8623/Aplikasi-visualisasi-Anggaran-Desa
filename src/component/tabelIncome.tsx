@@ -40,8 +40,6 @@ export default function TableIncome({
   const [inputValue, setInputValue] = useState("");
   const { selectedYear, confirm, edit } = useYear();
 
-  console.log(confirm);
-
   useEffect(() => {
     const url = isShow
       ? `http://localhost:3000/api/pemasukan?year=${selectedYear}`
@@ -53,7 +51,7 @@ export default function TableIncome({
   }, [submit, selectedYear, confirm]);
 
   const limit = 5;
-  const maxVisible = 1;
+  const maxVisible = 3;
   const totalPage = Math.ceil(data.length / limit);
 
   const getPaginationRange = () => {
@@ -111,10 +109,7 @@ export default function TableIncome({
   const end = start + limit;
   return (
     <div>
-      <table
-        className="table table-hover p-0 text-center    "
-        style={{ width, height }}
-      >
+      <table className="table table-hover align-text-center  mt-1 ">
         <thead className={TableHead}>
           <tr>
             <th scope="col">No</th>
@@ -156,46 +151,53 @@ export default function TableIncome({
           ))}
         </tbody>
       </table>
-      <div>
+
+      {/* Paginition */}
+      <div className=" text-center">
         <button
           onClick={() => setPage(1)}
           disabled={page === 1}
-          className="p-2  bg-gray-200 rounded"
+          className={`p-2  bg-gray-200 border-0 ${page === 1 ? "" : "tombol"}`}
         >
-          &lt;First
+          &laquo;
         </button>
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
-          className="p-2  bg-gray-200 rounded"
+          className={`p-2  bg-gray-200 border-0 ${page === 1 ? "" : "tombol"}`}
         >
-          &lt; Prev
+          Prev
         </button>
 
-        {getPaginationRange().map((page) => (
+        {getPaginationRange().map((numberPage) => (
           <button
-            key={page}
-            onClick={() => setPage(page)}
-            disabled={true}
-            className={`p-2  rounded `}
+            key={numberPage}
+            onClick={() => setPage(numberPage)}
+            className={`p-2 tombol border-0 ${
+              numberPage === page ? "active" : "non-active"
+            } `}
           >
-            {page}
+            {numberPage}
           </button>
         ))}
 
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPage))}
           disabled={page >= totalPage}
-          className="p-2 bg-gray-200 rounded"
+          className={`p-2 bg-gray-200 border-0 ${
+            page >= totalPage ? "" : "tombol"
+          }`}
         >
-          Next &gt;
+          Next
         </button>
         <button
           onClick={() => setPage(totalPage)}
           disabled={page >= totalPage}
-          className="p-2 bg-gray-200 rounded"
+          className={`p-2 bg-gray-200 border-0 ${
+            page >= totalPage ? "" : "tombol"
+          }`}
         >
-          Last&gt;
+          &raquo;
         </button>
       </div>
 

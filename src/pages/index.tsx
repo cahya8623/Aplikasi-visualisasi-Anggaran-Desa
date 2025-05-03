@@ -13,7 +13,7 @@ export default function Coba() {
   return (
     <div className="color ">
       <Navbar />
-      <div className="main ">
+      <div style={{ paddingTop: "140px" }}>
         <h1 className="font text-center">WEBSITE ANGGARAN</h1>
         <h1 className=" text-center">DESA GENDING</h1>
       </div>
@@ -50,13 +50,16 @@ export default function Coba() {
             Melalui visualisasi data dan informasi yang disajikan secara
             sistematis, diharapkan masyarakat dapat lebih aktif dalam menjaga
             transparansi, serta mendorong terciptanya pemerintahan desa yang
-            akuntabel dan partisipatif.
+            akuntabel dan{" "}
+            <span className="fs-5 fw-medium" style={{ marginRight: "665px" }}>
+              partisipatif.
+            </span>
           </p>
         </div>
       </div>
       <div className="APBD d-flex px-5">
         <Image
-          className="mt-5"
+          style={{ marginTop: "150px" }}
           src={Book}
           width={450}
           height={450}
@@ -66,7 +69,7 @@ export default function Coba() {
         <div className="sub-content">
           <h1>APB DESA {selectedYear}</h1>
           <p style={{ fontSize: "20px" }}>
-            Berikut merupakan akumulasi dar pendapatan desa seperti{" "}
+            Berikut merupakan akumulasi dari pendapatan desa seperti{" "}
             <span style={{ color: "#085946", fontWeight: "700" }}>
               Pendapatan Desa
             </span>

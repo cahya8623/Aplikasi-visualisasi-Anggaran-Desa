@@ -29,7 +29,6 @@ export default function DoughnutChart({
     fetch(`http://localhost:3000/api/pengeluaran?year=${selectedYear}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setData(data.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -83,7 +82,7 @@ export default function DoughnutChart({
 
   return (
     <div
-      className="m-auto"
+      className="d-flex justify-content-center  w-auto "
       style={{
         width,
         height,

@@ -23,19 +23,19 @@ export default function Navbar() {
           <p className="m-0 fw-light fst-italic">Kabupaten Probolinggo</p>
         </div>
       </div>
-      <div className="d-flex justify-content-around align-items-center me-5 ">
+      <div className="nav-font d-flex justify-content-around align-items-center me-5 ">
         <ul
           className="list-unstyled fs-5 d-flex justify-content-between text-center m-0 "
           style={{ width: "300px" }}
         >
           <li>
             <Link href="/">
-              <p>Home</p>
+              <p className="nav-font">Home</p>
             </Link>
           </li>
           <li>
-            <Link href="/">
-              <p>Kontak</p>
+            <Link href="/Kontak">
+              <p className="nav-font">Kontak</p>
             </Link>
           </li>
           <li>
@@ -50,7 +50,7 @@ export default function Navbar() {
                 background: "none",
               }}
             >
-              <p>APBDesa</p>
+              <p className="nav-font">APBDesa</p>
               {open ? <X size={24} /> : <Menu size={24} />}
             </button>
           </li>

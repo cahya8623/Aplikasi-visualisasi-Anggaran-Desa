@@ -58,7 +58,7 @@ export default function ComparationChart() {
   };
 
   return (
-    <div style={{ width: "80vw" }}>
+    <div className="d-flex justify-content-center  w-auto ">
       <Line data={data} options={options} />
     </div>
   );

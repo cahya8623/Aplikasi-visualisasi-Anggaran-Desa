@@ -38,6 +38,9 @@ export default function Expense({
   const [data, setData] = useState<Databases[]>([]);
   const [inputValue, setInputValue] = useState("");
   const { selectedYear, confirm } = useYear();
+  const [currentPage, setCurrentPage] = useState(1);
+  const { isModalShow, closeModal, showModal } = useModal();
+  const [selectedKeterangan, setSelectedKeterangan] = useState(null);
 
   useEffect(() => {
     const url = isShow
@@ -53,8 +56,11 @@ export default function Expense({
     setInputValue(item);
     showModal();
   }
-
-  const maxVisible = 1;
+  console.log("ini page : " + page);
+  console.log("ini cuerentPage : " + currentPage);
+  const maxVisible = 3;
+  const limit = 5;
+  const totalPage = Math.ceil(data.length / limit);
 
   const getPaginationRange = () => {
     let startPage, endPage;
@@ -79,12 +85,11 @@ export default function Expense({
       (_, i) => startPage + i
     );
   };
-  const limit = 5;
-  const totalPage = Math.ceil(data.length / limit);
-  const { isModalShow, closeModal, showModal } = useModal();
-  const [selectedKeterangan, setSelectedKeterangan] = useState(null);
 
-  // const Number = (page - 1) * limit + index
+  function handleClick() {
+    setPage(page);
+    setCurrentPage(page);
+  }
   function onClickDelete(id) {
     const confirmDelete = window.confirm(
       "Apakah Anda yakin ingin menghapus data ini?"
@@ -114,7 +119,7 @@ export default function Expense({
   }
 
   return (
-    <div className="Pengeluaran">
+    <div>
       <table className="table table-hover align-text-center  mt-1  ">
         <thead className={TableHead}>
           <tr className="text-center">
@@ -176,46 +181,53 @@ export default function Expense({
           <div className="ModalBox">{selectedKeterangan}</div>
         </div>
       )}
-      <div>
+
+      {/* Paginition */}
+      <div className="gap-3 me-5">
         <button
           onClick={() => setPage(1)}
           disabled={page === 1}
-          className="p-2  bg-gray-200 rounded"
+          className={`p-2  bg-gray-200 border-0 ${page === 1 ? "" : "tombol"}`}
         >
-          &lt;First
+          &laquo;
         </button>
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
-          className="p-2  bg-gray-200 rounded"
+          className={`p-2  bg-gray-200 border-0 ${page === 1 ? "" : "tombol"}`}
         >
-          &lt; Prev
+          Prev
         </button>
 
-        {getPaginationRange().map((page) => (
+        {getPaginationRange().map((numberPage) => (
           <button
-            key={page}
-            onClick={() => setPage(page)}
-            disabled={true}
-            className={`p-2  rounded `}
+            key={numberPage}
+            onClick={() => setPage(numberPage)}
+            className={`p-2 tombol border-0 ${
+              numberPage === page ? "active" : "non-active"
+            } `}
           >
-            {page}
+            {numberPage}
           </button>
         ))}
 
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPage))}
           disabled={page >= totalPage}
-          className="p-2 bg-gray-200 rounded"
+          className={`p-2 bg-gray-200 border-0 ${
+            page >= totalPage ? "" : "tombol"
+          }`}
         >
-          Next &gt;
+          Next
         </button>
         <button
           onClick={() => setPage(totalPage)}
           disabled={page >= totalPage}
-          className="p-2 bg-gray-200 rounded"
+          className={`p-2 bg-gray-200 border-0 ${
+            page >= totalPage ? "" : "tombol"
+          }`}
         >
-          Last&gt;
+          &raquo;
         </button>
       </div>
       <ModalBoxExpense

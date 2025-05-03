@@ -1,7 +1,9 @@
+import { adminContext } from "@/component/LoginContex";
 import ModalBoxIncome, { useModal } from "@/component/ModalBoxIncome";
 import Sidebar from "@/component/sidebar";
 import TableIncome from "@/component/tabelIncome";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 
 interface DataItem {
   jmlPendapatan: number;
@@ -11,12 +13,23 @@ interface DataItem {
 export default function Pemasukan() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
+
+  const { login } = useContext(adminContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!login) {
+      router.push("/login");
+    }
+  }, [login]);
+
+  if (!login) return null;
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
       <div className="Home container-fluid p-0 bg-light-subtle ">
-        <section className=" bg-dark-subtle p-3 text-dark rounded py-20">
-          <h1 className="fw-bold">Halaman Pemasukan</h1>
+        <section className="shadow ps-4 p-2 mb-4 bg-white rounded">
+          <h1 className="fw-bold text-secondary">Halaman Pemasukan</h1>
         </section>
 
         <button
@@ -26,7 +39,7 @@ export default function Pemasukan() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <div className="ms-5">
+        <div className="px-5">
           <TableIncome
             isShow={false}
             setSubmit={setSubmit}

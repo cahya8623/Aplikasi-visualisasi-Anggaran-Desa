@@ -33,47 +33,35 @@ export default function Index() {
   const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
   const { selectedYear } = useYear();
 
-  console.log("Select Year : " + selectedYear);
-
   return (
-    <div className="main max-vh-100 bg-light ">
+    <div className="main max-vh-100  ">
       {/* Navbar */}
       <Navbar />
 
       {/* Box Content */}
 
-      <div
-        className="min-vh-100 mt-4 p-3 rounded container-lg text-black bg-info-subtle"
-        style={{ border: "5px dashed grey" }}
-      >
-        <h1 className="fs-3 fw-bolder text-center m-4">CATATAN ANGGARAN</h1>
-        {/* Budget Notes */}
-        {/* <Notes /> */}
+      {/* Budget Notes */}
+      {/* <Notes /> */}
 
-        <Filter />
+      <Filter />
 
-        {/* Pie Chart */}
+      {/* Pie Chart */}
 
-        <h1>Rincian Anggaran</h1>
-        <div
-          className="flex-row p-1 ms-5 text-center"
-          style={{ width: "80vw" }}
-        >
-          <h1 className="my-4">Daftar Pemasukan</h1>
-          <TableIncome
-            isShow={true}
-            submit={incomeSubmit}
-            setSubmit={setIncomeSubmit}
-            showTable={false}
-            TableHead="table-dark"
-            width="80vw"
-            height="50vh"
-          />
-        </div>
-        <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
-        <div className="mt-5 ms-3 p-2 ">
-          <ComparationChart />
-        </div>
+      <div className="p-1 px-5 text-center" style={{ width: "100vw" }}>
+        <h1 className="my-4">Daftar Pemasukan</h1>
+        <TableIncome
+          isShow={true}
+          submit={incomeSubmit}
+          setSubmit={setIncomeSubmit}
+          showTable={false}
+          TableHead="table-dark"
+          width="80vw"
+          height="50vh"
+        />
+      </div>
+      <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
+      <div className="mt-5 ms-3 p-2 ">
+        <ComparationChart />
       </div>
     </div>
   );

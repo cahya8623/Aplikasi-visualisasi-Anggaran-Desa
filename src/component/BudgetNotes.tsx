@@ -7,8 +7,6 @@ export default function Notes() {
   const [DataExpenses, setDataExpenses] = useState<{ total: string }[]>([]);
   const { selectedYear } = useYear();
 
-  console.log("data budget " + DataAlokasi);
-
   useEffect(() => {
     fetch(`http://localhost:3000/api/income?year=${selectedYear}`)
       .then((res) => res.json())
@@ -47,6 +45,7 @@ export default function Notes() {
             : "0"}
         </p>
       </div>
+
       <div className="Dana-box">
         <p className="Label">Alokasi Dana Terbesar</p>
         <p className="Font-Data" style={{ color: "#00a2ff" }}>

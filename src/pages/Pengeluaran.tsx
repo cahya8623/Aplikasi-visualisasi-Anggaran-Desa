@@ -1,8 +1,10 @@
 import Expense from "@/component/Expenses";
+import { adminContext } from "@/component/LoginContex";
 import ModalBoxExpense, { useModal } from "@/component/ModalBoxExpense";
 // import ModalBoxExpense from "@/component/ModalBoxExpense";
 import Sidebar from "@/component/sidebar";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
 
 interface DataItem {
   kebutuhan: string;
@@ -12,13 +14,23 @@ interface DataItem {
 export default function Pengeluaran() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
+  const { login } = useContext(adminContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!login) {
+      router.push("/login");
+    }
+  }, [login]);
+
+  if (!login) return null;
 
   return (
     <div className="d-flex vw-100 vh-100">
       <Sidebar />
       <div className="Home pb-3 bg-light-subtle " style={{ height: "110%" }}>
-        <section className=" bg-dark-subtle p-3 text-dark rounded ">
-          <h1 className="fw-bold">Halaman Pengeluaran</h1>
+        <section className="ps-4 shadow p-2 mb-4 bg-white rounded">
+          <h1 className="fw-bold text-secondary">Halaman Pengeluaran</h1>
         </section>
         <button
           onClick={showModal}
