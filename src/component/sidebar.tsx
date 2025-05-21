@@ -22,22 +22,32 @@ export default function Sidebar() {
         <ul className="nav Dashboard-sidebar nav-pills flex-column mb-auto">
           <li>
             <Link
-              href="/Pemasukan"
+              href="/Pendapatan"
               className={`nav-link  text-white ${
-                pathName === "/Pemasukan" ? "clicked" : ""
+                pathName === "/Pendapatan" ? "clicked" : ""
               }`}
             >
-              Pemasukan
+              Pendapatan
             </Link>
           </li>
           <li>
             <Link
-              href="/Pengeluaran"
+              href="/Belanja"
               className={`nav-link  text-white ${
-                pathName === "/Pengeluaran" ? "clicked" : ""
+                pathName === "/Belanja" ? "clicked" : ""
               }`}
             >
-              Pengeluaran
+              Belanja
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/Realisasi"
+              className={`nav-link  text-white ${
+                pathName === "/Realisasi" ? "clicked" : ""
+              }`}
+            >
+              Realisasi
             </Link>
           </li>
           <li>

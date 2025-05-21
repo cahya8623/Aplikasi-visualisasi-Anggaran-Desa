@@ -1,5 +1,5 @@
 import { adminContext } from "@/component/LoginContex";
-import Pemasukan from "@/pages/Pemasukan";
+import Pendapatan from "@/pages/Pendapatan";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 
@@ -17,7 +17,7 @@ export default function Beranda() {
 
   return (
     <div className="vh-100">
-      <Pemasukan />
+      <Pendapatan />
     </div>
   );
 }

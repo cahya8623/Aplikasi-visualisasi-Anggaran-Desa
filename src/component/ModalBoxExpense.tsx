@@ -24,7 +24,7 @@ export const useModal = () => {
 interface DataItem {
   kebutuhan: string;
   total: number;
-  keterangan: string;
+  Realisasi: number;
 }
 export type ModalBoxProps = {
   first?: string;
@@ -42,13 +42,13 @@ export type ModalBoxProps = {
 export default function ModalBoxExpense(props: ModalBoxProps) {
   const [kebutuhan, setKebutuhan] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
-  const [keterangan, setKeterangan] = useState<string>("");
+  const [Realisasi, setRealisasi] = useState<number>(0);
   const { setEdit, setConfirm } = useYear();
 
   useEffect(() => {
     setKebutuhan(props.selectedValue);
     setTotal(props.selectedValue);
-    setKeterangan(props.selectedValue);
+    setRealisasi(props.selectedValue);
   }, [props.selectedValue]);
 
   const onClickEdit = async (
@@ -56,13 +56,13 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    if (kebutuhan === "" || total <= 0 || keterangan == "") {
+    if (kebutuhan === "" || total <= 0 || Realisasi <= 0) {
       alert("Isi Data Terlebih Dahulu");
       return;
     } else if (
       isNaN(total) ||
       typeof kebutuhan !== "string" ||
-      typeof keterangan !== "string"
+      typeof Realisasi === "string"
     ) {
       return alert("Isi Data Sesuai Format");
     }
@@ -73,14 +73,14 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ kebutuhan, total, keterangan }),
+          body: JSON.stringify({ kebutuhan, total, Realisasi }),
         }
       );
 
       const data = await response.json();
       if (response.ok) {
         setEdit((prev) =>
-          prev.id === id ? { ...prev, kebutuhan, total, keterangan } : prev
+          prev.id === id ? { ...prev, kebutuhan, total, Realisasi } : prev
         );
         setConfirm(true);
         alert(data.message || "Data Sudah Diganti");
@@ -95,13 +95,13 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
 
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (kebutuhan === "" || total <= 0 || keterangan == "") {
+    if (kebutuhan === "" || total <= 0 || Realisasi == 0) {
       alert("Isi Data Terlebih Dahulu");
       return;
     } else if (
       isNaN(total) ||
       typeof kebutuhan !== "string" ||
-      typeof keterangan !== "string"
+      typeof Realisasi === "string"
     ) {
       return alert("Isi Data Sesuai Format");
     }
@@ -109,12 +109,12 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
       const response = await fetch("http://localhost:3000/api/pengeluaran", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kebutuhan, total, keterangan }),
+        body: JSON.stringify({ kebutuhan, total, Realisasi }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        props.setSubmit((item) => [...item, { kebutuhan, total, keterangan }]);
+        props.setSubmit((item) => [...item, { kebutuhan, total, Realisasi }]);
       } else {
         alert(data.message);
       }
@@ -163,11 +163,11 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                   {props.ShowInput && (
                     <div className=" m-2 form-group">
                       <textarea
-                        onChange={(e) => setKeterangan(e.target.value)}
+                        onChange={(e) => setRealisasi(parseInt(e.target.value))}
                         typeof="text"
                         className=" modal-keterangan form-control"
                         id="exampleInputPassword1"
-                        placeholder="keterangan"
+                        placeholder="Realisasi"
                       />
                     </div>
                   )}

@@ -19,13 +19,13 @@ type Databases = {
   date: string;
   kebutuhan: string;
   expense: number;
-  keterangan: string;
+  Realisasi: number;
 };
 
 interface DataItem {
   kebutuhan: string;
   total: number;
-  keterangan: string;
+  Realisasi: number;
 }
 export default function Expense({
   ShowTable = true,
@@ -114,9 +114,6 @@ export default function Expense({
 
   const start = (page - 1) * limit;
   const end = start + limit;
-  function handleShowModal(keterangan) {
-    setSelectedKeterangan(keterangan);
-  }
 
   return (
     <div>
@@ -124,10 +121,10 @@ export default function Expense({
         <thead className={TableHead}>
           <tr className="text-center">
             <th scope="col">No</th>
-            <th scope="col">Tanggal</th>
-            <th scope="col">Kebutuhan</th>
-            <th scope="col">Total Belanja</th>
-            <th scope="col">Keterangan</th>
+            <th scope="col">Uraian</th>
+            <th scope="col">Anggaran</th>
+            <th scope="col">Realisasi</th>
+            <th scope="col">Lebih/Kurang</th>
             {ShowTable && <th scope="col">Aksi</th>}
           </tr>
         </thead>
@@ -135,14 +132,12 @@ export default function Expense({
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
               <td className="text-center">{(page - 1) * limit + index + 1}</td>
-              <td className="text-center">{item.date}</td>
               <td className="text-center">{item.kebutuhan}</td>
               <td className="text-center">
                 Rp.{item.expense.toLocaleString()}
               </td>
-              <td onClick={() => handleShowModal(item.keterangan)}>
-                <div className="scroll-keterangan">{item.keterangan}</div>
-              </td>
+              <td>Rp.{item.Realisasi}</td>
+              <td>Rp.{item.expense - item.Realisasi}</td>
               {ShowTable && (
                 <td>
                   <div className="gap-2 d-flex">
@@ -234,9 +229,9 @@ export default function Expense({
         selectedValue={inputValue}
         submit={submit}
         setSubmit={setSubmit}
-        first="kebutuhan"
+        first="Uraian"
         ShowSubmit={false}
-        second="Total Belanja"
+        second="Anggaran"
         ShowInput={true}
         ShowForm={true}
         isShow={isModalShow}

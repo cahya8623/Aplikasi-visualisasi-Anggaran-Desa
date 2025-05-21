@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     const { year } = req.query;
 
     try {
-      let query = "SELECT id, amount, source, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan ";
+      let query = "SELECT id, amount,Uraian, Kode, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan ";
       const params = [];
 
       if (year) {
@@ -38,24 +38,18 @@ export default async function handler(req, res) {
 
   else if (req.method === "POST") {
     try {
-      const { jmlPendapatan, Sumber } = req.body;
+      const { jmlPendapatan, Kode, Source } = req.body;
 
-      // Validasi input
-      if (Sumber === "" || (jmlPendapatan && Sumber === undefined) || jmlPendapatan <= 0) {
 
+      if (isNaN(Kode) || (jmlPendapatan && Kode && Source === undefined) || jmlPendapatan <= 0 || Source === "") {
         return res.status(400).json({ success: false, message: "Masukkan Data Terlebih Dahulu" });
-      } else if (isNaN(jmlPendapatan) || !isNaN(Number(Sumber))) {
+      } else if (isNaN(jmlPendapatan) || isNaN(Kode) || typeof Source !== "string") {
         return res.status(400).json({ success: false, message: "Masukkan Data Sesuai Format" });
       }
 
-
-      if (Sumber === "" || isNaN(jmlPendapatan)) {
-        return res.status(400).json({ success: false, message: "Data tidak valid" });
-      }
-
       const [result] = await pool.execute(
-        "INSERT INTO pemasukan (amount, source) VALUES (?, ?)",
-        [jmlPendapatan, Sumber]
+        "INSERT INTO pemasukan (amount,Uraian, Kode) VALUES (?,?, ?)",
+        [jmlPendapatan, Source, Kode]
       );
 
       res.status(201).json({ success: true, message: "Data berhasil disimpan", insertId: result.insertId });
@@ -67,7 +61,7 @@ export default async function handler(req, res) {
 
   else if (req.method === "DELETE") {
 
-    const { id } = req.query; // Ambil ID dari query parameter
+    const { id } = req.query;
     console.log(id)
     if (!id) {
       return res.status(400).json({ message: "ID diperlukan untuk menghapus data" });
@@ -90,17 +84,26 @@ export default async function handler(req, res) {
 
 
   } else if (req.method === "PUT") {
-    const { id } = req.query; // Ambil ID dari query parameter
-    const { jmlPendapatan, Sumber } = req.body;
+    const { id } = req.query;
+    const { jmlPendapatan, Kode, Source } = req.body;
 
-    if (!id || !jmlPendapatan || !Sumber) {
-      return res.status(400).json({ success: false, message: "Data tidak lengkap" });
+
+    if (Kode <= 0 || jmlPendapatan <= 0 || Source === "") {
+      return alert("Masukkan Data Terlebih Dahulu");
+    } else if (
+      isNaN(jmlPendapatan) ||
+      isNaN(Kode) ||
+      typeof Source !== "string"
+    ) {
+      return alert("Masukkan Data Sesuai Format");
     }
+
+
 
     try {
       const [result] = await pool.execute(
-        "UPDATE pemasukan SET amount = ?, source = ? WHERE id = ?",
-        [jmlPendapatan, Sumber, id]
+        "UPDATE pemasukan SET amount = ?, Uraian = ?, Kode = ? WHERE id = ?",
+        [jmlPendapatan, Source, Kode, id,]
       );
 
       if (result.affectedRows > 0) {

@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from "react";
 interface DataItem {
   kebutuhan: string;
   total: number;
-  keterangan: string;
+  Realisasi: number;
 }
 export default function Pengeluaran() {
   const { isModalShow, closeModal, showModal } = useModal();
@@ -28,14 +28,14 @@ export default function Pengeluaran() {
   return (
     <div className="d-flex vw-100 vh-100">
       <Sidebar />
-      <div className="Home pb-3 bg-light-subtle " style={{ height: "110%" }}>
-        <section className="ps-4 shadow p-2 mb-4 bg-white rounded">
-          <h1 className="fw-bold text-secondary">Halaman Pengeluaran</h1>
+      <div className="Home pb-3 bg-light-subtle vh-100">
+        <section className="ps-4 shadow p-2 mb-3 bg-white rounded">
+          <h1 className="fw-bold text-secondary">Halaman Realisasi</h1>
         </section>
         <button
           onClick={showModal}
           type="button"
-          className=" ms-5 mb-3 mt-4 btn btn-success"
+          className=" ms-5 mb-3  btn btn-success"
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
@@ -53,8 +53,8 @@ export default function Pengeluaran() {
             submit={submit}
             setSubmit={setSubmit}
             ShowSubmit={true}
-            first="kebutuhan"
-            second="Total Belanja"
+            first="Uraian"
+            second="Anggaran"
             ShowInput={true}
             ShowForm={true}
             isShow={isModalShow}

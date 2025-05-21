@@ -51,7 +51,7 @@ export default function Coba() {
             sistematis, diharapkan masyarakat dapat lebih aktif dalam menjaga
             transparansi, serta mendorong terciptanya pemerintahan desa yang
             akuntabel dan{" "}
-            <span className="fs-5 fw-medium" style={{ marginRight: "665px" }}>
+            <span className="fs-5 fw-medium" style={{ marginRight: "665" }}>
               partisipatif.
             </span>
           </p>

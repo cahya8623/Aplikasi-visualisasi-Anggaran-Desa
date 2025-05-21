@@ -23,7 +23,8 @@ export const useModal = () => {
 
 interface DataItem {
   jmlPendapatan: number;
-  Sumber: string;
+  Kode: number;
+  Source: string;
 }
 export type ModalBoxProps = {
   first?: string;
@@ -40,13 +41,15 @@ export type ModalBoxProps = {
 };
 
 export default function ModalBoxIncome(props: ModalBoxProps) {
-  const [Sumber, setSumber] = useState<string>("");
+  const [Kode, setKode] = useState<number>(0);
   const [jmlPendapatan, setJmlPendapatan] = useState(0);
+  const [Source, setSource] = useState("");
   const { setEdit, setConfirm } = useYear();
 
   useEffect(() => {
-    setSumber(props.selectedValue);
+    setKode(props.selectedValue);
     setJmlPendapatan(props.selectedValue);
+    setSource(props.selectedValue);
   }, [props.selectedValue]);
 
   const onClickEdit = async (
@@ -54,9 +57,13 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    if (Sumber === "" || jmlPendapatan <= 0) {
+    if (Kode <= 0 || jmlPendapatan <= 0 || Source === "") {
       return alert("Masukkan Data Terlebih Dahulu");
-    } else if (isNaN(jmlPendapatan) || !isNaN(Number(Sumber))) {
+    } else if (
+      isNaN(jmlPendapatan) ||
+      isNaN(Kode) ||
+      typeof Source !== "string"
+    ) {
       return alert("Masukkan Data Sesuai Format");
     }
 
@@ -66,14 +73,14 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ jmlPendapatan, Sumber }),
+          body: JSON.stringify({ jmlPendapatan, Kode, Source }),
         }
       );
 
       const data = await response.json();
       if (response.ok) {
         setEdit((prev) =>
-          prev.id === id ? { ...prev, jmlPendapatan, Sumber } : prev
+          prev.id === id ? { ...prev, jmlPendapatan, Kode, Source } : prev
         );
         setConfirm(true);
         alert(data.message || "Data Sudah Diganti");
@@ -89,21 +96,25 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (Sumber === "" || jmlPendapatan <= 0) {
+    if (Kode <= 0 || jmlPendapatan <= 0 || Source === "") {
       return alert("Masukkan Data Terlebih Dahulu");
-    } else if (isNaN(jmlPendapatan) || !isNaN(Number(Sumber))) {
+    } else if (
+      isNaN(jmlPendapatan) ||
+      isNaN(Kode) ||
+      typeof Source !== "string"
+    ) {
       return alert("Masukkan Data Sesuai Format");
     }
     try {
       const response = await fetch("http://localhost:3000/api/pemasukan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ jmlPendapatan, Sumber }),
+        body: JSON.stringify({ jmlPendapatan, Kode, Source }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        props.setSubmit((item) => [...item, { jmlPendapatan, Sumber }]);
+        props.setSubmit((item) => [...item, { jmlPendapatan, Kode, Source }]);
       } else {
         alert(data.message || "Gagal menyimpan data");
       }
@@ -135,6 +146,15 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                   <div className=" m-2">
                     <input
                       type="text"
+                      value={props.ShowValue ? setKode.Kode : null}
+                      onChange={(e) => setKode(parseInt(e.target.value))}
+                      className="rounded-5 mb-3 form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Kode"
+                    />
+                    <input
+                      type="text"
                       value={props.ShowValue ? jmlPendapatan.amount : null}
                       onChange={(e) =>
                         setJmlPendapatan(parseInt(e.target.value))
@@ -142,16 +162,18 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                       className="rounded-5 mb-3 form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
-                      placeholder={props.first}
+                      placeholder="Anggaran"
                     />
-                    <input
-                      type="text"
-                      value={props.ShowValue ? Sumber.source : null}
-                      onChange={(e) => setSumber(e.target.value)}
-                      className="rounded-5 form-control"
-                      id="exampleInputPassword1"
-                      placeholder={props.second}
-                    />
+
+                    <select
+                      value={Source}
+                      onChange={(e) => setSource(e.target.value)}
+                    >
+                      <option value="Pendapatan Lain-Lain">
+                        Pendapatan Lain-Lain
+                      </option>
+                      <option value="Dana Desa">Dana Desa</option>
+                    </select>
                   </div>
                 </div>
 

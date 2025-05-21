@@ -1,5 +1,4 @@
 import logo from "@/asset/Kabupaten.png";
-
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,10 +6,6 @@ import { useState } from "react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setOpen(!open);
-  };
 
   return (
     <div className="navbar vw-100  px-5 py-4 ">
@@ -25,7 +20,7 @@ export default function Navbar() {
       </div>
       <div className="nav-font d-flex justify-content-around align-items-center me-5 ">
         <ul
-          className="list-unstyled fs-5 d-flex justify-content-between text-center m-0 "
+          className="list-unstyled fs-4 d-flex justify-content-around text-center m-0 "
           style={{ width: "300px" }}
         >
           <li>
@@ -41,8 +36,10 @@ export default function Navbar() {
           <li>
             <button
               className="border-0 bg-none d-flex align-items-center"
-              onClick={toggleDropdown}
+              onMouseEnter={() => setOpen(true)}
+              onMouseLeave={() => setOpen(false)}
               style={{
+                transition: "1s",
                 width: "auto",
                 marginTop: "2px",
                 padding: "0",
@@ -58,22 +55,25 @@ export default function Navbar() {
 
         {open && (
           <ul
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
             className="dropdown-menu show mt-2"
             style={{
               display: "block",
               position: "absolute",
               right: "60px",
-              top: "70px",
+              top: "60px",
+              transition: "1s",
             }}
           >
             <li>
               <Link className="dropdown-item" href="/Income">
-                <p>Pemasukan</p>
+                <p>Pendapatan</p>
               </Link>
             </li>
             <li>
               <Link className="dropdown-item" href="/Expenses">
-                <p>Pengeluaran</p>
+                <p>Realisasi</p>
               </Link>
             </li>
           </ul>

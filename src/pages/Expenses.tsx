@@ -37,7 +37,7 @@ export default function Index() {
   const { selectedYear } = useYear();
 
   return (
-    <div className="main max-vh-100  ">
+    <div className="main  max-vh-100  ">
       {/* Navbar */}
       <Navbar />
 
@@ -60,7 +60,7 @@ export default function Index() {
 
       {/* Rincian Anggaran */}
       <div className="p-1 px-5 text-center" style={{ width: "100vw" }}>
-        <h1 className="my-4">Daftar Pengeluaran</h1>
+        <h1 className="my-4">Realisasi</h1>
         <Expense
           isShow={true}
           submit={expenseSubmit}

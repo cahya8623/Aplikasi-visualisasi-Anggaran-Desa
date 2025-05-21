@@ -48,7 +48,7 @@ export default function Index() {
       {/* Pie Chart */}
 
       <div className="p-1 px-5 text-center" style={{ width: "100vw" }}>
-        <h1 className="my-4">Daftar Pemasukan</h1>
+        <h1 className="my-4">Anggaran Pendapatan Desa</h1>
         <TableIncome
           isShow={true}
           submit={incomeSubmit}

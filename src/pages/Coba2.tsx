@@ -1,48 +1,24 @@
 import { useState } from "react";
 
 export default function Coba2() {
-  const [input, setInput] = useState<string>("");
-  const [submit, setSubmit] = useState<string[]>([]);
-  const [editData, setEditData] = useState(null);
-
-  function onClickSubmit() {
-    if (input.trim() === "") return;
-
-    if (editData != null) {
-      const newData = [...submit];
-      newData[editData] = input;
-      setSubmit(newData);
-    } else {
-      setSubmit((prev) => [...prev, input]);
-    }
-    setInput("");
-  }
-
-  function onClickEdit(item, index) {
-    setInput(item);
-    setEditData(index);
-  }
-
-  console.log(submit);
+  const [pendapatan, setPendapatan] = useState(0);
+  const [Pengeluaran, setPengeluaran] = useState(0);
 
   return (
     <div className="vh-100">
-      <p>{input}</p>
+      <h1>Pendapatan </h1>
       <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
         type="text"
+        onChange={(e) => setPendapatan(parseInt(e.target.value))}
       />
-      <button onClick={onClickSubmit}>Simpan</button>
 
-      <ul>
-        {submit.map((item, index) => (
-          <li key={item}>
-            {item}{" "}
-            <button onClick={() => onClickEdit(item, index)}>edit</button>
-          </li>
-        ))}
-      </ul>
+      <h1>Pengeluran</h1>
+      <input
+        type="text"
+        onChange={(e) => setPengeluaran(parseInt(e.target.value))}
+      />
+
+      <p>Pembelanjaan 1 : {pendapatan - Pengeluaran}</p>
     </div>
   );
 }

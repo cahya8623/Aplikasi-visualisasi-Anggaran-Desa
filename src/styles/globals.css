@@ -24,8 +24,7 @@
   margin-top: 25px;
   transition: 1s;
 }
-.scroll-keterangan {
-  /* width: 10px; */
+.scroll-keterangan { 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,6 +52,8 @@
   /* background-color: re; */
 }
 .ModalBox{
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
   padding: 20px;
   border-radius: 20px;
   width: 40vw;
@@ -108,6 +109,12 @@
   justify-content: center;
   display: flex; 
   gap: 50px;
+}
+
+.navbar ul:last-child{
+  background-color: #d6d6d6;
+  /* width: 100%; */
+
 }
 .nav-font {
   font-weight: 900;
@@ -236,6 +243,11 @@ ul p{
 .sub-content{
   font-family: "Noto Sans Symbols";
   width: 100vw;
+}
+.header {
+  padding: 10px;
+  text-align: center;
+  background-color: aqua;
 }
 
 .wrap{

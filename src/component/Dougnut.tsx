@@ -60,7 +60,7 @@ export default function DoughnutChart({
       },
       title: {
         display: true,
-        text: "Data Alokasi Dana Desa",
+        text: "Anggaran Belanja Desa",
         font: {
           size: 24,
           weight: "bold",

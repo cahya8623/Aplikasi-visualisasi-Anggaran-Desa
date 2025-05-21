@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         const { year } = req.query;
 
         try {
-            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, kebutuhan, expense, keterangan FROM pengeluaran";
+            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, kebutuhan, expense, Realisasi FROM pengeluaran";
             const params = [];
 
             if (year) {
@@ -38,18 +38,18 @@ export default async function handler(req, res) {
 
     else if (req.method === "POST") {
         try {
-            const { kebutuhan, total, keterangan } = req.body;
+            const { kebutuhan, total, Realisasi } = req.body;
 
-            // Validasi input
-            if (kebutuhan === "" || total <= 0 || keterangan == "") {
+
+            if (kebutuhan === "" || total <= 0 || Realisasi == 0) {
                 return res.status(400).json({ success: false, message: "Isi Data Terlebih Dahulu" });
-            } else if (isNaN(total) || typeof kebutuhan !== "string" || typeof keterangan !== "string") {
+            } else if (isNaN(total) || typeof kebutuhan !== "string" || typeof Realisasi === "string") {
                 return res.status(400).json({ success: false, message: "Isi Data Sesuai Format" });
 
             }
             const [result] = await pool.execute(
-                "INSERT INTO pengeluaran(kebutuhan, expense,keterangan) VALUES (?, ?,?)",
-                [kebutuhan, total, keterangan]
+                "INSERT INTO pengeluaran(kebutuhan, expense,Realisasi) VALUES (?, ?,?)",
+                [kebutuhan, total, Realisasi]
             );
 
             res.status(201).json({ success: true, message: "Data berhasil disimpan", insertId: result.insertId });
@@ -86,23 +86,23 @@ export default async function handler(req, res) {
         res.setHeader("Allow", ["DELETE"]);
     } else if (req.method === "PUT") {
         const { id } = req.query;
-        const { kebutuhan, total, keterangan } = req.body;
+        const { kebutuhan, total, Realisasi } = req.body;
 
-        if (kebutuhan === "" || total <= 0 || keterangan == "") {
+        if (kebutuhan === "" || total <= 0 || Realisasi == 0) {
             alert("Isi Data Terlebih Dahulu");
             return;
         } else if (
             isNaN(total) ||
             typeof kebutuhan !== "string" ||
-            typeof keterangan !== "string"
+            typeof Realisasi === "string"
         ) {
             return alert("Isi Data Sesuai Format");
         }
 
         try {
             const [result] = await pool.execute(
-                "UPDATE pengeluaran SET kebutuhan = ?, expense = ?, keterangan = ? WHERE id = ?",
-                [kebutuhan, total, keterangan, id]
+                "UPDATE pengeluaran SET kebutuhan = ?, expense = ?, Realisasi = ? WHERE id = ?",
+                [kebutuhan, total, Realisasi, id]
             );
 
             if (result.affectedRows > 0) {

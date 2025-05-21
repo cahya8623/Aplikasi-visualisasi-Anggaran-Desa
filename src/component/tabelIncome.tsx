@@ -6,8 +6,8 @@ import { useYear } from "./ContexAPI";
 type Databases = {
   id: number;
   amount: number;
-  source: string;
-  keterangan?: string;
+  Kode: number;
+  Uraian: string;
   date: string;
 };
 
@@ -22,7 +22,8 @@ type TableIncomeProps = {
 };
 interface DataItem {
   jmlPendapatan: number;
-  Sumber: string;
+  Kode: string;
+  Source: string;
 }
 
 export default function TableIncome({
@@ -110,22 +111,22 @@ export default function TableIncome({
   return (
     <div>
       <table className="table table-hover align-text-center  mt-1 ">
-        <thead className={TableHead}>
+        <thead className="header table-info">
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Tanggal</th>
-            <th scope="col">Jumlah Pendapatan</th>
-            <th scope="col">Sumber Pendapatan</th>
+            <th scope="col">Kode</th>
+            <th scope="col">Uraian</th>
+            <th scope="col">Anggaran</th>
             {showTable && <th scope="col">Aksi</th>}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="header">
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
-              <td className="text-center">{(page - 1) * limit + index + 1}</td>
-              <td className="text-center">{item.date}</td>
-              <td className="text-center">Rp.{item.amount.toLocaleString()}</td>
-              <td className="text-center">{item.source}</td>
+              <td>{(page - 1) * limit + index + 1}</td>
+              <td>{item.Kode}</td>
+              <td>{item.Uraian}</td>
+              <td>Rp.{item.amount.toLocaleString()}</td>
               {showTable && (
                 <td>
                   <div className="gap-2 d-flex">
@@ -153,7 +154,7 @@ export default function TableIncome({
       </table>
 
       {/* Paginition */}
-      <div className=" text-center">
+      <div className="gap-3 me-5">
         <button
           onClick={() => setPage(1)}
           disabled={page === 1}
@@ -205,10 +206,10 @@ export default function TableIncome({
         ShowValue={true}
         selectedValue={inputValue}
         ShowSubmit={false}
-        first="Jumlah Pendapatan"
+        first="Kode"
         ShowInput={true}
         ShowForm={true}
-        second="Sumber Pendapatan"
+        second="Jumlah Anggaran"
         isShow={isModalShow}
         onCloseModal={closeModal}
         submit={submit}
