@@ -3,89 +3,52 @@ import Home from "@/asset/Home.png";
 import Computer from "@/asset/Computer.png";
 import Chart from "@/asset/Chart.png";
 import Book from "@/asset/Book.png";
+import Background from "@/asset/Background2.jpg";
 import Image from "next/image";
 import { useYear } from "@/component/ContexAPI";
 import Notes from "../component/BudgetNotes";
 import Filter from "@/component/filter";
+import { Contact, HandCoins, IdCard } from "lucide-react";
 
 export default function Coba() {
   const { selectedYear } = useYear();
   return (
-    <div className="color ">
+    <div>
       <Navbar />
-      <div style={{ paddingTop: "140px" }}>
-        <h1 className="font text-center">WEBSITE ANGGARAN</h1>
-        <h1 className=" text-center">DESA GENDING</h1>
-      </div>
-      <div className="Content">
-        <div className="fs-5 px-5 ms-1   mt-5 py-5 d-flex">
+      <div className="background"> </div>
+      <h1 className="Heading">
+        Selamat Datang <br />
+        Website Resmi Desa Gending
+      </h1>
+      <h5 className="Heading-2">
+        Sumber informasi terbaru tentang pemerintahan di Desa Gending
+      </h5>
+
+      <div className="vw-100 bg-dark pt-5 ">
+        <hr className="line" />
+        <div className="hero-1">
+          <h1>JELAJAHI DESA</h1>
           <p>
-            Selamat datang di situs visualisasi resmi Desa Gending, Kabupaten
-            Probolinggo. Melalui platform ini, kami berkomitmen menyajikan
-            informasi desa secara mudah diakses, cepat diperoleh, dan akurat
-            disajikan untuk seluruh masyarakat. Dapatkan informasi terkini
-            mengenai anggaran desa, program pembangunan, laporan keuangan, serta
-            berita dan kegiatan desa dalam satu tempat yang transparan dan
-            terpercaya.
-          </p>
-          <div className="Box">
-            <Image src={Home} alt="Logo" width={140} height={120} />
-            <Image
-              style={{ position: "absolute", top: "110px", left: "180px" }}
-              src={Computer}
-              alt="Logo"
-              width={80}
-              height={80}
-            />
-          </div>
-        </div>
-        <div className="fs-5 px-5 me-1 text-end  mt-5 py-5 d-flex">
-          <div className="Box">
-            <Image src={Chart} alt="Logo" width={140} height={120} />
-          </div>
-          <p>
-            Tujuan utama dari platform ini adalah untuk memberikan kemudahan
-            bagi masyarakat dalam memahami, memantau, dan ikut serta mengawasi
-            pengelolaan anggaran desa secara terbuka dan bertanggung jawab.
-            Melalui visualisasi data dan informasi yang disajikan secara
-            sistematis, diharapkan masyarakat dapat lebih aktif dalam menjaga
-            transparansi, serta mendorong terciptanya pemerintahan desa yang
-            akuntabel dan{" "}
-            <span className="fs-5 fw-medium" style={{ marginRight: "665" }}>
-              partisipatif.
-            </span>
+            Melalui website ini Anda dapat menjelajahi segala hal yang terkait
+            dengan Desa. <br /> Aspek pemerintahan, penduduk, demografi, potensi
+            Desa, dan juga berita tentang Desa.
           </p>
         </div>
-      </div>
-      <div className="APBD d-flex px-5">
-        <Image
-          style={{ marginTop: "150px" }}
-          src={Book}
-          width={450}
-          height={450}
-          alt="Book Icon"
-        />
+        <hr className="line" style={{ marginLeft: "39%" }} />
 
-        <div className="sub-content">
-          <h1>APB DESA {selectedYear}</h1>
-          <p style={{ fontSize: "20px" }}>
-            Berikut merupakan akumulasi dari pendapatan desa seperti{" "}
-            <span style={{ color: "#085946", fontWeight: "700" }}>
-              Pendapatan Desa
-            </span>
-            ,{" "}
-            <span style={{ color: "#ff1500", fontWeight: "700" }}>
-              Belanja Desa
-            </span>{" "}
-            dan{" "}
-            <span style={{ color: "#00a2ff", fontWeight: "700" }}>
-              Alokasi Dana Terbesar
-            </span>{" "}
-            pada tahun {selectedYear}
-          </p>
-          <Filter />
-
-          <Notes />
+        <div className="vw-100 p-5 d-flex justify-content-center gap-3">
+          <div className="square ">
+            <IdCard size={135} strokeWidth={1} />
+            <p>Profil Desa</p>
+          </div>
+          <div className="square">
+            <Contact size={130} strokeWidth={1} />
+            <p className="mt-2">Kontak</p>
+          </div>
+          <div className="square">
+            <HandCoins size={135} strokeWidth={1} />
+            <p className="mt-2">APBD</p>
+          </div>
         </div>
       </div>
     </div>

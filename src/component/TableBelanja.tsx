@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import ModalBoxIncome, { useModal } from "./ModalBoxIncome";
+
 import { useYear } from "./ContexAPI";
+import ModalBoxBelanja, { useModal } from "./ModalBoxBelanja";
 
 type Databases = {
   id: number;
-  amount: number;
+  Anggaran: number;
   Kode: number;
-  Uraian: string;
+  Belanja: string;
   date: string;
 };
 
@@ -19,10 +20,11 @@ type TableIncomeProps = {
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
   isShow: boolean;
 };
+
 interface DataItem {
-  jmlPendapatan: number;
+  Anggaran: number;
   Kode: number;
-  Source: string;
+  Belanja: string;
 }
 
 export default function TableIncome({
@@ -39,8 +41,8 @@ export default function TableIncome({
 
   useEffect(() => {
     const url = isShow
-      ? `http://localhost:3000/api/pemasukan?year=${selectedYear}`
-      : `http://localhost:3000/api/pemasukan`;
+      ? `http://localhost:3000/api/Belanja?year=${selectedYear}`
+      : `http://localhost:3000/api/Belanja`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data.data))
@@ -80,7 +82,7 @@ export default function TableIncome({
       "Apakah Anda yakin ingin menghapus data ini?"
     );
     if (!confirmDelete) return;
-    fetch(`/api/pemasukan?id=${id}`, { method: "DELETE" })
+    fetch(`/api/Belanja?id=${id}`, { method: "DELETE" })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Gagal menghapus data.");
@@ -111,7 +113,7 @@ export default function TableIncome({
           <tr>
             <th scope="col">No</th>
             <th scope="col">Kode</th>
-            <th scope="col">Uraian</th>
+            <th scope="col">Belanja</th>
             <th scope="col">Anggaran</th>
             {showTable && <th scope="col">Aksi</th>}
           </tr>
@@ -121,8 +123,8 @@ export default function TableIncome({
             <tr key={item.id}>
               <td>{(page - 1) * limit + index + 1}</td>
               <td>{item.Kode}</td>
-              <td>{item.Uraian}</td>
-              <td>Rp.{item.amount.toLocaleString()}</td>
+              <td>{item.Belanja}</td>
+              <td>Rp.{item.Anggaran.toLocaleString()}</td>
               {showTable && (
                 <td>
                   <div className="gap-2 d-flex">
@@ -198,16 +200,16 @@ export default function TableIncome({
         </button>
       </div>
 
-      <ModalBoxIncome
-        ShowValue={true}
+      <ModalBoxBelanja
+        ShowValue={false}
         ShowSubmit={false}
         selectedValue={inputValue}
         submit={submit}
         setSubmit={setSubmit}
-        first="Kode"
-        ShowInput={true}
+        first="Jumlah Pendapatan"
+        second="Sumber Pendapatan"
+        ShowInput={false}
         ShowForm={true}
-        second="Jumlah Anggaran"
         isShow={isModalShow}
         onCloseModal={closeModal}
       />

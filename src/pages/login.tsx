@@ -14,7 +14,7 @@ export default function LoginPage() {
     console.log(login);
 
     if (!Auth.username || !Auth.password) return;
-    if (Auth.username === "cahya" && Auth.password === "wibawa") {
+    if (Auth.username === "admin" && Auth.password === "admin123") {
       setLogin(true);
       if (login) {
         setTimeout(() => {
