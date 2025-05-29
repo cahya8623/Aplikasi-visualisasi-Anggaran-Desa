@@ -1,5 +1,5 @@
 import Filter from "@/component/filter";
-import ComparationChart from "@/component/lineChart";
+
 import React, { useState } from "react";
 import {
   Chart as ChartJS,
@@ -60,9 +60,6 @@ export default function Index() {
         />
       </div>
       <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
-      <div className="mt-5 ms-3 p-2 ">
-        <ComparationChart />
-      </div>
     </div>
   );
 }

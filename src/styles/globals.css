@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manjari:wght@100;400;700&family=Merriweather:ital,opsz,wdth,wght@0,18..144,99.8,900;1,18..144,99.8,900&family=Noto+Sans+Symbols:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -172,6 +173,7 @@
   cursor: pointer;
   width: 300px;
   height: 200px;
+  margin-bottom: 20px;
   background: #354734;
   display: flex;
   justify-content: center;
@@ -205,7 +207,7 @@
 }
 
 .square:hover {
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
   box-shadow: 0 0 20px #777855;
 }
 
@@ -225,8 +227,34 @@
   font-family: 'Bebas Neue', sans-serif;
   text-shadow: 1px 2px 1px rgba(0,0,0,0.6);
 }
+.bg-content{
+  width: 100vw;
+  /* height: 100vh; */
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #393E46;
+}
+
+.sub-content{
+  color: black;
+  background-color: #DFD0B8;
+  margin-top: 100px;
+  width: 50%;
+  border-radius: 25px;
+  padding: 40px;
+}
+
+.sub-content h4 {
+  font-family: 'PT Sans', sans-serif;
+}
+.sub-content h1 {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
 .navbar{
-  background-color: #d9d9d900;
+  /* background-color: red; */
   color: whitesmoke;
   position: fixed;
   top: 0;
@@ -342,16 +370,8 @@ ul p{
   text-shadow: -2px 8px 10px rgba(0,0,0,0.5);
 }
 
-.sub-content h1{
-  color: red;
-  font-weight: 700;
-  /* text-shadow:   0px 6px 1px rgba(235, 235, 235, 0.958); */
-  font-family: "Noto Sans Symbols";
-}
-.sub-content{
-  font-family: "Noto Sans Symbols";
-  width: 100vw;
-}
+
+
 .header {
   padding: 10px;
   text-align: center;

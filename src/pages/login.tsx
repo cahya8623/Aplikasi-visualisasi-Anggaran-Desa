@@ -1,36 +1,18 @@
 import { adminContext } from "@/component/LoginContex";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { Auth, setAuth, setLogin, login } = useContext(adminContext);
-  console.log(Auth);
-  //   const router = useRouter();
-  useEffect(() => {
-    console.log(login);
+  const { setLogin } = useContext(adminContext);
 
-    if (!Auth.username || !Auth.password) return;
-    if (Auth.username === "admin" && Auth.password === "admin123") {
-      setLogin(true);
-      if (login) {
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 100);
-        return;
-      }
-    } else if (!login) {
-      router.push("/login");
-      alert("Password Salah");
-    }
-  }, [Auth]);
-
-  function onClickSubmit(e) {
+  async function onClickSubmit(e) {
     e.preventDefault();
-    setAuth({ username, password });
+
+    // setAuth({ username, password });
     if (!password && username) {
       alert("Masukkan Dulu Passwordnya");
       return;
@@ -38,6 +20,29 @@ export default function LoginPage() {
       alert("Masukkan Dulu Usernamenya");
     } else if (!username || !password) {
       alert("Masukkan Dulu Password Dan Usernamenya");
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setLogin(true);
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 100);
+      } else {
+        router.push("/login");
+        // alert("Password Salah");
+        alert(data.message || "Gagal menyimpan data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan, coba lagi!");
     }
   }
 

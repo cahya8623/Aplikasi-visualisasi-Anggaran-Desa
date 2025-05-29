@@ -19,7 +19,7 @@ export default function Laporan() {
       <Sidebar />
       <div className="Home p-0 bg-light-subtle vh-100">
         <section className=" ps-4 shadow p-2 mb-4 bg-white rounded">
-          <h1 className="fw-bold text-secondary">Halaman Laporan</h1>
+          <h1 className="fw-bold text-secondary">Halaman Pembiayaan</h1>
         </section>
       </div>
     </div>

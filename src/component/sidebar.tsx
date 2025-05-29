@@ -52,12 +52,12 @@ export default function Sidebar() {
           </li>
           <li>
             <Link
-              href="/Laporan"
+              href="/Pembiayaan"
               className={`nav-link  text-white ${
-                pathName === "/Laporan" ? "clicked" : ""
+                pathName === "/Pembiayaan" ? "clicked" : ""
               }`}
             >
-              Laporan
+              Pembiayaan
             </Link>
           </li>
         </ul>

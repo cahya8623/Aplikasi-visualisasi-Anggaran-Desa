@@ -1,17 +1,10 @@
 import Navbar from "@/component/Navbar";
-import Home from "@/asset/Home.png";
-import Computer from "@/asset/Computer.png";
-import Chart from "@/asset/Chart.png";
-import Book from "@/asset/Book.png";
-import Background from "@/asset/Background2.jpg";
-import Image from "next/image";
-import { useYear } from "@/component/ContexAPI";
-import Notes from "../component/BudgetNotes";
-import Filter from "@/component/filter";
+import logo from "@/asset/Kabupaten.png";
 import { Contact, HandCoins, IdCard } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Coba() {
-  const { selectedYear } = useYear();
   return (
     <div>
       <Navbar />
@@ -30,24 +23,69 @@ export default function Coba() {
           <h1>JELAJAHI DESA</h1>
           <p>
             Melalui website ini Anda dapat menjelajahi segala hal yang terkait
-            dengan Desa. <br /> Aspek pemerintahan, penduduk, demografi, potensi
-            Desa, dan juga berita tentang Desa.
+            dengan Desa. <br />
+            mulai dari Profil Desa, Anggaran Pendapatan dan Belanja Desa (APBD),
+            hingga informasi kontak perangkat desa
           </p>
         </div>
         <hr className="line" style={{ marginLeft: "39%" }} />
 
-        <div className="vw-100 p-5 d-flex justify-content-center gap-3">
-          <div className="square ">
-            <IdCard size={135} strokeWidth={1} />
-            <p>Profil Desa</p>
+        <div className="vw-100 p-5 d-flex justify-content-center gap-3 mb-5">
+          <Link href="/Profil">
+            <div className="square ">
+              <IdCard size={135} strokeWidth={1} />
+              <p>Profil Desa</p>
+            </div>
+          </Link>
+
+          <Link href="/Kontak">
+            <div className="square">
+              <Contact size={130} strokeWidth={1} />
+              <p className="mt-2">Kontak</p>
+            </div>
+          </Link>
+
+          <Link href="/APDES">
+            <div className="square">
+              <HandCoins size={135} strokeWidth={1} />
+              <p className="mt-2">APBD</p>
+            </div>
+          </Link>
+        </div>
+
+        <div className="vw-100 bg-dark p-5 ms-5 d-flex justify-content-around">
+          <div
+            style={{
+              width: "410px",
+              height: "400px",
+              backgroundColor: "#537D5D",
+              borderRadius: "50%",
+              padding: "100px",
+              alignItems: "center",
+              paddingRight: "100px",
+              paddingLeft: "80px",
+              marginRight: "100px",
+            }}
+          >
+            <Image src={logo} alt="logo desa" width={250} height={300} />
           </div>
-          <div className="square">
-            <Contact size={130} strokeWidth={1} />
-            <p className="mt-2">Kontak</p>
-          </div>
-          <div className="square">
-            <HandCoins size={135} strokeWidth={1} />
-            <p className="mt-2">APBD</p>
+          <div className="vw-25 d-flex justify-content-center flex-column">
+            <h1 className="fw-bold text-info">Sambutan Kepala Desa</h1>
+            <p className="w-75 lh-lg">
+              <span className="fs-5 fw-bold">
+                Assalamu Alaikum Warohmatullahi Wabarakatu
+              </span>{" "}
+              <br />
+              Website ini hadir sebagai wujud transformasi desa gending menjadi
+              desa yang mampu memanfaatkan teknologi informasi dan komunikasi,
+              terintegrasi kedalam sistem online. Keterbukaan informasi publik,
+              pelayanan publik dan kegiatan perekonomian di desa, guna
+              mewujudkan desa gending sebagai desa wisata yang berkelanjutan,
+              adaptasi dan mitigasi terhadap perubahan iklim serta menjadi desa
+              yang mandiri. Terima kasih kepada semua pihak yang telah banyak
+              memberi dukungan dan kontribusi baik berupa tenaga, pikiran dan
+              semangat,
+            </p>
           </div>
         </div>
       </div>

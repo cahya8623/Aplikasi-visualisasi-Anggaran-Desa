@@ -39,6 +39,7 @@ export default function ComparationChart() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -58,7 +59,10 @@ export default function ComparationChart() {
   };
 
   return (
-    <div className="d-flex justify-content-center  w-auto ">
+    <div
+      className="d-flex justify-content-center"
+      style={{ width: "1300px", height: "550px", marginLeft: "50px" }}
+    >
       <Line data={data} options={options} />
     </div>
   );

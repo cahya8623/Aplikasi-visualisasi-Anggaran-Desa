@@ -1,6 +1,6 @@
 import DoughnutChart from "@/component/Dougnut";
 import Filter from "@/component/filter";
-import ComparationChart from "@/component/lineChart";
+
 import React, { useState } from "react";
 import {
   Chart as ChartJS,
@@ -13,8 +13,8 @@ import {
   Legend,
 } from "chart.js";
 import Expense from "@/component/Expenses";
-import { useYear } from "@/component/ContexAPI";
 import Navbar from "@/component/Navbar";
+import ComparationChart from "./Line";
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +34,6 @@ interface Expenses {
 
 export default function Index() {
   const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
-  const { selectedYear } = useYear();
 
   return (
     <div className="main  max-vh-100  ">
@@ -72,9 +71,7 @@ export default function Index() {
         />
       </div>
       <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
-      <div>
-        <ComparationChart />
-      </div>
+      <ComparationChart />
     </div>
   );
 }

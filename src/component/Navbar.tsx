@@ -4,11 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Navbar() {
+type Color = {
+  BackgroundColor?: string;
+};
+
+export default function Navbar(props: Color) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="navbar vw-100  px-5 py-4 ">
+    <div
+      className="navbar vw-100 px-5 py-4 "
+      style={{ backgroundColor: props.BackgroundColor }}
+    >
       <div className="d-flex ms-4">
         <Link href="/">
           <Image src={logo} alt="Logo Desa" width={50} height={60} />
@@ -29,7 +36,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/">
+            <Link href="/Profil">
               <p className="nav-font">Profil Desa</p>
             </Link>
           </li>
@@ -41,8 +48,8 @@ export default function Navbar() {
           <li>
             <button
               className="border-0 bg-none d-flex align-items-center"
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={() => setOpen(false)}
+              // onMouseEnter={() => setOpen(true)}
+              // onMouseLeave={() => setOpen(false)}
               style={{
                 transition: "1s",
                 width: "auto",
@@ -52,8 +59,10 @@ export default function Navbar() {
                 background: "none",
               }}
             >
-              <p className="nav-font">APBDesa</p>
-              {open ? <X size={24} /> : <Menu size={24} />}
+              <Link href="/APDES">
+                <p className="nav-font">APBDesa</p>
+              </Link>
+              {/* {open ? <X size={24} /> : <Menu size={24} />} */}
             </button>
           </li>
         </ul>

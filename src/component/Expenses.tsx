@@ -136,8 +136,8 @@ export default function Expense({
               <td className="text-center">
                 Rp.{item.expense.toLocaleString()}
               </td>
-              <td>Rp.{item.Realisasi}</td>
-              <td>Rp.{item.expense - item.Realisasi}</td>
+              <td>Rp.{item.Realisasi.toLocaleString()}</td>
+              <td>Rp.{(item.expense - item.Realisasi).toLocaleString()}</td>
               {ShowTable && (
                 <td>
                   <div className="gap-2 d-flex">
