@@ -1,9 +1,20 @@
 import { adminContext } from "@/component/LoginContex";
+import ModalBoxPembiayaan, { useModal } from "@/component/ModalBoxPembiayaan";
 import Sidebar from "@/component/sidebar";
+import TablePembiayaan from "@/component/TablePembiayaan";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
-export default function Laporan() {
+interface DataItem {
+  Kode: number;
+  Penerimaan: number;
+  Pengeluaran: number;
+}
+
+export default function Pembiayaan() {
+  const { isModalShow, closeModal, showModal } = useModal();
+  const [submit, setSubmit] = useState<DataItem[]>([]);
+
   const { login } = useContext(adminContext);
   const router = useRouter();
 
@@ -15,13 +26,44 @@ export default function Laporan() {
 
   if (!login) return null;
   return (
-    <div className="d-flex">
+    <div className=" w-100 d-flex vh-100">
       <Sidebar />
-      <div className="Home p-0 bg-light-subtle vh-100">
-        <section className=" ps-4 shadow p-2 mb-4 bg-white rounded">
+      <div className="Home container-fluid vh-100 p-0 bg-light-subtle ">
+        <section className="shadow ps-4 p-2 mb-1 bg-white rounded">
           <h1 className="fw-bold text-secondary">Halaman Pembiayaan</h1>
         </section>
+
+        <button
+          onClick={showModal}
+          type="button"
+          className=" ms-5 my-3 btn btn-success"
+        >
+          <i className="bi bi-plus-circle"></i> Tambah
+        </button>
+        <div className="px-5">
+          <TablePembiayaan
+            isShow={false}
+            setSubmit={setSubmit}
+            submit={submit}
+            showTable={true}
+            width="70vw"
+            height="70vh"
+          />
+        </div>
       </div>
+
+      <ModalBoxPembiayaan
+        ShowValue={false}
+        ShowSubmit={true}
+        submit={submit}
+        setSubmit={setSubmit}
+        first="Jumlah Pendapatan"
+        second="Sumber Pendapatan"
+        ShowInput={false}
+        ShowForm={true}
+        isShow={isModalShow}
+        onCloseModal={closeModal}
+      />
     </div>
   );
 }

@@ -15,6 +15,7 @@ import Navbar from "@/component/Navbar";
 import TableIncome from "@/component/tabelIncome";
 import { useState } from "react";
 import ComparationChart from "./Line";
+import TablePembiayaan from "@/component/TablePembiayaan";
 
 ChartJS.register(
   CategoryScale,
@@ -32,6 +33,12 @@ interface DataItem {
   Source: string;
 }
 
+interface Pembiayaan {
+  Kode: number;
+  Penerimaan: number;
+  Pengeluaran: number;
+}
+
 interface Expenses {
   kebutuhan: string;
   total: number;
@@ -41,6 +48,7 @@ interface Expenses {
 export default function APDES() {
   const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
   const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
+  const [Pembiayaan, setPembiayaan] = useState<Pembiayaan[]>([]);
   //   const { selectedYear } = useYear();
   return (
     <div>
@@ -73,6 +81,18 @@ export default function APDES() {
             setSubmit={setExpenseSubmit}
             TableHead="table-dark"
             ShowTable={false}
+            width="20vw"
+            height="10vh"
+          />
+        </div>
+        <div className="p-1 px-5 text-center" style={{ width: "100vw" }}>
+          <h1 className="my-4">Pembiayaan</h1>
+          <TablePembiayaan
+            isShow={true}
+            submit={Pembiayaan}
+            setSubmit={setPembiayaan}
+            TableHead="table-dark"
+            showTable={false}
             width="20vw"
             height="10vh"
           />

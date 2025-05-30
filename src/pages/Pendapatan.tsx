@@ -7,7 +7,8 @@ import { useContext, useEffect, useState } from "react";
 
 interface DataItem {
   jmlPendapatan: number;
-  Sumber: string;
+  Kode: number;
+  Source: string;
 }
 
 export default function Pemasukan() {

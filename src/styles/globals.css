@@ -245,6 +245,18 @@
   border-radius: 25px;
   padding: 40px;
 }
+.sejarah{
+  width: 90vw;
+  color: black;
+  background-color: #DFD0B8;
+  margin-top: 50px;
+  text-align: justify;
+  font-size: 20px;
+  /* width: 50%; */
+  border-radius: 25px;
+  padding: 40px;
+  
+}
 
 .sub-content h4 {
   font-family: 'PT Sans', sans-serif;
