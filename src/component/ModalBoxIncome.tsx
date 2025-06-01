@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useYear } from "./ContexAPI";
+import Select from "react-select";
 
 export const useModal = () => {
   const [isModalShow, setIsModalShow] = useState(false);
@@ -45,11 +46,41 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const [jmlPendapatan, setJmlPendapatan] = useState(0);
   const [Source, setSource] = useState("");
 
-  // UseState Dropdown
-  const [Pendapatan, setPendapatan] = useState(false);
-  console.log(Pendapatan);
+  // const [Pendapatan, setPendapatan] = useState(false);
+  // console.log(Pendapatan);
+  console.log("Source : " + Source);
 
   const { setEdit, setConfirm } = useYear();
+
+  const options = [
+    {
+      label: "Pendapatan Asli Desa",
+      options: [
+        { value: "Bagi Hasil Bumdes", label: "Bagi Hasil Bumdes" },
+        { value: "Pengelolaan Kas Desa", label: "Pengelolaan Kas Desa" },
+      ],
+    },
+    {
+      label: "Dana Desa",
+      options: [
+        { value: "Dana Desa", label: "Dana Desa" },
+        { value: "Bagi Hasil Pajak", label: "Bagi Hasil Pajak" },
+        { value: "Alokasi Dana Desa", label: "Alokasi Dana Desa" },
+        {
+          value: "Bantuan Keuangan Kabupaten",
+          label: "Bantuan Keuangan Kabupaten",
+        },
+        {
+          value: "Bantuan Keuangan Provinsi",
+          label: "Bantuan Keuangan Provinsi",
+        },
+      ],
+    },
+    {
+      label: "Pendapatan Lain-Lain",
+      options: [{ value: "Pendapatan Lain-Lain", label: "Bunga Bank" }],
+    },
+  ];
 
   useEffect(() => {
     setKode(props.selectedValue);
@@ -127,8 +158,41 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
       console.error("Error:", error);
       alert("Terjadi kesalahan, coba lagi!");
     } finally {
+      setSource("");
+      setJmlPendapatan(0);
+      setKode(0);
       alert("Data Sudah Ditambahkan");
     }
+  };
+
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      backgroundColor: "#000",
+      color: "#fff",
+      borderColor: "#444",
+    }),
+    menu: (base) => ({
+      ...base,
+      backgroundColor: "#2e2e2e",
+      color: "#fff",
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: "#fff",
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused ? "#333" : "#000",
+      color: "#fff",
+      cursor: "pointer",
+    }),
+    groupHeading: (base) => ({
+      ...base,
+      color: "#fffff",
+      fontWeight: "bolder",
+      fontSize: "1rem",
+    }),
   };
 
   return props.isShow ? (
@@ -170,19 +234,53 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                       placeholder="Anggaran"
                     />
 
-                    <select
+                    <div>
+                      <label htmlFor="source">Pilih Sumber:</label>
+                      <Select
+                        id="source"
+                        options={options}
+                        styles={customStyles}
+                        value={options
+                          .flatMap((group) => group.options)
+                          .find((opt) => opt.value === Source)}
+                        onChange={(selectedOption) =>
+                          setSource(selectedOption.value)
+                        }
+                        placeholder="-- Pilih --"
+                      />
+                    </div>
+                    {/* <select
                       value={Source}
-                      onMouseLeave={() => setPendapatan(false)}
                       onChange={(e) => setSource(e.target.value)}
                     >
-                      <option
-                        onClick={() => setPendapatan(true)}
-                        value="Pendapatan Lain-Lain"
-                      >
-                        Pendapatan Lain-Lain
-                      </option>
-                      <option value="Dana Desa">Dana Desa</option>
-                    </select>
+                      <option value="">--Pilih--</option>
+                      <optgroup label="Pendapatan Asli Desa">
+                        <option value="Bagi Hasil Bumdes">
+                          Bagi Hasil Bumdes
+                        </option>
+                        <option value="Pengelolaan Kas Desa">
+                          Pengelolaan Kas Desa
+                        </option>
+                      </optgroup>
+                      <optgroup label="Dana Desa">
+                        <option value="Dana Desa">Dana Desa</option>
+                        <option value="Bagi Hasil Pajak">
+                          Bagi Hasil Pajak
+                        </option>
+                        <option value="Alokasi Dana Desa">
+                          Alokasi Dana Desa
+                        </option>
+                        <option value="Bantuan Keuangan Kabupaten">
+                          Bantuan Keuangan Kabupaten
+                        </option>
+                        <option value="Bantuan Keuangan Provinsi">
+                          Bantuan Keuangan Provinsi
+                        </option>
+                      </optgroup>
+                      <optgroup label="Pendapatan Lain-Lain">
+                        <option value="Pendapatan Lain-Lain">Bunga Bank</option>
+                      </optgroup>
+                    </select> */}
                   </div>
                 </div>
 
