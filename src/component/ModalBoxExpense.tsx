@@ -180,7 +180,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                     className="btn  btn-outline-success"
                     style={{ marginRight: "110px" }}
                   >
-                    Submit
+                    Simpan
                   </button>
                 ) : (
                   <button
@@ -189,7 +189,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                     className="btn  btn-outline-success"
                     style={{ marginRight: "110px" }}
                   >
-                    Submit
+                    Simpan
                   </button>
                 )}
               </form>

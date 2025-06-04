@@ -22,7 +22,7 @@ export const useModal = () => {
 };
 
 interface DataItem {
-  Kode: number;
+  // Kode: number;
   Penerimaan: number;
   Pengeluaran: number;
 }
@@ -41,14 +41,14 @@ export type ModalBoxProps = {
 };
 
 export default function ModalBoxIncome(props: ModalBoxProps) {
-  const [Kode, setKode] = useState<number>(0);
+  // const [Kode, setKode] = useState<number>(0);
   const [Penerimaan, setPenerimaan] = useState(0);
   const [Pengeluaran, setPengeluaran] = useState(0);
 
   const { setEdit, setConfirm } = useYear();
 
   useEffect(() => {
-    setKode(props.selectedValue);
+    // setKode(props.selectedValue);
     setPenerimaan(props.selectedValue);
     setPengeluaran(props.selectedValue);
   }, [props.selectedValue]);
@@ -58,9 +58,9 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    if (Kode <= 0 || Penerimaan <= 0 || Pengeluaran <= 0) {
+    if (Penerimaan <= 0 || Pengeluaran <= 0) {
       return alert("Masukkan Data Terlebih Dahulu");
-    } else if (isNaN(Penerimaan) || isNaN(Kode) || isNaN(Pengeluaran)) {
+    } else if (isNaN(Penerimaan) || isNaN(Pengeluaran)) {
       return alert("Masukkan Data Sesuai Format");
     }
 
@@ -70,14 +70,14 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ Penerimaan, Kode, Pengeluaran }),
+          body: JSON.stringify({ Penerimaan, Pengeluaran }),
         }
       );
 
       const data = await response.json();
       if (response.ok) {
         setEdit((prev) =>
-          prev.id === id ? { ...prev, Penerimaan, Kode, Pengeluaran } : prev
+          prev.id === id ? { ...prev, Penerimaan, Pengeluaran } : prev
         );
         setConfirm(true);
         alert(data.message || "Data Sudah Diganti");
@@ -93,21 +93,21 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (Kode <= 0 || Penerimaan <= 0 || Pengeluaran <= 0) {
+    if (Penerimaan <= 0 || Pengeluaran <= 0) {
       return alert("Masukkan Data Terlebih Dahulu");
-    } else if (isNaN(Penerimaan) || isNaN(Kode) || isNaN(Pengeluaran)) {
+    } else if (isNaN(Penerimaan) || isNaN(Pengeluaran)) {
       return alert("Masukkan Data Sesuai Format");
     }
     try {
       const response = await fetch("http://localhost:3000/api/pembiayaan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ Penerimaan, Kode, Pengeluaran }),
+        body: JSON.stringify({ Penerimaan, Pengeluaran }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        props.setSubmit((item) => [...item, { Penerimaan, Kode, Pengeluaran }]);
+        props.setSubmit((item) => [...item, { Penerimaan, Pengeluaran }]);
       } else {
         alert(data.message || "Gagal menyimpan data");
       }
@@ -137,7 +137,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
               <form>
                 <div className="p-2 ">
                   <div className=" m-2">
-                    <input
+                    {/* <input
                       type="text"
                       value={props.ShowValue ? setKode.Kode : null}
                       onChange={(e) => setKode(parseInt(e.target.value))}
@@ -145,7 +145,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                       placeholder="Kode"
-                    />
+                    /> */}
                     <input
                       type="text"
                       //   value={props.ShowValue ? Penerimaan.amount : null}
@@ -188,7 +188,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                     className="btn  btn-outline-success"
                     style={{ marginRight: "110px" }}
                   >
-                    Submit
+                    Simpan
                   </button>
                 ) : (
                   <button
@@ -197,7 +197,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                     className="btn  btn-outline-success"
                     style={{ marginRight: "110px" }}
                   >
-                    Submit
+                    Simpan
                   </button>
                 )}
               </form>

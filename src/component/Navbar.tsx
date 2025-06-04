@@ -60,7 +60,7 @@ export default function Navbar(props: Color) {
               }}
             >
               <Link href="/APDES">
-                <p className="nav-font">APBDesa</p>
+                <p className="nav-font">Transparansi</p>
               </Link>
               {/* {open ? <X size={24} /> : <Menu size={24} />} */}
             </button>

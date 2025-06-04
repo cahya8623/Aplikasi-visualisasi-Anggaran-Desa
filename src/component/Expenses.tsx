@@ -29,7 +29,6 @@ interface DataItem {
 }
 export default function Expense({
   ShowTable = true,
-  TableHead = "table-info",
   submit,
   setSubmit,
   isShow,
@@ -117,8 +116,8 @@ export default function Expense({
 
   return (
     <div>
-      <table className="table table-hover align-text-center  mt-1  ">
-        <thead className={TableHead}>
+      <table className="table  table-hover align-text-center  mt-1  ">
+        <thead className="table-info">
           <tr className="text-center">
             <th scope="col">No</th>
             <th scope="col">Uraian</th>

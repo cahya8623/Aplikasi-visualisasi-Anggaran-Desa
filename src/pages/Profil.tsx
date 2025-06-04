@@ -9,22 +9,22 @@ export default function Profil() {
         <div className="sub-content">
           <h1 className="text-center">Visi</h1>
           <h4 className="text-center">
-            &quot;Kebersihan adalah sebagian dari iman&quot;
+            &quot;Meningkatkan Kesejahteraan Dan Sumber Daya Masyarakat&quot;
           </h4>
         </div>
         <div className="sub-content mb-5">
           <h1 className="text-center">Misi</h1>
           <ol className="fs-4 ">
-            <li>Sayang Ibu</li>
-            <li>Sayang Ayah</li>
-            <li>Sayang Kakek</li>
-            <li>Sayang Nenek</li>
-            <li>Sayang Anak Orang</li>
+            <li>Meningkatkan taraf hidup ekonomi masyarakat</li>
+            <li>Meningkatkan fasilitas</li>
+            <li>
+              Meningkatkan keahlian dalam bidang pertanian, perikanan dan UMKM
+            </li>
           </ol>
         </div>
       </div>
       <div className="bg-content mt-0">
-        <h1>Sejarah Desa</h1>
+        <h1 style={{ fontFamily: "monospace" }}>Sejarah Desa</h1>
 
         <div className="sejarah ">
           Pada jaman Majapahit ada seorang raja bernama Prabu Minak Jinggo dari

@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         const { year } = req.query;
 
         try {
-            let query = "SELECT id, Pengeluaran,Penerimaan, Kode, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pembiayaan ";
+            let query = "SELECT id, Pengeluaran,Penerimaan,  DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pembiayaan ";
             const params = [];
 
             if (year) {
@@ -61,18 +61,18 @@ export default async function handler(req, res) {
 
     else if (req.method === "POST") {
         try {
-            const { Penerimaan, Kode, Pengeluaran } = req.body;
+            const { Penerimaan, Pengeluaran } = req.body;
 
 
-            if (isNaN(Kode) || (Penerimaan && Kode && Pengeluaran === undefined) || Penerimaan <= 0 || Pengeluaran <= 0) {
+            if ((Penerimaan && Pengeluaran === undefined) || Penerimaan <= 0 || Pengeluaran <= 0) {
                 return res.status(400).json({ success: false, message: "Masukkan Data Terlebih Dahulu" });
-            } else if (isNaN(Penerimaan) || isNaN(Kode) || isNaN(Pengeluaran)) {
+            } else if (isNaN(Penerimaan) || isNaN(Pengeluaran)) {
                 return res.status(400).json({ success: false, message: "Masukkan Data Sesuai Format" });
             }
 
             const [result] = await pool.execute(
-                "INSERT INTO pembiayaan (Penerimaan,Pengeluaran, Kode) VALUES (?,?, ?)",
-                [Penerimaan, Pengeluaran, Kode]
+                "INSERT INTO pembiayaan (Penerimaan,Pengeluaran ) VALUES (?,?)",
+                [Penerimaan, Pengeluaran]
             );
 
             res.status(201).json({ success: true, message: "Data berhasil disimpan", insertId: result.insertId });
@@ -83,14 +83,14 @@ export default async function handler(req, res) {
     }
     else if (req.method === "PUT") {
         const { id } = req.query;
-        const { Penerimaan, Kode, Pengeluaran } = req.body;
+        const { Penerimaan, Pengeluaran } = req.body;
 
 
-        if (Kode <= 0 || Penerimaan <= 0 || Pengeluaran <= 0) {
+        if (Penerimaan <= 0 || Pengeluaran <= 0) {
             return alert("Masukkan Data Terlebih Dahulu");
         } else if (
             isNaN(Penerimaan) ||
-            isNaN(Kode) ||
+
             isNaN(Pengeluaran)
         ) {
             return alert("Masukkan Data Sesuai Format");
@@ -100,8 +100,8 @@ export default async function handler(req, res) {
 
         try {
             const [result] = await pool.execute(
-                "UPDATE pembiayaan SET Penerimaan = ?, Kode = ?,Pengeluaran = ? WHERE id = ?",
-                [Penerimaan, Kode, Pengeluaran, id]
+                "UPDATE pembiayaan SET Penerimaan = ?,Pengeluaran = ? WHERE id = ?",
+                [Penerimaan, Pengeluaran, id]
             );
 
             if (result.affectedRows > 0) {

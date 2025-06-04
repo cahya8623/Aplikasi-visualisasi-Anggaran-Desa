@@ -5,7 +5,7 @@ import { useYear } from "./ContexAPI";
 type Databases = {
   id: number;
   amount: number;
-  Kode: number;
+  // Kode: number;
   Uraian: string;
   date: string;
 };
@@ -21,7 +21,7 @@ type TableIncomeProps = {
 };
 interface DataItem {
   jmlPendapatan: number;
-  Kode: number;
+  // Kode: number;
   Source: string;
 }
 
@@ -105,13 +105,15 @@ export default function TableIncome({
   const start = (page - 1) * limit;
   const end = start + limit;
   return (
-    <div>
+    <div className="table-responsive">
       <table className="table table-hover align-text-center  mt-1 ">
         <thead className="header table-info">
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Kode</th>
-            <th scope="col">Uraian</th>
+            {/* <th scope="col">Kode</th> */}
+            <th style={{ width: "40%" }} scope="col">
+              Uraian
+            </th>
             <th scope="col">Anggaran</th>
             {showTable && <th scope="col">Aksi</th>}
           </tr>
@@ -120,8 +122,17 @@ export default function TableIncome({
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
               <td>{(page - 1) * limit + index + 1}</td>
-              <td>{item.Kode}</td>
-              <td>{item.Uraian}</td>
+              {/* <td>{item.Kode}</td> */}
+              <td
+                style={{
+                  whiteSpace: "normal",
+                  wordWrap: "break-word",
+                  overflowWrap: "break-word",
+                  // width: "40%",
+                }}
+              >
+                {item.Uraian}
+              </td>
               <td>Rp.{item.amount.toLocaleString()}</td>
               {showTable && (
                 <td>

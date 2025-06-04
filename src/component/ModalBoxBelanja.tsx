@@ -23,7 +23,7 @@ export const useModal = () => {
 
 interface DataItem {
   Anggaran: number;
-  Kode: number;
+  // Kode: number;
   Belanja: string;
 }
 export type ModalBoxProps = {
@@ -42,15 +42,15 @@ export type ModalBoxProps = {
 
 export default function ModalBoxExpense(props: ModalBoxProps) {
   const [Anggaran, setAnggaran] = useState<number>(0);
-  const [Kode, setKode] = useState<number>(0);
+  // const [Kode, setKode] = useState<number>(0);
   const [Belanja, setBelanja] = useState<string>("");
   const { setEdit, setConfirm } = useYear();
 
-  console.log("kode " + Kode);
+  // console.log("kode " + Kode);
 
   useEffect(() => {
     setAnggaran(props.selectedValue);
-    setKode(props.selectedValue);
+    // setKode(props.selectedValue);
     setBelanja(props.selectedValue);
   }, [props.selectedValue]);
 
@@ -59,14 +59,10 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    if (Anggaran <= 0 || Kode <= 0 || Belanja === "") {
+    if (Anggaran <= 0 || Belanja === "") {
       alert("Isi Data Terlebih Dahulu");
       return;
-    } else if (
-      isNaN(Kode) ||
-      typeof Anggaran === "string" ||
-      typeof Belanja !== "string"
-    ) {
+    } else if (typeof Anggaran === "string" || typeof Belanja !== "string") {
       return alert("Isi Data Sesuai Format");
     }
 
@@ -76,14 +72,14 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ Anggaran, Kode, Belanja }),
+          body: JSON.stringify({ Anggaran, Belanja }),
         }
       );
 
       const data = await response.json();
       if (response.ok) {
         setEdit((prev) =>
-          prev.id === id ? { ...prev, Anggaran, Kode, Belanja } : prev
+          prev.id === id ? { ...prev, Anggaran, Belanja } : prev
         );
         setConfirm(true);
         alert(data.message || "Data Sudah Diganti");
@@ -98,26 +94,22 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
 
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (Anggaran <= 0 || Kode <= 0 || Belanja === "") {
+    if (Anggaran <= 0 || Belanja === "") {
       alert("Isi Data Terlebih Dahulu");
       return;
-    } else if (
-      isNaN(Kode) ||
-      typeof Anggaran === "string" ||
-      typeof Belanja !== "string"
-    ) {
+    } else if (typeof Anggaran === "string" || typeof Belanja !== "string") {
       return alert("Isi Data Sesuai Format");
     }
     try {
       const response = await fetch("http://localhost:3000/api/Belanja", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ Anggaran, Kode, Belanja }),
+        body: JSON.stringify({ Anggaran, Belanja }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        props.setSubmit((item) => [...item, { Anggaran, Kode, Belanja }]);
+        props.setSubmit((item) => [...item, { Anggaran, Belanja }]);
       } else {
         alert(data.message);
       }
@@ -147,14 +139,14 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
               <form>
                 <div className="p-2 ">
                   <div className=" m-2">
-                    <input
+                    {/* <input
                       type="text"
                       onChange={(e) => setKode(parseInt(e.target.value))}
                       className="rounded-5 mb-3 form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                       placeholder="Kode"
-                    />
+                    /> */}
                     <input
                       type="text"
                       onChange={(e) => setBelanja(e.target.value)}
@@ -190,7 +182,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                     className="btn  btn-outline-success"
                     style={{ marginRight: "110px" }}
                   >
-                    Submit
+                    Simpan
                   </button>
                 )}
               </form>

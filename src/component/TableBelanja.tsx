@@ -6,7 +6,7 @@ import ModalBoxBelanja, { useModal } from "./ModalBoxBelanja";
 type Databases = {
   id: number;
   Anggaran: number;
-  Kode: number;
+  // Kode: number;
   Belanja: string;
   date: string;
 };
@@ -23,7 +23,7 @@ type TableIncomeProps = {
 
 interface DataItem {
   Anggaran: number;
-  Kode: number;
+  // Kode: number;
   Belanja: string;
 }
 
@@ -112,7 +112,7 @@ export default function TableIncome({
         <thead className="header table-info">
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Kode</th>
+            {/* <th scope="col">Kode</th> */}
             <th scope="col">Belanja</th>
             <th scope="col">Anggaran</th>
             {showTable && <th scope="col">Aksi</th>}
@@ -122,7 +122,7 @@ export default function TableIncome({
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
               <td>{(page - 1) * limit + index + 1}</td>
-              <td>{item.Kode}</td>
+              {/* <td>{item.Kode}</td> */}
               <td>{item.Belanja}</td>
               <td>Rp.{item.Anggaran.toLocaleString()}</td>
               {showTable && (

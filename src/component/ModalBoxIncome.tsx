@@ -24,7 +24,7 @@ export const useModal = () => {
 
 interface DataItem {
   jmlPendapatan: number;
-  Kode: number;
+  // Kode: number;
   Source: string;
 }
 export type ModalBoxProps = {
@@ -42,7 +42,7 @@ export type ModalBoxProps = {
 };
 
 export default function ModalBoxIncome(props: ModalBoxProps) {
-  const [Kode, setKode] = useState<number>(0);
+  // const [Kode, setKode] = useState<number>(0);
   const [jmlPendapatan, setJmlPendapatan] = useState(0);
   const [Source, setSource] = useState("");
 
@@ -58,10 +58,14 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
       options: [
         { value: "Bagi Hasil Bumdes", label: "Bagi Hasil Bumdes" },
         { value: "Pengelolaan Kas Desa", label: "Pengelolaan Kas Desa" },
+        {
+          value: "Pengelolaan Tanah Kas Desa",
+          label: "Pengelolaan Tanah Kas Desa",
+        },
       ],
     },
     {
-      label: "Dana Desa",
+      label: "Pendapatan Transfer",
       options: [
         { value: "Dana Desa", label: "Dana Desa" },
         { value: "Bagi Hasil Pajak", label: "Bagi Hasil Pajak" },
@@ -83,7 +87,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   ];
 
   useEffect(() => {
-    setKode(props.selectedValue);
+    // setKode(props.selectedValue);
     setJmlPendapatan(props.selectedValue);
     setSource(props.selectedValue);
   }, [props.selectedValue]);
@@ -93,13 +97,9 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    if (Kode <= 0 || jmlPendapatan <= 0 || Source === "") {
+    if (jmlPendapatan <= 0 || Source === "") {
       return alert("Masukkan Data Terlebih Dahulu");
-    } else if (
-      isNaN(jmlPendapatan) ||
-      isNaN(Kode) ||
-      typeof Source !== "string"
-    ) {
+    } else if (isNaN(jmlPendapatan) || typeof Source !== "string") {
       return alert("Masukkan Data Sesuai Format");
     }
 
@@ -109,14 +109,14 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ jmlPendapatan, Kode, Source }),
+          body: JSON.stringify({ jmlPendapatan, Source }),
         }
       );
 
       const data = await response.json();
       if (response.ok) {
         setEdit((prev) =>
-          prev.id === id ? { ...prev, jmlPendapatan, Kode, Source } : prev
+          prev.id === id ? { ...prev, jmlPendapatan, Source } : prev
         );
         setConfirm(true);
         alert(data.message || "Data Sudah Diganti");
@@ -132,25 +132,21 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (Kode <= 0 || jmlPendapatan <= 0 || Source === "") {
+    if (jmlPendapatan <= 0 || Source === "") {
       return alert("Masukkan Data Terlebih Dahulu");
-    } else if (
-      isNaN(jmlPendapatan) ||
-      isNaN(Kode) ||
-      typeof Source !== "string"
-    ) {
+    } else if (isNaN(jmlPendapatan) || typeof Source !== "string") {
       return alert("Masukkan Data Sesuai Format");
     }
     try {
       const response = await fetch("http://localhost:3000/api/pemasukan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ jmlPendapatan, Kode, Source }),
+        body: JSON.stringify({ jmlPendapatan, Source }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        props.setSubmit((item) => [...item, { jmlPendapatan, Kode, Source }]);
+        props.setSubmit((item) => [...item, { jmlPendapatan, Source }]);
       } else {
         alert(data.message || "Gagal menyimpan data");
       }
@@ -160,7 +156,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
     } finally {
       setSource("");
       setJmlPendapatan(0);
-      setKode(0);
+      // setKode(0);
       alert("Data Sudah Ditambahkan");
     }
   };
@@ -213,7 +209,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
               <form>
                 <div className="p-2 ">
                   <div className=" m-2">
-                    <input
+                    {/* <input
                       type="text"
                       value={props.ShowValue ? setKode.Kode : null}
                       onChange={(e) => setKode(parseInt(e.target.value))}
@@ -221,12 +217,14 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                       placeholder="Kode"
-                    />
+                    /> */}
                     <input
                       type="text"
                       value={props.ShowValue ? jmlPendapatan.amount : null}
                       onChange={(e) =>
-                        setJmlPendapatan(parseInt(e.target.value))
+                        setJmlPendapatan(
+                          parseInt(e.target.value.toLocaleString())
+                        )
                       }
                       className="rounded-5 mb-3 form-control"
                       id="exampleInputEmail1"
@@ -249,38 +247,6 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                         placeholder="-- Pilih --"
                       />
                     </div>
-                    {/* <select
-                      value={Source}
-                      onChange={(e) => setSource(e.target.value)}
-                    >
-                      <option value="">--Pilih--</option>
-                      <optgroup label="Pendapatan Asli Desa">
-                        <option value="Bagi Hasil Bumdes">
-                          Bagi Hasil Bumdes
-                        </option>
-                        <option value="Pengelolaan Kas Desa">
-                          Pengelolaan Kas Desa
-                        </option>
-                      </optgroup>
-                      <optgroup label="Dana Desa">
-                        <option value="Dana Desa">Dana Desa</option>
-                        <option value="Bagi Hasil Pajak">
-                          Bagi Hasil Pajak
-                        </option>
-                        <option value="Alokasi Dana Desa">
-                          Alokasi Dana Desa
-                        </option>
-                        <option value="Bantuan Keuangan Kabupaten">
-                          Bantuan Keuangan Kabupaten
-                        </option>
-                        <option value="Bantuan Keuangan Provinsi">
-                          Bantuan Keuangan Provinsi
-                        </option>
-                      </optgroup>
-                      <optgroup label="Pendapatan Lain-Lain">
-                        <option value="Pendapatan Lain-Lain">Bunga Bank</option>
-                      </optgroup>
-                    </select> */}
                   </div>
                 </div>
 
@@ -291,7 +257,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                     className="btn  btn-outline-success"
                     style={{ marginRight: "110px" }}
                   >
-                    Submit
+                    Simpan
                   </button>
                 ) : (
                   <button
@@ -300,7 +266,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                     className="btn  btn-outline-success"
                     style={{ marginRight: "110px" }}
                   >
-                    Submit
+                    Simpan
                   </button>
                 )}
               </form>

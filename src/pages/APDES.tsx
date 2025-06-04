@@ -16,6 +16,8 @@ import TableIncome from "@/component/tabelIncome";
 import { useState } from "react";
 import ComparationChart from "./Line";
 import TablePembiayaan from "@/component/TablePembiayaan";
+import TableBelanja from "@/component/TableBelanja";
+import Coba2 from "./Coba2";
 
 ChartJS.register(
   CategoryScale,
@@ -29,12 +31,10 @@ ChartJS.register(
 
 interface DataItem {
   jmlPendapatan: number;
-  Kode: number;
   Source: string;
 }
 
 interface Pembiayaan {
-  Kode: number;
   Penerimaan: number;
   Pengeluaran: number;
 }
@@ -45,10 +45,16 @@ interface Expenses {
   Realisasi: number;
 }
 
+interface Belanja {
+  Anggaran: number;
+  Belanja: string;
+}
+
 export default function APDES() {
   const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
   const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
   const [Pembiayaan, setPembiayaan] = useState<Pembiayaan[]>([]);
+  const [Belanja, setBelanja] = useState<Belanja[]>([]);
   //   const { selectedYear } = useYear();
   return (
     <div>
@@ -62,7 +68,7 @@ export default function APDES() {
         {/* <Notes /> */}
 
         <Filter />
-        <div>
+        <div style={{ width: "100vw", height: "300px" }}>
           <DoughnutChart />
         </div>
         <p className="mt-5 fs-5 text-center">
@@ -73,44 +79,48 @@ export default function APDES() {
         </p>
 
         {/* Rincian Anggaran */}
-        <div className="p-1 px-5 text-center" style={{ width: "100vw" }}>
-          <h1 className="my-4">Realisasi</h1>
-          <Expense
-            isShow={true}
-            submit={expenseSubmit}
-            setSubmit={setExpenseSubmit}
-            TableHead="table-dark"
-            ShowTable={false}
-            width="20vw"
-            height="10vh"
-          />
-        </div>
-        <div className="p-1 px-5 text-center" style={{ width: "100vw" }}>
-          <h1 className="my-4">Pembiayaan</h1>
-          <TablePembiayaan
-            isShow={true}
-            submit={Pembiayaan}
-            setSubmit={setPembiayaan}
-            TableHead="table-dark"
-            showTable={false}
-            width="20vw"
-            height="10vh"
-          />
-        </div>
-        {/* Pie Chart */}
+        {/* <div className="vw-100 d-flex flex-column align-center ps-5 justify-content-center">
+          <div className="p-1 px-5 text-center" style={{ width: "90vw" }}>
+            <h1 className="my-4">Realisasi</h1>
+            <Expense
+              isShow={true}
+              submit={expenseSubmit}
+              setSubmit={setExpenseSubmit}
+              TableHead="table-dark"
+              ShowTable={false}
+              width="20vw"
+              height="10vh"
+            />
+          </div>
+          <div className="p-1 px-5 text-center" style={{ width: "90vw" }}>
+            <TableBelanja
+              isShow={true}
+              submit={Belanja}
+              setSubmit={setBelanja}
+              showTable={false}
+              TableHead="table-dark"
+              width="80vw"
+              height="50vh"
+            />
+          </div>
+          <div className="p-1 px-5 text-center" style={{ width: "90vw" }}>
+            <h1 className="my-4">Pembiayaan</h1>
+            <TablePembiayaan
+              isShow={true}
+              submit={Pembiayaan}
+              setSubmit={setPembiayaan}
+              TableHead="table-dark"
+              showTable={false}
+              width="20vw"
+              height="10vh"
+            />
+          </div>
+          {/* Pie Chart */}
 
-        <div className="p-1 px-5 text-center" style={{ width: "100vw" }}>
-          <h1 className="my-4">Anggaran Pendapatan Desa</h1>
-          <TableIncome
-            isShow={true}
-            submit={incomeSubmit}
-            setSubmit={setIncomeSubmit}
-            showTable={false}
-            TableHead="table-dark"
-            width="80vw"
-            height="50vh"
-          />
-        </div>
+        {/* </div> */}
+
+        <Coba2 />
+
         <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
         <ComparationChart />
       </div>

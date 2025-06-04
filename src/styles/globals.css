@@ -17,6 +17,11 @@
 *{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.swiper{
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+}
 .modal-keterangan{
   max-width: 50vw;
   height: 120px;
@@ -79,6 +84,8 @@
   border: white 3px solid;
   position: relative;
 }
+
+
 
 .transition{
   transition: 1s; 
@@ -246,15 +253,14 @@
   padding: 40px;
 }
 .sejarah{
-  width: 90vw;
+  width: 77vw;
   color: black;
   background-color: #DFD0B8;
   margin-top: 50px;
   text-align: justify;
   font-size: 20px;
-  /* width: 50%; */
   border-radius: 25px;
-  padding: 40px;
+  padding: 30px ;
   
 }
 

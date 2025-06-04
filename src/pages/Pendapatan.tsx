@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 
 interface DataItem {
   jmlPendapatan: number;
-  Kode: number;
+  // Kode: number;
   Source: string;
 }
 

@@ -60,7 +60,7 @@ export default function Coba() {
               height: "400px",
               backgroundColor: "#537D5D",
               borderRadius: "50%",
-              padding: "100px",
+              padding: "80px 100px 10px 80px",
               alignItems: "center",
               paddingRight: "100px",
               paddingLeft: "80px",

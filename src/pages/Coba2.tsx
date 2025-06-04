@@ -1,50 +1,100 @@
-export default function Coba2() {
+import Expense from "@/component/Expenses";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import TableIncome from "@/component/tabelIncome";
+import { useState } from "react";
+
+import TablePembiayaan from "@/component/TablePembiayaan";
+import TableBelanja from "@/component/TableBelanja";
+import { Navigation } from "swiper/modules";
+
+interface DataItem {
+  jmlPendapatan: number;
+  Source: string;
+}
+
+interface Pembiayaan {
+  Penerimaan: number;
+  Pengeluaran: number;
+}
+
+interface Expenses {
+  kebutuhan: string;
+  total: number;
+  Realisasi: number;
+}
+
+interface Belanja {
+  Anggaran: number;
+  Belanja: string;
+}
+
+export default function APDES() {
+  const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
+  const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
+  const [Pembiayaan, setPembiayaan] = useState<Pembiayaan[]>([]);
+  const [Belanja, setBelanja] = useState<Belanja[]>([]);
+  //   const { selectedYear } = useYear();
   return (
-    <div style={{ width: "100vw", height: "100%" }}>
-      <Navbar />
-      <Image src={Background} alt="background" className="background"></Image>
-      <h1 className="Heading">
-        Selamat Datang <br />
-        Website Resmi Desa Gending
-      </h1>
-      <h5 className="Heading-2">
-        Sumber informasi terbaru tentang pemerintahan di Desa Gending
-      </h5>
-      <div className="vw-100 bg-white vh-100 p-absolute">
-        <h1>halo</h1>
-      </div>
+    <div className="swiper">
+      <Swiper
+        modules={[Navigation]}
+        navigation
+        spaceBetween={50}
+        slidesPerView={1}
+      >
+        <SwiperSlide>
+          <div className="d-flex flex-column justify-content-center">
+            <h1 className="my-4 text-center">Realisasi</h1>
+            <Expense
+              isShow={true}
+              submit={expenseSubmit}
+              setSubmit={setExpenseSubmit}
+              TableHead="table-dark"
+              ShowTable={false}
+              width="20vw"
+              height="10vh"
+            />
+          </div>
+        </SwiperSlide>
 
-      {/* <div className="APBD d-flex px-5">
-        <Image
-          style={{ marginTop: "150px" }}
-          src={Book}
-          width={450}
-          height={450}
-          alt="Book Icon"
-        />
+        <SwiperSlide>
+          <h1 className="my-4 text-center">Belanja</h1>
+          <TableBelanja
+            isShow={true}
+            submit={Belanja}
+            setSubmit={setBelanja}
+            showTable={false}
+            TableHead="table-dark"
+            width="80vw"
+            height="50vh"
+          />
+        </SwiperSlide>
 
-        <div className="sub-content">
-          <h1>APB DESA {selectedYear}</h1>
-          <p style={{ fontSize: "20px" }}>
-            Berikut merupakan akumulasi dari pendapatan desa seperti{" "}
-            <span style={{ color: "#085946", fontWeight: "700" }}>
-              Pendapatan Desa
-            </span>
-            ,{" "}
-            <span style={{ color: "#ff1500", fontWeight: "700" }}>
-              Belanja Desa
-            </span>{" "}
-            dan{" "}
-            <span style={{ color: "#00a2ff", fontWeight: "700" }}>
-              Alokasi Dana Terbesar
-            </span>{" "}
-            pada tahun {selectedYear}
-          </p>
-          <Filter />
+        <SwiperSlide>
+          <h1 className="my-4 text-center">Pembiayaan</h1>
+          <TablePembiayaan
+            isShow={true}
+            submit={Pembiayaan}
+            setSubmit={setPembiayaan}
+            TableHead="table-dark"
+            showTable={false}
+          />
+        </SwiperSlide>
 
-          <Notes />
-        </div>
-      </div> */}
+        <SwiperSlide>
+          <h1 className="my-4 text-center">Pendapatan</h1>
+          <TableIncome
+            isShow={true}
+            submit={incomeSubmit}
+            setSubmit={setIncomeSubmit}
+            showTable={false}
+            TableHead="table-dark"
+            width="80vw"
+            height="50vh"
+          />
+        </SwiperSlide>
+      </Swiper>
     </div>
   );
 }
