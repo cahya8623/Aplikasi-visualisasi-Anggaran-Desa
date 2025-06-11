@@ -35,7 +35,7 @@ export type ModalBoxProps = {
   ShowForm?: boolean;
   submit: DataItem[];
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
-  selectedValue?: string | number;
+  selectedValue?: any;
   ShowSubmit: boolean;
 };
 
@@ -43,7 +43,10 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
   const [kebutuhan, setKebutuhan] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
   const [Realisasi, setRealisasi] = useState<number>(0);
+  const [Image, setImage] = useState<string>("");
   const { setEdit, setConfirm } = useYear();
+
+  console.log("Image : " + Image);
 
   useEffect(() => {
     setKebutuhan(props.selectedValue);
@@ -162,15 +165,21 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                   </div>
                   {props.ShowInput && (
                     <div className=" m-2 form-group">
-                      <textarea
+                      <input
                         onChange={(e) => setRealisasi(parseInt(e.target.value))}
                         typeof="text"
-                        className=" modal-keterangan form-control"
+                        className="rounded-5 form-control"
                         id="exampleInputPassword1"
                         placeholder="Realisasi"
                       />
                     </div>
                   )}
+                  <input
+                    type="file"
+                    onChange={(e) => setImage(e.target.value)}
+                    className="rounded-5 form-control"
+                    placeholder={props.second}
+                  />
                 </div>
 
                 {props.ShowSubmit ? (

@@ -39,7 +39,7 @@ export default function APDES() {
     <div className="swiper">
       <Swiper
         modules={[Navigation]}
-        navigation
+        navigation={true}
         spaceBetween={50}
         slidesPerView={1}
       >

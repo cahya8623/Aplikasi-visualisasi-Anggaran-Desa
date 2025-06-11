@@ -9,15 +9,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import Expense from "@/component/Expenses";
 import Filter from "@/component/filter";
 import Navbar from "@/component/Navbar";
-import TableIncome from "@/component/tabelIncome";
-import { useState } from "react";
 import ComparationChart from "./Line";
-import TablePembiayaan from "@/component/TablePembiayaan";
-import TableBelanja from "@/component/TableBelanja";
-import Coba2 from "./Coba2";
+import TableInfo from "./TableInfo";
 
 ChartJS.register(
   CategoryScale,
@@ -29,33 +24,7 @@ ChartJS.register(
   Legend
 );
 
-interface DataItem {
-  jmlPendapatan: number;
-  Source: string;
-}
-
-interface Pembiayaan {
-  Penerimaan: number;
-  Pengeluaran: number;
-}
-
-interface Expenses {
-  kebutuhan: string;
-  total: number;
-  Realisasi: number;
-}
-
-interface Belanja {
-  Anggaran: number;
-  Belanja: string;
-}
-
 export default function APDES() {
-  const [incomeSubmit, setIncomeSubmit] = useState<DataItem[]>([]);
-  const [expenseSubmit, setExpenseSubmit] = useState<Expenses[]>([]);
-  const [Pembiayaan, setPembiayaan] = useState<Pembiayaan[]>([]);
-  const [Belanja, setBelanja] = useState<Belanja[]>([]);
-  //   const { selectedYear } = useYear();
   return (
     <div>
       <div className="main max-vh-100  ">
@@ -119,7 +88,7 @@ export default function APDES() {
 
         {/* </div> */}
 
-        <Coba2 />
+        <TableInfo />
 
         <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
         <ComparationChart />

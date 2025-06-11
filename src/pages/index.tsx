@@ -3,6 +3,7 @@ import logo from "@/asset/Kabupaten.png";
 import { Contact, HandCoins, IdCard } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import News from "@/component/News";
 
 export default function Coba() {
   return (
@@ -87,6 +88,10 @@ export default function Coba() {
               semangat,
             </p>
           </div>
+        </div>
+
+        <div className="box-swiper">
+          <News />
         </div>
       </div>
     </div>

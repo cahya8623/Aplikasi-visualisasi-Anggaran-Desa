@@ -107,7 +107,7 @@ export default function TableIncome({
   const start = (page - 1) * limit;
   const end = start + limit;
   return (
-    <div>
+    <div className="d-flex flex-column justify-content-center">
       <table className="table table-hover align-text-center  mt-1 ">
         <thead className="header table-info">
           <tr>
@@ -123,7 +123,7 @@ export default function TableIncome({
             <tr key={item.id}>
               <td>{(page - 1) * limit + index + 1}</td>
               {/* <td>{item.Kode}</td> */}
-              <td>{item.Belanja}</td>
+              <td>{item.Belanja.toLowerCase()}</td>
               <td>Rp.{item.Anggaran.toLocaleString()}</td>
               {showTable && (
                 <td>

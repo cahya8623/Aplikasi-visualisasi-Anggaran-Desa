@@ -390,12 +390,95 @@ ul p{
 
 
 
+.hover-box:hover{
+  z-index: 99999;
+  /* box-shadow: -2px 16px 15px -5px rgba(210, 210, 210, 0.75); */
+  /* transform: rotateY(20deg); */
+}
 .header {
   padding: 10px;
   text-align: center;
   background-color: aqua;
 }
+.box-swiper{
+  width: 1500px;
+  height: 500px;
+  margin-right: 200px;
+  padding-bottom: 100px;
+  border: 1px white solid;
+}
 
+.box-file {
+  width: 700px;
+  height: 500px;
+  border: 2px dashed #999;
+  border-radius: 8px;
+  background-color: #e6f7f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  text-align: center;
+  padding: 20px;
+}
+
+.upload-icon {
+  font-size: 40px;
+  color: #339989;
+}
+
+
+.box-file{
+  margin: 70px auto;
+
+}
+
+.box-file p {
+  margin: 0 ;
+  color: black;
+  font-weight: 500;
+}
+
+.box-file span {
+  font-size: 14px;
+  color: #666;
+}
+
+.box-file button {
+  background-color: #339989;
+  color: white;
+  border: none;
+  z-index: 999999;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.box-file button:hover {
+  background-color: #2a7c72;
+}
+
+
+
+.box-file input{
+  width: 70%;
+  height: 70%;
+  border: 1px solid black;
+  opacity: 0;
+  position: absolute;
+}
+
+.box-preview{
+
+  color: #0a0a0a;
+  font-size: 20px;
+  font-weight: 600;
+ 
+}
 .dropdown-menu li {
 position: relative;
 }

@@ -28,7 +28,7 @@ export default function Pemasukan() {
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
-      <div className="Home container-fluid vh-100 p-0 bg-light-subtle ">
+      <div className="Home container-fluid pb-2 p-0 bg-light-subtle ">
         <section className="shadow ps-4 p-2 mb-1 bg-white rounded">
           <h1 className="fw-bold text-secondary">Halaman Pendapatan</h1>
         </section>
@@ -40,7 +40,7 @@ export default function Pemasukan() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <div className="px-5">
+        <div className="d-flex flex-column justify-content-center px-5">
           <TableIncome
             isShow={false}
             setSubmit={setSubmit}

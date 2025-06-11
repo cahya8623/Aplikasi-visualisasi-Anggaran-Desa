@@ -60,6 +60,16 @@ export default function Sidebar() {
               Pembiayaan
             </Link>
           </li>
+          <li>
+            <Link
+              href="/Berita"
+              className={`nav-link  text-white ${
+                pathName === "/Berita" ? "clicked" : ""
+              }`}
+            >
+              Berita
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
