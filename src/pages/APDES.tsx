@@ -36,11 +36,11 @@ export default function APDES() {
         {/* Budget Notes */}
         {/* <Notes /> */}
 
-        <Filter />
-        <div style={{ width: "100vw", height: "300px" }}>
+        <div style={{ width: "100vw", height: "500px" }}>
+          <Filter />
           <DoughnutChart />
         </div>
-        <p className="mt-5 fs-5 text-center">
+        <p className="mt-5 fw-3 fs-5 text-center">
           Diagram di atas menunjukkan alokasi dana anggaran desa, menggambarkan
           bagaimana setiap pos anggaran dialokasikan untuk berbagai kebutuhan
           guna memastikan transparansi dan efektivitas dalam pengelolaan
@@ -90,7 +90,7 @@ export default function APDES() {
 
         <TableInfo />
 
-        <h1 className="mt-5">Perbandingan Anggaran Tahunan</h1>
+        <h1 className="mt-5 ms-3">Perbandingan Anggaran Tahunan</h1>
         <ComparationChart />
       </div>
     </div>

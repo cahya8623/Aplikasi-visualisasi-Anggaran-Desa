@@ -5,9 +5,13 @@ import TableBelanja from "@/component/TableBelanja";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
+// interface DataItem {
+//   jmlPendapatan: number;
+//   Sumber: string;
+// }
 interface DataItem {
-  jmlPendapatan: number;
-  Sumber: string;
+  Anggaran: number;
+  Belanja: string;
 }
 
 export default function Pemasukan() {
@@ -27,11 +31,10 @@ export default function Pemasukan() {
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
-      <div className="Home container-fluid vh-100 p-0 bg-light-subtle ">
-        <section className="shadow ps-4 p-2 mb-1 bg-white rounded">
-          <h1 className="fw-bold text-secondary">Halaman Belanja</h1>
-        </section>
-
+      <div
+        className="Belanja container-fluid p-0 bg-light-subtle "
+        style={{ height: "800" }}
+      >
         <button
           onClick={showModal}
           type="button"

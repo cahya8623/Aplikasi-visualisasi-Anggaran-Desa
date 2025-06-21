@@ -1,4 +1,3 @@
-import Button from "@/component/Button";
 import { adminContext } from "@/component/LoginContex";
 import Sidebar from "@/component/sidebar";
 import { ImageUp } from "lucide-react";
@@ -11,10 +10,10 @@ export default function Experiment() {
   const [Gambar, setGambar] = useState<File | null>(null);
   const [Preview, setPreview] = useState<string | null>(null);
   const [status, setStatus] = useState<status>("Browse");
-  const { setData, Data, setSubmit, Submit } = useContext(adminContext);
+  const { setData, setSubmit, Submit } = useContext(adminContext);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  //   console.log("Data : " + Data[0]);
+  const [Title, setTitle] = useState("");
+  const [Description, setDescription] = useState("");
 
   function HandleInput(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -35,10 +34,19 @@ export default function Experiment() {
   }, [Submit]);
 
   const HandleSumbit = async () => {
-    if (!Gambar) return;
+    if (!Gambar) {
+      alert("Pilih Gambar Terlebih Dahulu!!");
+      return;
+    }
+
+    if (Title === "") {
+      alert("Masukkan Dulu Judulnya!!");
+    } else if (Description === "") alert("Masukkan Dulu Deskripsinya!!");
 
     const formData = new FormData();
     formData.append("gambar", Gambar);
+    formData.append("title", Title);
+    formData.append("description", Description);
 
     try {
       const response = await fetch("http://localhost:3000/api/Image", {
@@ -60,12 +68,14 @@ export default function Experiment() {
     } finally {
       setSubmit(true);
       setStatus("Browse");
+      setDescription("");
+      setTitle("");
     }
   };
 
   const handleButtonClick = (e) => {
-    e.stopPropagation(); // cegah trigger box click
-    inputRef.current.click(); // buka file explorer
+    e.stopPropagation();
+    inputRef.current.click();
   };
 
   return (
@@ -76,62 +86,53 @@ export default function Experiment() {
           <h1 className="fw-bold text-secondary">Halaman Pendapatan</h1>
         </section>
 
-        <div className="box-file">
-          {Preview != null ? (
-            <div className="box-preview">
-              <Image src={Preview} width={300} height={300} alt="gamar" />
-            </div>
-          ) : (
-            <ImageUp size={100} strokeWidth={2} />
-          )}
-          <p>Drag and drop files here</p>
-          <span>-OR-</span>
-
-          {status === "Browse" ? (
-            <button type="button" onClick={handleButtonClick}>
-              Browse Files
-            </button>
-          ) : (
-            <button type="button" onClick={HandleSumbit}>
-              Simpan
-            </button>
-          )}
-
-          <input
-            type="file"
-            accept="image/*"
-            ref={inputRef}
-            onChange={HandleInput}
-          />
-        </div>
-
-        {/* {Preview != null ? (
-            <div className="box-preview">
-              <p>Uploaded Files</p>
-              <Image src={Preview} width={200} height={200} alt="gamar" />
-              <button onClick={HandleSumbit}>Simpan</button>
-            </div>
-          ) : null} */}
-
-        {/* <div className="d-flex flex-row ">
-          <div className="me-5">
-            {Preview != null ? (
-              <Image src={Preview} width={200} height={200} alt="gamar" />
-            ) : (
-              <p className="text-black">tidak ada data</p>
-            )}
+        <div className="d-flex ms-5">
+          <div className=" ms-5 d-flex gap-5 flex-column justify-content-center">
+            <input
+              type="text"
+              placeholder="Judul"
+              className="rounded bg-white text-dark"
+              value={Title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <textarea
+              value={Description}
+              className="text-dark input-berita"
+              placeholder="Deskripsi"
+              name=""
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
           </div>
 
-          {Data.map((item: Database, index) => (
-            <Image
-              key={index}
-              src={`/uploads/${item.gambar}`}
-              width={200}
-              height={200}
-              alt="gambar"
+          <div className="box-file">
+            {Preview != null ? (
+              <div className="box-preview">
+                <Image src={Preview} width={250} height={210} alt="gamar" />
+              </div>
+            ) : (
+              <ImageUp size={100} strokeWidth={2} />
+            )}
+            <p>Drag and drop files here</p>
+            <span>-OR-</span>
+
+            {status === "Browse" ? (
+              <button type="button" onClick={handleButtonClick}>
+                Browse Files
+              </button>
+            ) : (
+              <button type="button" onClick={HandleSumbit}>
+                Simpan
+              </button>
+            )}
+
+            <input
+              type="file"
+              accept="image/*"
+              ref={inputRef}
+              onChange={HandleInput}
             />
-          ))}
-        </div> */}
+          </div>
+        </div>
       </div>
     </div>
   );

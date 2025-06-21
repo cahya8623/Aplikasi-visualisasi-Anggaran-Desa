@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         const { year } = req.query;
 
         try {
-            let query = "SELECT id, Anggaran , Belanja ,  DATE_FORMAT(date, '%Y-%m-%d') AS date FROM belanja ";
+            let query = "SELECT id, Anggaran , Belanja ,Status,  DATE_FORMAT(date, '%Y-%m-%d') AS date FROM belanja ";
             const params = [];
 
             if (year) {
@@ -113,6 +113,29 @@ export default async function handler(req, res) {
         }
 
 
+    } else if (req.method === "PATCH") {
+
+        try {
+            const { id, status } = req.body;
+
+            if (typeof id !== "number" || (status !== 0 && status !== 1)) {
+                return res.status(400).json({ success: false, message: "Data tidak valid" });
+            }
+
+            const [result] = await pool.execute(
+                "UPDATE belanja SET Status = ? WHERE id = ?",
+                [status, id]
+            );
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ success: false, message: "Data tidak ditemukan" });
+            }
+
+            return res.status(200).json({ success: true, message: "Status berhasil diperbarui" });
+        } catch (error) {
+            console.error("Database Error:", error);
+            res.status(500).json({ success: false, message: "Gagal memperbarui status" });
+        }
     }
 
 

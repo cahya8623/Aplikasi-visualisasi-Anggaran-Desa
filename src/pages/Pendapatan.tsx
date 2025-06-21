@@ -28,11 +28,7 @@ export default function Pemasukan() {
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
-      <div className="Home container-fluid pb-2 p-0 bg-light-subtle ">
-        <section className="shadow ps-4 p-2 mb-1 bg-white rounded">
-          <h1 className="fw-bold text-secondary">Halaman Pendapatan</h1>
-        </section>
-
+      <div className="Home container-fluid  p-0 bg-light-subtle ">
         <button
           onClick={showModal}
           type="button"

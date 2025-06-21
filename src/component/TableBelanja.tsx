@@ -4,6 +4,7 @@ import { useYear } from "./ContexAPI";
 import ModalBoxBelanja, { useModal } from "./ModalBoxBelanja";
 
 type Databases = {
+  Status: number;
   id: number;
   Anggaran: number;
   // Kode: number;
@@ -23,12 +24,11 @@ type TableIncomeProps = {
 
 interface DataItem {
   Anggaran: number;
-  // Kode: number;
   Belanja: string;
 }
 
 export default function TableIncome({
-  showTable = false,
+  showTable = true,
   submit,
   setSubmit,
   isShow,
@@ -38,6 +38,32 @@ export default function TableIncome({
   const [data, setData] = useState<Databases[]>([]);
   const [inputValue, setInputValue] = useState("");
   const { selectedYear, confirm } = useYear();
+  const [lampuState, setLampuState] = useState<{ [key: number]: boolean }>({});
+  const [nyala, setNyala] = useState(true);
+  const toggleLampu = async (id: number) => {
+    const newStatus = !lampuState[id];
+    setNyala(!nyala);
+
+    setLampuState((prev) => ({
+      ...prev,
+      [id]: newStatus,
+    }));
+
+    try {
+      await fetch("/api/Belanja", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          status: newStatus ? 1 : 0, // kirim 1 kalau true, 0 kalau false
+        }),
+      });
+    } catch (error) {
+      console.error("Gagal update status:", error);
+    }
+  };
 
   useEffect(() => {
     const url = isShow
@@ -45,9 +71,18 @@ export default function TableIncome({
       : `http://localhost:3000/api/Belanja`;
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setData(data.data))
+      .then((data) => {
+        setData(data.data);
+        const initialLampuState = data.data.reduce((acc: any, item: any) => {
+          acc[item.id] = item.Status === 1;
+          return acc;
+        }, {});
+        setLampuState(initialLampuState);
+      })
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit, selectedYear, confirm]);
+  }, [submit, selectedYear, confirm, nyala]);
+
+  console.log("Lampu State:" + lampuState);
 
   const limit = 5;
   const maxVisible = 3;
@@ -77,7 +112,7 @@ export default function TableIncome({
     );
   };
 
-  function onClickDelete(id) {
+  function onClickDelete(id: number) {
     const confirmDelete = window.confirm(
       "Apakah Anda yakin ingin menghapus data ini?"
     );
@@ -99,7 +134,7 @@ export default function TableIncome({
       });
   }
 
-  function onClickEdit(item) {
+  function onClickEdit(item: number) {
     setInputValue(item);
     showModal();
   }
@@ -112,9 +147,9 @@ export default function TableIncome({
         <thead className="header table-info">
           <tr>
             <th scope="col">No</th>
-            {/* <th scope="col">Kode</th> */}
             <th scope="col">Belanja</th>
             <th scope="col">Anggaran</th>
+            <th scope="col">Status</th>
             {showTable && <th scope="col">Aksi</th>}
           </tr>
         </thead>
@@ -122,9 +157,31 @@ export default function TableIncome({
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
               <td>{(page - 1) * limit + index + 1}</td>
-              {/* <td>{item.Kode}</td> */}
               <td>{item.Belanja.toLowerCase()}</td>
               <td>Rp.{item.Anggaran.toLocaleString()}</td>
+              {showTable ? (
+                <td>
+                  <button
+                    className={lampuState[item.id] ? "ButtonColor" : "belum"}
+                    onClick={() => toggleLampu(item.id)}
+                  >
+                    {item.Status === 1
+                      ? "Sudah Terealisasi"
+                      : "Belum Terealisasi"}
+                  </button>
+                </td>
+              ) : (
+                <td>
+                  <button
+                    className={lampuState[item.id] ? "ButtonColor" : "belum"}
+                    disabled
+                  >
+                    {item.Status === 1
+                      ? "Sudah Terealisasi"
+                      : "Belum Terealisasi"}
+                  </button>
+                </td>
+              )}
               {showTable && (
                 <td>
                   <div className="gap-2 d-flex">

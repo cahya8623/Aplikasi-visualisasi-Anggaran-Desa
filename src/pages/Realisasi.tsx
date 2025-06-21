@@ -28,14 +28,11 @@ export default function Pengeluaran() {
   return (
     <div className="d-flex vw-100 vh-100">
       <Sidebar />
-      <div className="Home pb-3 bg-light-subtle vh-100">
-        <section className="ps-4 shadow p-2 mb-3 bg-white rounded">
-          <h1 className="fw-bold text-secondary">Halaman Realisasi</h1>
-        </section>
+      <div className="Home pb-3 bg-light-subtle ">
         <button
           onClick={showModal}
           type="button"
-          className=" ms-5 mb-3  btn btn-success"
+          className=" ms-5 mt-3 mb-3  btn btn-success"
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>

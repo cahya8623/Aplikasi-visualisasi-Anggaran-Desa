@@ -1,5 +1,6 @@
 import Navbar from "@/component/Navbar";
 import { Instagram } from "lucide-react";
+import Link from "next/link";
 
 export default function Kontak() {
   return (
@@ -15,10 +16,12 @@ export default function Kontak() {
           </p>
 
           <div className="Contacs">
-            <h5 className="ms-2">
-              <i className="me-2 bi bi-instagram"></i>
-              Instagram
-            </h5>
+            <Link href="https://www.instagram.com/prabowo/">
+              <h5 className="ms-2">
+                <i className="me-2 bi bi-instagram"></i>
+                Instagram
+              </h5>
+            </Link>
             <h5 className="bi bi-telegram"> Telegram</h5>
             <h5 className="bi bi-whatsapp"> Whatsapp</h5>
           </div>

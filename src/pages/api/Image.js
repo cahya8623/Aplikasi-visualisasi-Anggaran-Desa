@@ -49,14 +49,19 @@ export default async function handler(req, res) {
             await runMiddleware(req, res, upload.single('gambar'));
 
             const file = req.file;
+            const { title, description } = req.body;
             if (!file) {
                 return res.status(400).json({ success: false, message: 'Tidak ada file yang diupload' });
             }
 
-            // Simpan nama file ke database
+            if (title && description === "") {
+                return res.status(400).json({ success: false, message: 'Masukkan Title Atau Deskripsi' });
+            }
+
+
             const filename = file.filename;
-            const query = 'INSERT INTO gambar_produk (gambar) VALUES (?)';
-            const [result] = await pool.execute(query, [filename]);
+            const query = 'INSERT INTO gambar_produk (gambar,title,description) VALUES (?, ?, ?)';
+            const [result] = await pool.execute(query, [filename, title, description]);
 
             res.status(201).json({
                 success: true,
@@ -71,12 +76,26 @@ export default async function handler(req, res) {
         }
     }
     else if (req.method === 'GET') {
+        const { year } = req.query;
+
         try {
-            const [rows] = await pool.query('SELECT * FROM gambar_produk ORDER BY id DESC');
+            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, gambar FROM gambar_produk";
+            const params = [];
+
+            if (year) {
+                query += " WHERE YEAR(date) = ?";
+                params.push(year);
+            }
+
+            query += " ORDER BY date DESC, id DESC";
+
+            const [rows] = await pool.execute(query, params);
             res.status(200).json({ success: true, data: rows });
+
+
         } catch (error) {
-            console.error('DB Read Error:', error);
-            res.status(500).json({ success: false, message: 'Gagal mengambil data gambar', error: error.message });
+            console.error("Database Error:", error);
+            res.status(500).json({ success: false, message: "Gagal mengambil data" });
         }
     }
     else {

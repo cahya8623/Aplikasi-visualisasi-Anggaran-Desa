@@ -18,8 +18,8 @@ type Databases = {
   keterangan: string;
 };
 export default function DoughnutChart({
-  width = "40vw",
-  height = "50vh",
+  width = "70vw",
+  height = "70vh",
 }: DoughnutChartProps) {
   const [data, setData] = useState<Databases[]>([]);
   const { selectedYear } = useYear();

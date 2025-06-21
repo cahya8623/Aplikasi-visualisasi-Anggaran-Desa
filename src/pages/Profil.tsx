@@ -1,4 +1,6 @@
 import Navbar from "@/component/Navbar";
+import Image from "next/image";
+import logo from "@/asset/WhatsApp Image 2025-02-13 at 20.02.39.jpeg";
 
 export default function Profil() {
   return (
@@ -53,6 +55,10 @@ export default function Profil() {
           Karena merupakan tempat penyambutan Sang Prabu maka dikenal dngan
           Daerah Gendingan/nyanyian. Maka sampai dengan sekarang disebut dengan
           Desa Gending.
+        </div>
+        <div className="bagan">
+          <h1 className="mb-5 fs-italic fw-bold">Struktur Organisasi Desa</h1>
+          <Image alt="logo" src={logo} width={1190} height={700} />
         </div>
       </div>
     </div>

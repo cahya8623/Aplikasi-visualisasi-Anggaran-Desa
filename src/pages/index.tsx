@@ -91,7 +91,9 @@ export default function Coba() {
         </div>
 
         <div className="box-swiper">
+          <hr />
           <News />
+          <hr />
         </div>
       </div>
     </div>
