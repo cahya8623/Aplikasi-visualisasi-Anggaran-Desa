@@ -1,12 +1,10 @@
-import { adminContext } from "@/component/LoginContex";
 import ModalBoxPembiayaan, { useModal } from "@/component/ModalBoxPembiayaan";
 import Sidebar from "@/component/sidebar";
 import TablePembiayaan from "@/component/TablePembiayaan";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface DataItem {
-  Kode: number;
   Penerimaan: number;
   Pengeluaran: number;
 }
@@ -15,16 +13,18 @@ export default function Pembiayaan() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
 
-  const { login } = useContext(adminContext);
+  const [isReady, setIsReady] = useState(false);
   const router = useRouter();
-
   useEffect(() => {
-    if (!login) {
-      router.push("/login");
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    } else {
+      setIsReady(true);
     }
-  }, [login]);
+  }, []);
 
-  if (!login) return null;
+  if (!isReady) return null;
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />

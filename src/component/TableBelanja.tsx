@@ -40,6 +40,7 @@ export default function TableIncome({
   const { selectedYear, confirm } = useYear();
   const [lampuState, setLampuState] = useState<{ [key: number]: boolean }>({});
   const [nyala, setNyala] = useState(true);
+
   const toggleLampu = async (id: number) => {
     const newStatus = !lampuState[id];
     setNyala(!nyala);
@@ -57,7 +58,7 @@ export default function TableIncome({
         },
         body: JSON.stringify({
           id: id,
-          status: newStatus ? 1 : 0, // kirim 1 kalau true, 0 kalau false
+          status: newStatus ? 1 : 0,
         }),
       });
     } catch (error) {

@@ -14,16 +14,19 @@ interface DataItem {
 export default function Pengeluaran() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
-  const { login } = useContext(adminContext);
+
+  const [isReady, setIsReady] = useState(false);
   const router = useRouter();
-
   useEffect(() => {
-    if (!login) {
-      router.push("/login");
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    } else {
+      setIsReady(true);
     }
-  }, [login]);
+  }, []);
 
-  if (!login) return null;
+  if (!isReady) return null;
 
   return (
     <div className="d-flex vw-100 vh-100">

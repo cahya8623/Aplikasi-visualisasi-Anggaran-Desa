@@ -15,16 +15,18 @@ export default function Pemasukan() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
 
-  const { login } = useContext(adminContext);
-  const router = useRouter();
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (!login) {
-      router.push("/login");
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    } else {
+      setIsReady(true);
     }
-  }, [login]);
+  }, []);
 
-  if (!login) return null;
+  if (!isReady) return null;
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />

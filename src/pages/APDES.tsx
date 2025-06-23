@@ -41,10 +41,9 @@ export default function APDES() {
           <DoughnutChart />
         </div>
         <p className="mt-5 fw-3 fs-5 text-center">
-          Diagram di atas menunjukkan alokasi dana anggaran desa, menggambarkan
-          bagaimana setiap pos anggaran dialokasikan untuk berbagai kebutuhan
-          guna memastikan transparansi dan efektivitas dalam pengelolaan
-          keuangan desa
+          Diagram di atas menunjukkan presentase alokasi dana anggaran desa,
+          menggambarkan bagaimana setiap pos anggaran dialokasikan untuk
+          berbagai kebutuhan
         </p>
 
         {/* Rincian Anggaran */}

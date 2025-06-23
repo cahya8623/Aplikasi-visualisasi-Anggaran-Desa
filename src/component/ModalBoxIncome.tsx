@@ -42,13 +42,8 @@ export type ModalBoxProps = {
 };
 
 export default function ModalBoxIncome(props: ModalBoxProps) {
-  // const [Kode, setKode] = useState<number>(0);
   const [jmlPendapatan, setJmlPendapatan] = useState(0);
   const [Source, setSource] = useState("");
-
-  // const [Pendapatan, setPendapatan] = useState(false);
-  // console.log(Pendapatan);
-  console.log("Source : " + Source);
 
   const { setEdit, setConfirm } = useYear();
 
@@ -87,7 +82,6 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   ];
 
   useEffect(() => {
-    // setKode(props.selectedValue);
     setJmlPendapatan(props.selectedValue);
     setSource(props.selectedValue);
   }, [props.selectedValue]);

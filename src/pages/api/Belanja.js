@@ -10,7 +10,9 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+
 export default async function handler(req, res) {
+
     if (req.method === "GET") {
         const { year } = req.query;
 

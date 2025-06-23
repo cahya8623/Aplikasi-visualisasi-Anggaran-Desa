@@ -1,18 +1,52 @@
-import { adminContext } from "@/component/LoginContex";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setLogin } = useContext(adminContext);
 
-  async function onClickSubmit(e) {
+  // async function onClickSubmit(e) {
+  //   e.preventDefault();
+
+  //   // setAuth({ username, password });
+  //   if (!password && username) {
+  //     alert("Masukkan Dulu Passwordnya");
+  //     return;
+  //   } else if (!username && password) {
+  //     alert("Masukkan Dulu Usernamenya");
+  //   } else if (!username || !password) {
+  //     alert("Masukkan Dulu Password Dan Usernamenya");
+  //   }
+
+  //   try {
+  //     const response = await fetch("http://localhost:3000/api/login", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ username, password }),
+  //     });
+
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       setLogin(true);
+  //       setTimeout(() => {
+  //         router.push("/dashboard");
+  //       }, 100);
+  //     } else {
+  //       router.push("/login");
+
+  //       alert(data.message || "Gagal menyimpan data");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("Terjadi kesalahan, coba lagi!");
+  //   }
+  // }
+
+  const onClickSubmit = async (e) => {
     e.preventDefault();
 
-    // setAuth({ username, password });
     if (!password && username) {
       alert("Masukkan Dulu Passwordnya");
       return;
@@ -21,31 +55,21 @@ export default function LoginPage() {
     } else if (!username || !password) {
       alert("Masukkan Dulu Password Dan Usernamenya");
     }
+    const res = await fetch("/api/Auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
 
-    try {
-      const response = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+    const data = await res.json();
 
-      const data = await response.json();
-      if (response.ok) {
-        setLogin(true);
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 100);
-      } else {
-        router.push("/login");
-        // alert("Password Salah");
-        alert(data.message || "Gagal menyimpan data");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Terjadi kesalahan, coba lagi!");
+    if (res.ok) {
+      sessionStorage.setItem("token", data.token);
+      router.push("/dashboard");
+    } else {
+      alert(data.message);
     }
-  }
-
+  };
   return (
     <div className="wrap d-flex vh-100 vw-100 text-dark">
       <div className="login-box vh-25  rounded-5 p-3  m-auto ">

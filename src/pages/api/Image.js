@@ -79,7 +79,7 @@ export default async function handler(req, res) {
         const { year } = req.query;
 
         try {
-            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, gambar FROM gambar_produk";
+            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, gambar,title,description FROM gambar_produk";
             const params = [];
 
             if (year) {

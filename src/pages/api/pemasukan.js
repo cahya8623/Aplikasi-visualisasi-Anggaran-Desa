@@ -11,8 +11,10 @@ const pool = mysql.createPool({
 });
 
 export default async function handler(req, res) {
+
   if (req.method === "GET") {
     const { year } = req.query;
+
 
     try {
       let query = "SELECT id, amount,Uraian,  DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan ";

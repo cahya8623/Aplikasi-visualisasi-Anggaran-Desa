@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 import { useYear } from "./ContexAPI";
 import ModalBoxPembiayaan, { useModal } from "./ModalBoxPembiayaan";
@@ -22,7 +22,6 @@ type TableIncomeProps = {
 };
 
 interface DataItem {
-  // Kode: number;
   Penerimaan: number;
   Pengeluaran: number;
 }
@@ -78,7 +77,7 @@ export default function TableIncome({
     );
   };
 
-  function onClickDelete(id) {
+  function onClickDelete(id: number) {
     const confirmDelete = window.confirm(
       "Apakah Anda yakin ingin menghapus data ini?"
     );
@@ -100,7 +99,7 @@ export default function TableIncome({
       });
   }
 
-  function onClickEdit(item) {
+  function onClickEdit(item: number | SetStateAction<string>) {
     setInputValue(item);
     showModal();
   }

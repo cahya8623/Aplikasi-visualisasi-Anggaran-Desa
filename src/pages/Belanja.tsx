@@ -1,14 +1,9 @@
-import { adminContext } from "@/component/LoginContex";
 import ModalBoxBelanja, { useModal } from "@/component/ModalBoxBelanja";
 import Sidebar from "@/component/sidebar";
 import TableBelanja from "@/component/TableBelanja";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-// interface DataItem {
-//   jmlPendapatan: number;
-//   Sumber: string;
-// }
 interface DataItem {
   Anggaran: number;
   Belanja: string;
@@ -18,16 +13,18 @@ export default function Pemasukan() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
 
-  const { login } = useContext(adminContext);
+  const [isReady, setIsReady] = useState(false);
   const router = useRouter();
-
   useEffect(() => {
-    if (!login) {
-      router.push("/login");
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    } else {
+      setIsReady(true);
     }
-  }, [login]);
+  }, []);
 
-  if (!login) return null;
+  if (!isReady) return null;
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
