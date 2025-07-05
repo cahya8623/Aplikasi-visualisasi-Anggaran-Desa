@@ -54,7 +54,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         { value: "Bagi Hasil Bumdes", label: "Bagi Hasil Bumdes" },
         { value: "Pengelolaan Kas Desa", label: "Pengelolaan Kas Desa" },
         {
-          value: "Pengelolaan Tanah Kas Desa",
+          value: "Pengelolaan TKD",
           label: "Pengelolaan Tanah Kas Desa",
         },
       ],
@@ -66,11 +66,11 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         { value: "Bagi Hasil Pajak", label: "Bagi Hasil Pajak" },
         { value: "Alokasi Dana Desa", label: "Alokasi Dana Desa" },
         {
-          value: "Bantuan Keuangan Kabupaten",
+          value: "BK Kabupaten",
           label: "Bantuan Keuangan Kabupaten",
         },
         {
-          value: "Bantuan Keuangan Provinsi",
+          value: "BK Provinsi",
           label: "Bantuan Keuangan Provinsi",
         },
       ],

@@ -112,7 +112,6 @@ export default function TableIncome({
         <thead className="header table-info">
           <tr>
             <th scope="col">No</th>
-            {/* <th scope="col">Kode</th> */}
             <th scope="col">Penerimaan Pembiayaan</th>
             <th scope="col">Pengeluaran Pembiayaan</th>
             {showTable && <th scope="col">Aksi</th>}
@@ -122,7 +121,6 @@ export default function TableIncome({
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
               <td>{(page - 1) * limit + index + 1}</td>
-              {/* <td>{item.Kode}</td> */}
               <td>{item.Penerimaan.toLocaleString()}</td>
               <td>Rp.{item.Pengeluaran.toLocaleString()}</td>
               {showTable && (

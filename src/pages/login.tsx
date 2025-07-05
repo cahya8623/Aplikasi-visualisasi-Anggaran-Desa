@@ -7,6 +7,27 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  async function onClickSubmit() {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+      if (data.role === "bendahara") {
+        router.push("/Pendapatan");
+      } else if (data.role === "admin") {
+        router.push("/Berita");
+      }
+    } else {
+      alert(data.message);
+    }
+  }
+
   // async function onClickSubmit(e) {
   //   e.preventDefault();
 
@@ -44,32 +65,32 @@ export default function LoginPage() {
   //   }
   // }
 
-  const onClickSubmit = async (e) => {
-    e.preventDefault();
+  // const onClickSubmit = async (e) => {
+  //   e.preventDefault();
 
-    if (!password && username) {
-      alert("Masukkan Dulu Passwordnya");
-      return;
-    } else if (!username && password) {
-      alert("Masukkan Dulu Usernamenya");
-    } else if (!username || !password) {
-      alert("Masukkan Dulu Password Dan Usernamenya");
-    }
-    const res = await fetch("/api/Auth", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+  //   if (!password && username) {
+  //     alert("Masukkan Dulu Passwordnya");
+  //     return;
+  //   } else if (!username && password) {
+  //     alert("Masukkan Dulu Usernamenya");
+  //   } else if (!username || !password) {
+  //     alert("Masukkan Dulu Password Dan Usernamenya");
+  //   }
+  //   const res = await fetch("/api/Auth", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ username, password }),
+  //   });
 
-    const data = await res.json();
-
-    if (res.ok) {
-      sessionStorage.setItem("token", data.token);
-      router.push("/dashboard");
-    } else {
-      alert(data.message);
-    }
-  };
+  //   const data = await res.json();
+  //   console.log(data);
+  //   if (res.ok) {
+  //     sessionStorage.setItem("token", data.token);
+  //     router.push("/dashboard");
+  //   } else {
+  //     alert(data.message);
+  //   }
+  // };
   return (
     <div className="wrap d-flex vh-100 vw-100 text-dark">
       <div className="login-box vh-25  rounded-5 p-3  m-auto ">

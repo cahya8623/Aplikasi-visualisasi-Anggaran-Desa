@@ -14,12 +14,13 @@ interface DataItem {
 export default function Pemasukan() {
   const { isModalShow, closeModal, showModal } = useModal();
   const [submit, setSubmit] = useState<DataItem[]>([]);
-
   const [isReady, setIsReady] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (!token || role !== "bendahara") {
       router.replace("/login");
     } else {
       setIsReady(true);

@@ -12,8 +12,6 @@ export default async function handler(req, res) {
     const PASSWORD = process.env.PASSWORD;
     const SECRET_KEY = process.env.JWT_SECRET;
 
-    console.log("Password: " + process.env.PASSWORD)
-    console.log("Password Length: " + process.env.PASSWORD.length)
 
 
 

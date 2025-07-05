@@ -15,9 +15,11 @@ export default function Pemasukan() {
 
   const [isReady, setIsReady] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (!token || role !== "bendahara") {
       router.replace("/login");
     } else {
       setIsReady(true);
@@ -29,7 +31,7 @@ export default function Pemasukan() {
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
       <div
-        className="Belanja container-fluid p-0 bg-light-subtle "
+        className="Home container-fluid p-0 bg-light-subtle "
         style={{ height: "800" }}
       >
         <button

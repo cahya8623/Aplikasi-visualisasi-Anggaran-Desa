@@ -7,7 +7,6 @@ type Databases = {
   Status: number;
   id: number;
   Anggaran: number;
-  // Kode: number;
   Belanja: string;
   date: string;
 };
@@ -189,7 +188,7 @@ export default function TableIncome({
                     <button
                       onClick={() => onClickEdit(item.id)}
                       type="button"
-                      className="m-2 btn btn-primary"
+                      className="m-2 btn btn-primary "
                     >
                       <i className="bi bi-pencil-fill"></i> Edit
                     </button>

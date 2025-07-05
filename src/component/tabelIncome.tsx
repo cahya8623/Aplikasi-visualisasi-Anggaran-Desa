@@ -21,7 +21,6 @@ type TableIncomeProps = {
 };
 interface DataItem {
   jmlPendapatan: number;
-  // Kode: number;
   Source: string;
 }
 

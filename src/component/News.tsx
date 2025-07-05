@@ -28,18 +28,18 @@ export default function App() {
 
   return (
     <Swiper
-      spaceBetween={60}
+      spaceBetween={100}
       centeredSlides={false}
-      slidesPerView={3.5}
+      slidesPerView={3.4}
       autoplay={{
         delay: 9000,
         disableOnInteraction: false,
       }}
       pagination={true}
-      navigation={false}
+      navigation={true}
       modules={[Autoplay, Pagination, Navigation]}
       className=" position-absolute rounded"
-      style={{ left: "-5px", width: "110vw" }}
+      style={{ left: "-5px", width: "100vw" }}
     >
       {Data.map((item: Database, index) => (
         <SwiperSlide

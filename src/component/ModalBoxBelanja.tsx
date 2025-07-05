@@ -42,7 +42,6 @@ export type ModalBoxProps = {
 
 export default function ModalBoxExpense(props: ModalBoxProps) {
   const [Anggaran, setAnggaran] = useState<number>(0);
-  // const [Kode, setKode] = useState<number>(0);
   const [Belanja, setBelanja] = useState<string>("");
   const { setEdit, setConfirm } = useYear();
 
@@ -50,7 +49,6 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
 
   useEffect(() => {
     setAnggaran(props.selectedValue);
-    // setKode(props.selectedValue);
     setBelanja(props.selectedValue);
   }, [props.selectedValue]);
 
@@ -139,14 +137,6 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
               <form>
                 <div className="p-2 ">
                   <div className=" m-2">
-                    {/* <input
-                      type="text"
-                      onChange={(e) => setKode(parseInt(e.target.value))}
-                      className="rounded-5 mb-3 form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                      placeholder="Kode"
-                    /> */}
                     <input
                       type="text"
                       onChange={(e) => setBelanja(e.target.value)}

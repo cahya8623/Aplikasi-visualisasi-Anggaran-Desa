@@ -174,12 +174,6 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                       />
                     </div>
                   )}
-                  <input
-                    type="file"
-                    onChange={(e) => setImage(e.target.value)}
-                    className="rounded-5 form-control"
-                    placeholder={props.second}
-                  />
                 </div>
 
                 {props.ShowSubmit ? (

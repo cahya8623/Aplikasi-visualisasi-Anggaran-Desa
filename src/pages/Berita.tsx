@@ -8,6 +8,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 type status = "Browse" | "Submit";
+type Database = {
+  id: number;
+  date: string;
+  gambar: string;
+  title: string;
+  description: string;
+};
 
 export default function Experiment() {
   const [Gambar, setGambar] = useState<File | null>(null);
@@ -16,9 +23,11 @@ export default function Experiment() {
   const [Description, setDescription] = useState("");
   const [isReady, setIsReady] = useState(false);
   const [Title, setTitle] = useState("");
-  const { setData, setSubmit, Submit } = useContext(adminContext);
+  const [data, setData] = useState<Database[]>([]);
+  const { setSubmit, Submit } = useContext(adminContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [page, setPage] = useState(1);
 
   function HandleInput(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -81,14 +90,35 @@ export default function Experiment() {
       alert("Data Sudah Disimpan");
     }
   };
-
+  function onClickDelete(id: unknown) {
+    const confirmDelete = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (!confirmDelete) return;
+    fetch(`/api/Image?id=${id}`, { method: "DELETE" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal menghapus data.");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setData(data.filter((item) => item.id !== id));
+        alert("Data berhasil dihapus!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Terjadi kesalahan.");
+      });
+  }
   const handleButtonClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     inputRef.current.click();
   };
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (!token || role !== "admin") {
       router.replace("/login");
     } else {
       setIsReady(true);
@@ -97,15 +127,46 @@ export default function Experiment() {
 
   if (!isReady) return null;
 
+  const limit = 4;
+  const maxVisible = 3;
+  const totalPage = Math.ceil(data.length / limit);
+
+  const getPaginationRange = () => {
+    let startPage, endPage;
+    if (totalPage <= maxVisible) {
+      startPage = 1;
+      endPage = totalPage;
+    } else {
+      const middle = Math.floor(maxVisible / 2);
+      if (page <= middle + 1) {
+        startPage = 1;
+        endPage = maxVisible;
+      } else if (page + middle >= totalPage) {
+        startPage = totalPage - maxVisible + 1;
+        endPage = totalPage;
+      } else {
+        startPage = page - middle;
+        endPage = page + middle;
+      }
+    }
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
+    );
+  };
+
+  const start = (page - 1) * limit;
+  const end = start + limit;
+
   return (
     <div className=" w-100 d-flex vh-100">
       <Sidebar />
-      <div className="Home  container-fluid pb-2 p-0 bg-info ">
+      <div className="Home container-fluid pb-2 p-0 bg-info ">
         <Swiper spaceBetween={50} slidesPerView={1}>
           {/* Slide Pertama - Form Input */}
           <SwiperSlide>
-            <div className="d-flex me-5">
-              <div className="ms-5 d-flex gap-5 flex-column justify-content-center">
+            <div className="box-berita">
+              <div className=" d-flex gap-5 flex-column justify-content-center">
                 <input
                   type="text"
                   placeholder="Judul"
@@ -153,16 +214,108 @@ export default function Experiment() {
               </div>
             </div>
           </SwiperSlide>
-
           {/* Slide Kedua */}
           <SwiperSlide>
-            <div className="d-flex justify-content-center align-items-center vh-100">
-              <h1 className="text-white">Ini adalah Slide ke-2</h1>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="d-flex justify-content-center align-items-center vh-100">
-              <h1 className="text-white">Ini adalah Slide ke-2</h1>
+            <div className="slide-2">
+              <table className="table">
+                <thead>
+                  <tr className="text-center">
+                    <th scope="col">No</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Realisasi</th>
+                    <th scope="col">Deskripsi</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.slice(start, end).map((item: Database, index) => (
+                    <tr
+                      className="text-center  align-item-center"
+                      key={item.id}
+                    >
+                      <td>{(page - 1) * limit + index + 1}</td>
+                      <td>{item.date}</td>
+                      <td>{item.title}</td>
+                      <td>
+                        <div className="cobain">{item.description}</div>
+                      </td>
+                      <td>
+                        <Image
+                          className="gambar"
+                          src={`/uploads/${item.gambar}`}
+                          alt={`Foto ${index + 1}`}
+                          width={150}
+                          height={120}
+                        />
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => onClickDelete(item.id)}
+                          type="button"
+                          className="m-2 btn btn-danger"
+                        >
+                          <i className="bi bi-trash3-fill"></i> Hapus
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className="gap-3 me-5">
+                <button
+                  onClick={() => setPage(1)}
+                  disabled={page === 1}
+                  className={`p-2  bg-gray-200 border-0 ${
+                    page === 1 ? "" : "tombol"
+                  }`}
+                >
+                  &laquo;
+                </button>
+                <button
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={page === 1}
+                  className={`p-2  bg-gray-200 border-0 ${
+                    page === 1 ? "" : "tombol"
+                  }`}
+                >
+                  Prev
+                </button>
+
+                {getPaginationRange().map((numberPage) => (
+                  <button
+                    key={numberPage}
+                    onClick={() => setPage(numberPage)}
+                    className={`p-2 tombol border-0 ${
+                      numberPage === page ? "active" : "non-active"
+                    } `}
+                  >
+                    {numberPage}
+                  </button>
+                ))}
+
+                <button
+                  onClick={() =>
+                    setPage((prev) => Math.min(prev + 1, totalPage))
+                  }
+                  disabled={page >= totalPage}
+                  className={`p-2 bg-gray-200 border-0 ${
+                    page >= totalPage ? "" : "tombol"
+                  }`}
+                >
+                  Next
+                </button>
+                <button
+                  onClick={() => setPage(totalPage)}
+                  disabled={page >= totalPage}
+                  className={`p-2 bg-gray-200 border-0 ${
+                    page >= totalPage ? "" : "tombol"
+                  }`}
+                >
+                  &raquo;
+                </button>
+              </div>
             </div>
           </SwiperSlide>
         </Swiper>

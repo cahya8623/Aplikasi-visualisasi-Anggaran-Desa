@@ -1,4 +1,4 @@
 const bcrypt = require('bcrypt')
 
 
-bcrypt.hash('admin', 10).then(console.log);
+bcrypt.hash('admin123', 10).then(console.log);

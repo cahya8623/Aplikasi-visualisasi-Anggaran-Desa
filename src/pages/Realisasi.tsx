@@ -1,10 +1,8 @@
 import Expense from "@/component/Expenses";
-import { adminContext } from "@/component/LoginContex";
 import ModalBoxExpense, { useModal } from "@/component/ModalBoxExpense";
-// import ModalBoxExpense from "@/component/ModalBoxExpense";
 import Sidebar from "@/component/sidebar";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface DataItem {
   kebutuhan: string;
@@ -18,8 +16,9 @@ export default function Pengeluaran() {
   const [isReady, setIsReady] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (!token || role !== "bendahara") {
       router.replace("/login");
     } else {
       setIsReady(true);
