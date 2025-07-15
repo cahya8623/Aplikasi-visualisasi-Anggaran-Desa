@@ -60,7 +60,7 @@ export default async function handler(req, res) {
 
 
             const filename = file.filename;
-            const query = 'INSERT INTO gambar_produk (gambar,title,description) VALUES (?, ?, ?)';
+            const query = 'INSERT INTO berita (gambar,title,description) VALUES (?, ?, ?)';
             const [result] = await pool.execute(query, [filename, title, description]);
 
             res.status(201).json({
@@ -79,7 +79,7 @@ export default async function handler(req, res) {
         const { year } = req.query;
 
         try {
-            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, gambar FROM gambar_produk";
+            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, gambar FROM berita";
             const params = [];
 
             if (year) {
