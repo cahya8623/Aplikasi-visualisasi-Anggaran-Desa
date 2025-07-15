@@ -3,19 +3,23 @@ import { createContext, useContext, useState } from "react";
 type YearContextType = {
   selectedYear: string;
   setSelectedYear: (year: string) => void;
-  edit: string | number[];
-  setEdit: React.Dispatch<React.SetStateAction<string | number[]>>;
+  edit: EditType;
+  setEdit: React.Dispatch<React.SetStateAction<EditType>>;
   confirm: boolean;
   setConfirm: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+type EditType = {
+  [key: string]: string | number;
+};
+
 const YearContext = createContext<YearContextType | undefined>(undefined);
 
-export const YearProvider = ({ children }) => {
+export const YearProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedYear, setSelectedYear] = useState<string>(
     new Date().getFullYear().toString()
   );
-  const [edit, setEdit] = useState<string | number[]>([]);
+  const [edit, setEdit] = useState<EditType>({});
   const [confirm, setConfirm] = useState<boolean>(false);
   return (
     <YearContext.Provider

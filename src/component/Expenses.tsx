@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Button from "./Button";
-import ModalBox, { useModal } from "./ModalBoxExpense";
+import { useModal } from "./ModalBoxExpense";
 import ModalBoxExpense from "./ModalBoxExpense";
 import { useYear } from "./ContexAPI";
 
@@ -37,7 +36,7 @@ export default function Expense({
   const [data, setData] = useState<Databases[]>([]);
   const [inputValue, setInputValue] = useState("");
   const { selectedYear, confirm } = useYear();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage] = useState(1);
   const { isModalShow, closeModal, showModal } = useModal();
   const [selectedKeterangan, setSelectedKeterangan] = useState(null);
 
@@ -51,7 +50,7 @@ export default function Expense({
       .catch((error) => console.error("Error fetching data:", error));
   }, [submit, selectedYear, confirm]);
 
-  function onClickEdit(item) {
+  function onClickEdit(item: number) {
     setInputValue(item);
     showModal();
   }
@@ -85,11 +84,7 @@ export default function Expense({
     );
   };
 
-  function handleClick() {
-    setPage(page);
-    setCurrentPage(page);
-  }
-  function onClickDelete(id) {
+  function onClickDelete(id: number) {
     const confirmDelete = window.confirm(
       "Apakah Anda yakin ingin menghapus data ini?"
     );

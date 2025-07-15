@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 
 import { useYear } from "./ContexAPI";
@@ -7,7 +8,6 @@ type Databases = {
   Status: number;
   id: number;
   Anggaran: number;
-  // Kode: number;
   Belanja: string;
   date: string;
 };
@@ -40,6 +40,7 @@ export default function TableIncome({
   const { selectedYear, confirm } = useYear();
   const [lampuState, setLampuState] = useState<{ [key: number]: boolean }>({});
   const [nyala, setNyala] = useState(true);
+
   const toggleLampu = async (id: number) => {
     const newStatus = !lampuState[id];
     setNyala(!nyala);
@@ -57,7 +58,7 @@ export default function TableIncome({
         },
         body: JSON.stringify({
           id: id,
-          status: newStatus ? 1 : 0, // kirim 1 kalau true, 0 kalau false
+          status: newStatus ? 1 : 0,
         }),
       });
     } catch (error) {
@@ -134,7 +135,7 @@ export default function TableIncome({
       });
   }
 
-  function onClickEdit(item: number) {
+  function onClickEdit(item: any) {
     setInputValue(item);
     showModal();
   }
@@ -188,7 +189,7 @@ export default function TableIncome({
                     <button
                       onClick={() => onClickEdit(item.id)}
                       type="button"
-                      className="m-2 btn btn-primary"
+                      className="m-2 btn btn-primary "
                     >
                       <i className="bi bi-pencil-fill"></i> Edit
                     </button>

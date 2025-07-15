@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useYear } from "./ContexAPI";
 
@@ -43,7 +44,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
   const [kebutuhan, setKebutuhan] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
   const [Realisasi, setRealisasi] = useState<number>(0);
-  const [Image, setImage] = useState<string>("");
+  // const [Image, setImage] = useState<string>("");
   const { setEdit, setConfirm } = useYear();
 
   console.log("Image : " + Image);
@@ -104,7 +105,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     } else if (
       isNaN(total) ||
       typeof kebutuhan !== "string" ||
-      typeof Realisasi === "string"
+      isNaN(Realisasi)
     ) {
       return alert("Isi Data Sesuai Format");
     }
@@ -124,8 +125,6 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     } catch (error) {
       console.error("Error:", error);
       alert("Terjadi kesalahan, coba lagi!");
-    } finally {
-      alert("Data Sudah Ditambahkan");
     }
   };
 
@@ -164,22 +163,16 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
                     />
                   </div>
                   {props.ShowInput && (
-                    <div className=" m-2 form-group">
+                    <div className=" m-2 ">
                       <input
+                        type="text"
                         onChange={(e) => setRealisasi(parseInt(e.target.value))}
-                        typeof="text"
                         className="rounded-5 form-control"
                         id="exampleInputPassword1"
                         placeholder="Realisasi"
                       />
                     </div>
                   )}
-                  <input
-                    type="file"
-                    onChange={(e) => setImage(e.target.value)}
-                    className="rounded-5 form-control"
-                    placeholder={props.second}
-                  />
                 </div>
 
                 {props.ShowSubmit ? (

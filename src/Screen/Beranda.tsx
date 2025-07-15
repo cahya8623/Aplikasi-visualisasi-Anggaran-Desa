@@ -1,19 +1,21 @@
-import { adminContext } from "@/component/LoginContex";
 import Pendapatan from "@/pages/Pendapatan";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Beranda() {
-  const { login } = useContext(adminContext);
   const router = useRouter();
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (!login) {
-      router.push("/login");
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    } else {
+      setIsReady(true);
     }
-  }, [login]);
+  }, []);
 
-  if (!login) return null;
+  if (!isReady) return null;
 
   return (
     <div className="vh-100">

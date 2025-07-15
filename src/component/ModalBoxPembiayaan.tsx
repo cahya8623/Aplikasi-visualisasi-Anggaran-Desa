@@ -137,15 +137,6 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
               <form>
                 <div className="p-2 ">
                   <div className=" m-2">
-                    {/* <input
-                      type="text"
-                      value={props.ShowValue ? setKode.Kode : null}
-                      onChange={(e) => setKode(parseInt(e.target.value))}
-                      className="rounded-5 mb-3 form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                      placeholder="Kode"
-                    /> */}
                     <input
                       type="text"
                       //   value={props.ShowValue ? Penerimaan.amount : null}
@@ -164,20 +155,6 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                       aria-describedby="emailHelp"
                       placeholder="Pengeluaran Dana"
                     />
-
-                    {/* <select
-                      value={Pengeluaran}
-                      onMouseLeave={() => setPendapatan(false)}
-                      onChange={(e) => setPengeluaran(parseInt(e.target.value))}
-                    >
-                      <option
-                        onClick={() => setPendapatan(true)}
-                        value="Pendapatan Lain-Lain"
-                      >
-                        Pendapatan Lain-Lain
-                      </option>
-                      <option value="Dana Desa">Dana Desa</option>
-                    </select> */}
                   </div>
                 </div>
 

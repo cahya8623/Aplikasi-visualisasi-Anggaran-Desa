@@ -7,7 +7,7 @@ import News from "@/component/News";
 
 export default function Coba() {
   return (
-    <div>
+    <div className="container-fluid p-0 m-0">
       <Navbar />
       <div className="background"> </div>
       <h1 className="Heading">
@@ -18,7 +18,7 @@ export default function Coba() {
         Sumber informasi terbaru tentang pemerintahan di Desa Gending
       </h5>
 
-      <div className="vw-100 bg-dark pt-5 ">
+      <div className="w-100 bg-dark pt-5 ">
         <hr className="line" />
         <div className="hero-1">
           <h1>JELAJAHI DESA</h1>
@@ -31,30 +31,30 @@ export default function Coba() {
         </div>
         <hr className="line" style={{ marginLeft: "39%" }} />
 
-        <div className="vw-100 p-5 d-flex justify-content-center gap-3 mb-5">
+        <div className="w-100 p-5 d-flex justify-content-center gap-3 mb-5">
           <Link href="/Profil">
             <div className="square ">
-              <IdCard size={135} strokeWidth={1} />
+              <IdCard stroke="whitesmoke" size={135} strokeWidth={1} />
               <p>Profil Desa</p>
             </div>
           </Link>
 
           <Link href="/Kontak">
             <div className="square">
-              <Contact size={130} strokeWidth={1} />
+              <Contact stroke="whitesmoke" size={130} strokeWidth={1} />
               <p className="mt-2">Kontak</p>
             </div>
           </Link>
 
           <Link href="/APDES">
             <div className="square">
-              <HandCoins size={135} strokeWidth={1} />
+              <HandCoins stroke="whitesmoke" size={135} strokeWidth={1} />
               <p className="mt-2">APBD</p>
             </div>
           </Link>
         </div>
 
-        <div className="vw-100 bg-dark p-5 ms-5 d-flex justify-content-around">
+        <div className="w-100 bg-dark p-5  d-flex justify-content-around">
           <div
             style={{
               width: "410px",
@@ -70,9 +70,9 @@ export default function Coba() {
           >
             <Image src={logo} alt="logo desa" width={250} height={300} />
           </div>
-          <div className="vw-25 d-flex justify-content-center flex-column">
+          <div className="w-50 d-flex justify-content-center flex-column">
             <h1 className="fw-bold text-info">Sambutan Kepala Desa</h1>
-            <p className="w-75 lh-lg">
+            <p className="w-100 lh-lg">
               <span className="fs-5 fw-bold">
                 Assalamu Alaikum Warohmatullahi Wabarakatu
               </span>{" "}
@@ -91,9 +91,7 @@ export default function Coba() {
         </div>
 
         <div className="box-swiper">
-          <hr />
           <News />
-          <hr />
         </div>
       </div>
     </div>

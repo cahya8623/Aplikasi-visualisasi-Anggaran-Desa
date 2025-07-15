@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useYear } from "./ContexAPI";
 import Select from "react-select";
@@ -37,18 +38,13 @@ export type ModalBoxProps = {
   submit: DataItem[];
   ShowValue: boolean;
   ShowSubmit: boolean;
-  selectedValue?: string | number;
+  selectedValue?: any;
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
 };
 
 export default function ModalBoxIncome(props: ModalBoxProps) {
-  // const [Kode, setKode] = useState<number>(0);
   const [jmlPendapatan, setJmlPendapatan] = useState(0);
   const [Source, setSource] = useState("");
-
-  // const [Pendapatan, setPendapatan] = useState(false);
-  // console.log(Pendapatan);
-  console.log("Source : " + Source);
 
   const { setEdit, setConfirm } = useYear();
 
@@ -59,7 +55,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         { value: "Bagi Hasil Bumdes", label: "Bagi Hasil Bumdes" },
         { value: "Pengelolaan Kas Desa", label: "Pengelolaan Kas Desa" },
         {
-          value: "Pengelolaan Tanah Kas Desa",
+          value: "Pengelolaan TKD",
           label: "Pengelolaan Tanah Kas Desa",
         },
       ],
@@ -71,11 +67,11 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         { value: "Bagi Hasil Pajak", label: "Bagi Hasil Pajak" },
         { value: "Alokasi Dana Desa", label: "Alokasi Dana Desa" },
         {
-          value: "Bantuan Keuangan Kabupaten",
+          value: "BK Kabupaten",
           label: "Bantuan Keuangan Kabupaten",
         },
         {
-          value: "Bantuan Keuangan Provinsi",
+          value: "BK Provinsi",
           label: "Bantuan Keuangan Provinsi",
         },
       ],
@@ -87,9 +83,8 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   ];
 
   useEffect(() => {
-    // setKode(props.selectedValue);
-    setJmlPendapatan(props.selectedValue);
-    setSource(props.selectedValue);
+    setJmlPendapatan(Number(props.selectedValue || 0));
+    setSource(String(props.selectedValue || ""));
   }, [props.selectedValue]);
 
   const onClickEdit = async (
@@ -132,8 +127,12 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (jmlPendapatan <= 0 || Source === "") {
+    if ((jmlPendapatan <= 0 || isNaN(jmlPendapatan)) && Source === "") {
       return alert("Masukkan Data Terlebih Dahulu");
+    } else if (jmlPendapatan <= 0) {
+      return alert("Masukkan Anggaran Terlebih Dahulu");
+    } else if (Source === "") {
+      return alert("Pilih Sumber Pendapatan Terlebih Dahulu");
     } else if (isNaN(jmlPendapatan) || typeof Source !== "string") {
       return alert("Masukkan Data Sesuai Format");
     }
@@ -144,11 +143,8 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
         body: JSON.stringify({ jmlPendapatan, Source }),
       });
 
-      const data = await response.json();
       if (response.ok) {
         props.setSubmit((item) => [...item, { jmlPendapatan, Source }]);
-      } else {
-        alert(data.message || "Gagal menyimpan data");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -156,34 +152,32 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
     } finally {
       setSource("");
       setJmlPendapatan(0);
-      // setKode(0);
-      alert("Data Sudah Ditambahkan");
     }
   };
 
   const customStyles = {
-    control: (base) => ({
+    control: (base: any) => ({
       ...base,
       backgroundColor: "#000",
       color: "#fff",
       borderColor: "#444",
     }),
-    menu: (base) => ({
+    menu: (base: any) => ({
       ...base,
       backgroundColor: "#2e2e2e",
       color: "#fff",
     }),
-    singleValue: (base) => ({
+    singleValue: (base: any) => ({
       ...base,
       color: "#fff",
     }),
-    option: (base, state) => ({
+    option: (base: any, state: any) => ({
       ...base,
       backgroundColor: state.isFocused ? "#333" : "#000",
       color: "#fff",
       cursor: "pointer",
     }),
-    groupHeading: (base) => ({
+    groupHeading: (base: any) => ({
       ...base,
       color: "#fffff",
       fontWeight: "bolder",
@@ -209,18 +203,9 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
               <form>
                 <div className="p-2 ">
                   <div className=" m-2">
-                    {/* <input
-                      type="text"
-                      value={props.ShowValue ? setKode.Kode : null}
-                      onChange={(e) => setKode(parseInt(e.target.value))}
-                      className="rounded-5 mb-3 form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                      placeholder="Kode"
-                    /> */}
                     <input
                       type="text"
-                      value={props.ShowValue ? jmlPendapatan.amount : null}
+                      value={props.ShowValue ? jmlPendapatan : undefined}
                       onChange={(e) =>
                         setJmlPendapatan(
                           parseInt(e.target.value.toLocaleString())
@@ -242,7 +227,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
                           .flatMap((group) => group.options)
                           .find((opt) => opt.value === Source)}
                         onChange={(selectedOption) =>
-                          setSource(selectedOption.value)
+                          setSource(selectedOption?.value ?? "")
                         }
                         placeholder="-- Pilih --"
                       />

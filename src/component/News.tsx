@@ -6,6 +6,8 @@ import Image from "next/image";
 type Database = {
   id: number;
   gambar: string;
+  title: string;
+  description: string;
 };
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -16,7 +18,6 @@ import { useYear } from "./ContexAPI";
 export default function App() {
   const { selectedYear, confirm } = useYear();
   const { Data, setSubmit, Submit, setData } = useContext(adminContext);
-
   useEffect(() => {
     setSubmit(false);
     fetch(`http://localhost:3000/api/Image?year=${selectedYear}`)
@@ -27,31 +28,35 @@ export default function App() {
 
   return (
     <Swiper
-      spaceBetween={280}
+      spaceBetween={100}
       centeredSlides={false}
-      slidesPerView={4}
+      slidesPerView={3.4}
       autoplay={{
-        delay: 2500,
+        delay: 9000,
         disableOnInteraction: false,
       }}
       pagination={true}
-      navigation={false}
+      navigation={true}
       modules={[Autoplay, Pagination, Navigation]}
-      className=" me-5 position-absolute"
-      style={{ left: "-100px", width: "110%" }}
+      className=" position-absolute rounded"
+      style={{ left: "-5px", width: "100vw" }}
     >
       {Data.map((item: Database, index) => (
         <SwiperSlide
-          className="hover-box d-flex flex-column justify-content-center align-center"
+          className=" hover-box d-flex flex-column justify-content-center align-center"
           key={index}
         >
-          <Image
-            className=""
-            src={`/uploads/${item.gambar}`}
-            alt={`Foto ${index + 1}`}
-            width={550}
-            height={450}
-          />
+          <div className="Box-Gambar">
+            <Image
+              className="gambar"
+              src={`/uploads/${item.gambar}`}
+              alt={`Foto ${index + 1}`}
+              width={400}
+              height={300}
+            />
+            <h1 className="text-center">{item.title}</h1>
+            <p>{item.description}</p>
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>
