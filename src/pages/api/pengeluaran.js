@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         const { year } = req.query;
 
         try {
-            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, kebutuhan, expense, Realisasi FROM pengeluaran";
+            let query = "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') as date, kebutuhan, expense, Realisasi FROM realisasi";
             const params = [];
 
             if (year) {
@@ -38,6 +38,7 @@ export default async function handler(req, res) {
 
     else if (req.method === "POST") {
         try {
+
             const { kebutuhan, total, Realisasi } = req.body;
 
 
@@ -48,7 +49,7 @@ export default async function handler(req, res) {
 
             }
             const [result] = await pool.execute(
-                "INSERT INTO pengeluaran(kebutuhan, expense,Realisasi) VALUES (?, ?,?)",
+                "INSERT INTO realisasi(kebutuhan, expense,Realisasi) VALUES (?, ?,?)",
                 [kebutuhan, total, Realisasi]
             );
 
@@ -69,7 +70,7 @@ export default async function handler(req, res) {
             console.log(id)
             try {
 
-                const result = await pool.query("DELETE FROM pengeluaran WHERE id = ?", [id]);
+                const result = await pool.query("DELETE FROM realisasi WHERE id = ?", [id]);
 
                 if (result[0].affectedRows === 0) {
                     return res.status(404).json({ message: "Data tidak ditemukan" });
@@ -94,14 +95,14 @@ export default async function handler(req, res) {
         } else if (
             isNaN(total) ||
             typeof kebutuhan !== "string" ||
-            typeof Realisasi === "string"
+            isNaN(Realisasi)
         ) {
             return alert("Isi Data Sesuai Format");
         }
 
         try {
             const [result] = await pool.execute(
-                "UPDATE pengeluaran SET kebutuhan = ?, expense = ?, Realisasi = ? WHERE id = ?",
+                "UPDATE realisasi SET kebutuhan = ?, expense = ?, Realisasi = ? WHERE id = ?",
                 [kebutuhan, total, Realisasi, id]
             );
 

@@ -1,9 +1,8 @@
-import { adminContext } from "@/component/LoginContex";
 import ModalBoxIncome, { useModal } from "@/component/ModalBoxIncome";
 import Sidebar from "@/component/sidebar";
 import TableIncome from "@/component/tabelIncome";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface DataItem {
   jmlPendapatan: number;

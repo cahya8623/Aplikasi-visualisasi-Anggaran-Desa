@@ -1,4 +1,5 @@
-import { SetStateAction, useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 
 import { useYear } from "./ContexAPI";
 import ModalBoxPembiayaan, { useModal } from "./ModalBoxPembiayaan";
@@ -99,7 +100,7 @@ export default function TableIncome({
       });
   }
 
-  function onClickEdit(item: number | SetStateAction<string>) {
+  function onClickEdit(item: any) {
     setInputValue(item);
     showModal();
   }

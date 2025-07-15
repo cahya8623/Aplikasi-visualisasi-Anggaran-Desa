@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 
 import { useYear } from "./ContexAPI";
@@ -134,7 +135,7 @@ export default function TableIncome({
       });
   }
 
-  function onClickEdit(item: number) {
+  function onClickEdit(item: any) {
     setInputValue(item);
     showModal();
   }

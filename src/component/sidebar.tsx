@@ -14,11 +14,17 @@ export default function Sidebar() {
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
+
+  function onClickLogOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    window.location.href = "/login";
+  }
   return (
     <div className="vh-100 position-fixed">
       <div
         className="position-static d-flex vh-100 flex-column flex-shrink-0 p-3 text-white bg-dark"
-        style={{ width: "250px" }}
+        style={{ width: "900px" }}
       >
         <Link
           href="/"
@@ -26,7 +32,7 @@ export default function Sidebar() {
         >
           <ShieldUser size={50} />
           <span className="fs-3 " style={{ fontWeight: "700" }}>
-            ADMIN
+            DASHBOARD
           </span>
         </Link>
         <hr />
@@ -87,6 +93,10 @@ export default function Sidebar() {
             </Link>
           </li>
         </ul>
+
+        <button className="Logout" onClick={onClickLogOut}>
+          Log Out
+        </button>
       </div>
     </div>
   );

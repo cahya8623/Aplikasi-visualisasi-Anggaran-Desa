@@ -28,26 +28,27 @@ export default function APDES() {
   return (
     <div>
       <div className="main max-vh-100  ">
-        {/* Navbar */}
-        <Navbar />
+        <div className="p-3 ps-2 pb-1">
+          {/* Navbar */}
+          <Navbar />
 
-        {/* Box Content */}
+          {/* Box Content */}
 
-        {/* Budget Notes */}
-        {/* <Notes /> */}
+          {/* Budget Notes */}
+          {/* <Notes /> */}
 
-        <div style={{ width: "100vw", height: "500px" }}>
-          <Filter />
-          <DoughnutChart />
-        </div>
-        <p className="mt-5 fw-3 fs-5 text-center">
-          Diagram di atas menunjukkan presentase alokasi dana anggaran desa,
-          menggambarkan bagaimana setiap pos anggaran dialokasikan untuk
-          berbagai kebutuhan
-        </p>
+          <div style={{ width: "100vw", height: "500px" }}>
+            <Filter />
+            <DoughnutChart />
+          </div>
+          <p className="mt-5 fw-3 fs-5 text-center">
+            Diagram di atas menunjukkan presentase alokasi dana anggaran desa,
+            menggambarkan bagaimana setiap pos anggaran dialokasikan untuk
+            berbagai kebutuhan
+          </p>
 
-        {/* Rincian Anggaran */}
-        {/* <div className="vw-100 d-flex flex-column align-center ps-5 justify-content-center">
+          {/* Rincian Anggaran */}
+          {/* <div className="vw-100 d-flex flex-column align-center ps-5 justify-content-center">
           <div className="p-1 px-5 text-center" style={{ width: "90vw" }}>
             <h1 className="my-4">Realisasi</h1>
             <Expense
@@ -85,12 +86,15 @@ export default function APDES() {
           </div>
           {/* Pie Chart */}
 
-        {/* </div> */}
+          {/* </div> */}
 
-        <TableInfo />
+          <TableInfo />
 
-        <h1 className="mt-5 ms-3">Perbandingan Anggaran Tahunan</h1>
-        <ComparationChart />
+          <h1 className="ms-3" style={{ marginTop: "150px" }}>
+            Perbandingan Anggaran Tahunan
+          </h1>
+          <ComparationChart />
+        </div>
       </div>
     </div>
   );

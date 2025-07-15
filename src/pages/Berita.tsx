@@ -127,7 +127,7 @@ export default function Experiment() {
 
   if (!isReady) return null;
 
-  const limit = 4;
+  const limit = 3;
   const maxVisible = 3;
   const totalPage = Math.ceil(data.length / limit);
 
@@ -224,7 +224,7 @@ export default function Experiment() {
                     <th scope="col">Tanggal</th>
                     <th scope="col">Realisasi</th>
                     <th scope="col">Deskripsi</th>
-                    <th scope="col">Foto</th>
+                    <th scope="col">Dokumentasi</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
@@ -246,7 +246,7 @@ export default function Experiment() {
                           src={`/uploads/${item.gambar}`}
                           alt={`Foto ${index + 1}`}
                           width={150}
-                          height={120}
+                          height={190}
                         />
                       </td>
                       <td>

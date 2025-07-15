@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
         try {
             const [rows] = await pool.execute(
-                "SELECT YEAR(date) AS tahun, DATE_FORMAT(date, '%M') AS bulan, amount FROM pemasukan WHERE YEAR(date) = ? ORDER BY YEAR(date), MONTH(date)",
+                "SELECT YEAR(date) AS tahun, DATE_FORMAT(date, '%M') AS bulan, amount FROM pendapatan WHERE YEAR(date) = ? ORDER BY YEAR(date), MONTH(date)",
                 [year]
             );
             res.status(200).json({ success: true, data: rows });

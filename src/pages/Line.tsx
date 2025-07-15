@@ -61,7 +61,12 @@ export default function ComparationChart() {
   return (
     <div
       className="d-flex justify-content-center"
-      style={{ width: "1300px", height: "550px", padding: "30px" }}
+      style={{
+        width: "1200px",
+        padding: "20px",
+        paddingBottom: "20px",
+        height: "450px",
+      }}
     >
       <Line data={data} options={options} />
     </div>

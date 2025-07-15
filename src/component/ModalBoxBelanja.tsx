@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useYear } from "./ContexAPI";
 
@@ -36,16 +37,17 @@ export type ModalBoxProps = {
   submit: DataItem[];
   ShowValue: boolean;
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
-  selectedValue?: string | number;
+  selectedValue?: any;
   ShowSubmit: boolean;
 };
 
 export default function ModalBoxExpense(props: ModalBoxProps) {
-  const [Anggaran, setAnggaran] = useState<number>(0);
-  const [Belanja, setBelanja] = useState<string>("");
+  const [Anggaran, setAnggaran] = useState(0);
+  const [Belanja, setBelanja] = useState("");
   const { setEdit, setConfirm } = useYear();
 
-  // console.log("kode " + Kode);
+  console.log("Anggaran : " + Anggaran);
+  console.log("Belanja : " + Belanja);
 
   useEffect(() => {
     setAnggaran(props.selectedValue);
@@ -60,7 +62,11 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     if (Anggaran <= 0 || Belanja === "") {
       alert("Isi Data Terlebih Dahulu");
       return;
-    } else if (typeof Anggaran === "string" || typeof Belanja !== "string") {
+    } else if (
+      isNaN(Anggaran) ||
+      typeof Belanja !== "string" ||
+      !/^[A-Za-z\s]+$/.test(Belanja)
+    ) {
       return alert("Isi Data Sesuai Format");
     }
 
@@ -92,12 +98,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
 
   const onClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (Anggaran <= 0 || Belanja === "") {
-      alert("Isi Data Terlebih Dahulu");
-      return;
-    } else if (typeof Anggaran === "string" || typeof Belanja !== "string") {
-      return alert("Isi Data Sesuai Format");
-    }
+
     try {
       const response = await fetch("http://localhost:3000/api/Belanja", {
         method: "POST",
@@ -113,9 +114,9 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Terjadi kesalahan, coba lagi!");
+      alert("dataTerjadi kesalahan, coba lagi!");
     } finally {
-      alert("Data Sudah Ditambahkan");
+      // alert("Data Sudah Ditambahkan");
     }
   };
 

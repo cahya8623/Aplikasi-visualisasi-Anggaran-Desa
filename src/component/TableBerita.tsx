@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useYear } from "./ContexAPI";
-import ModalBoxBelanja, { useModal } from "./ModalBoxBelanja";
+import { useModal } from "./ModalBoxBelanja";
 import ModalBoxBerita from "./ModalBoxBerita";
 
 type Databases = {

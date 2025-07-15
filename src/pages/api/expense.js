@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
         try {
             const [rows] = await pool.execute(
-                " SELECT SUM(expense) AS total, kebutuhan FROM pengeluaran WHERE YEAR(date) = ? GROUP BY kebutuhan ORDER BY total DESC LIMIT 1",
+                " SELECT SUM(expense) AS total, kebutuhan FROM realisasi WHERE YEAR(date) = ? GROUP BY kebutuhan ORDER BY total DESC LIMIT 1",
                 [year]
             );
             res.status(200).json({ success: true, data: rows });

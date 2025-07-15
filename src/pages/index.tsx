@@ -34,21 +34,21 @@ export default function Coba() {
         <div className="w-100 p-5 d-flex justify-content-center gap-3 mb-5">
           <Link href="/Profil">
             <div className="square ">
-              <IdCard size={135} strokeWidth={1} />
+              <IdCard stroke="whitesmoke" size={135} strokeWidth={1} />
               <p>Profil Desa</p>
             </div>
           </Link>
 
           <Link href="/Kontak">
             <div className="square">
-              <Contact size={130} strokeWidth={1} />
+              <Contact stroke="whitesmoke" size={130} strokeWidth={1} />
               <p className="mt-2">Kontak</p>
             </div>
           </Link>
 
           <Link href="/APDES">
             <div className="square">
-              <HandCoins size={135} strokeWidth={1} />
+              <HandCoins stroke="whitesmoke" size={135} strokeWidth={1} />
               <p className="mt-2">APBD</p>
             </div>
           </Link>
@@ -91,7 +91,6 @@ export default function Coba() {
         </div>
 
         <div className="box-swiper">
-          <hr />
           <News />
         </div>
       </div>

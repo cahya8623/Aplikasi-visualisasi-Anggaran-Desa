@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
 
     try {
-      let query = "SELECT id, amount,Uraian,  DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pemasukan ";
+      let query = "SELECT id, amount,Uraian,  DATE_FORMAT(date, '%Y-%m-%d') AS date FROM pendapatan ";
       const params = [];
 
       if (year) {
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
       }
 
       const [result] = await pool.execute(
-        "INSERT INTO pemasukan (amount,Uraian) VALUES (?,?)",
+        "INSERT INTO pendapatan (amount,Uraian) VALUES (?,?)",
         [jmlPendapatan, Source]
       );
 
@@ -71,7 +71,7 @@ export default async function handler(req, res) {
     console.log(id)
     try {
 
-      const result = await pool.query("DELETE FROM pemasukan WHERE id = ?", [id]);
+      const result = await pool.query("DELETE FROM pendapatan WHERE id = ?", [id]);
 
       if (result[0].affectedRows === 0) {
         return res.status(404).json({ message: "Data tidak ditemukan" });
@@ -104,7 +104,7 @@ export default async function handler(req, res) {
 
     try {
       const [result] = await pool.execute(
-        "UPDATE pemasukan SET amount = ?, Uraian = ? WHERE id = ?",
+        "UPDATE pendapatan SET amount = ?, Uraian = ? WHERE id = ?",
         [jmlPendapatan, Source, id,]
       );
 

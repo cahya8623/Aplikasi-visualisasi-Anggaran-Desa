@@ -64,13 +64,16 @@ export default async function handler(req, res) {
     else if (req.method === "POST") {
         try {
             const { Anggaran, Belanja } = req.body;
+            const regexAngka = /\d/;
 
 
-            if ((Anggaran && Belanja === undefined) || Anggaran <= 0 || Belanja === "") {
+            if (Anggaran === undefined || Belanja === undefined || Anggaran === "" || Belanja === "") {
                 return res.status(400).json({ success: false, message: "Masukkan Data Terlebih Dahulu" });
-            } else if (isNaN(Anggaran) || typeof Belanja !== "string") {
+            } else if (isNaN(Anggaran) || regexAngka.test(Belanja)) {
                 return res.status(400).json({ success: false, message: "Masukkan Data Sesuai Format" });
             }
+
+
 
             const [result] = await pool.execute(
                 "INSERT INTO belanja (Anggaran,Belanja) VALUES (?,?)",
@@ -89,12 +92,12 @@ export default async function handler(req, res) {
 
 
         if (Anggaran <= 0 || Belanja === "") {
-            return alert("Masukkan Data Terlebih Dahulu");
+            return ("Masukkan Data Terlebih Dahulu");
         } else if (
             isNaN(Anggaran) ||
             typeof Belanja !== "string"
         ) {
-            return alert("Masukkan Data Sesuai Format");
+            return ("Masukkan Data Sesuai Format");
         }
 
 
