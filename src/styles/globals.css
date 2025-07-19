@@ -337,7 +337,9 @@
   font-family: 'Bebas Neue', sans-serif;
 }
 
-.navbar{
+.navbar-costom{
+  width: 100vw;
+  padding: 20px;
   color: rgb(245, 245, 245);
   position: fixed;
   top: 0;
