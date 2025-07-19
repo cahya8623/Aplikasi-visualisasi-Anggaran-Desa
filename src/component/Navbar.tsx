@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="navbar navbar-expand-md vw-100 px-4 py-3">
-      <div className="container-fluid">
+    <div className="navbar  vw-100 px-4 py-3">
+      <div className="d-flex p-1 justify-content-around container-fluid">
         {/* Logo dan Nama Desa */}
         <div className="d-flex align-items-center">
           <Link href="/">
@@ -17,25 +17,8 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Tombol hamburger di layar kecil */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarMenu"
-          aria-controls="navbarMenu"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        {/* Menu navigasi */}
-        <div
-          className="collapse navbar-collapse justify-content-end"
-          id="navbarMenu"
-        >
-          <ul className="navbar-nav fs-5 text-center">
+        <div style={{ width: "30vw", marginLeft: "450px" }}>
+          <ul className="d-flex justify-content-between m-0 fs-5 text-center">
             <li className="nav-item">
               <Link href="/" className="nav-link nav-font">
                 Home
