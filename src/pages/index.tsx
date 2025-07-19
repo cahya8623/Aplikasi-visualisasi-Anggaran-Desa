@@ -32,21 +32,21 @@ export default function Coba() {
         <hr className="line" style={{ marginLeft: "39%" }} />
 
         <div className="w-100 p-5 d-flex justify-content-center gap-3 mb-5">
-          <Link href="/Profil">
+          <Link href="/Profil" className="text-decoration-none">
             <div className="square ">
               <IdCard stroke="whitesmoke" size={135} strokeWidth={1} />
               <p>Profil Desa</p>
             </div>
           </Link>
 
-          <Link href="/Kontak">
+          <Link href="/Kontak" className="text-decoration-none">
             <div className="square">
               <Contact stroke="whitesmoke" size={130} strokeWidth={1} />
               <p className="mt-2">Kontak</p>
             </div>
           </Link>
 
-          <Link href="/APDES">
+          <Link href="/APDES" className="text-decoration-none">
             <div className="square">
               <HandCoins stroke="whitesmoke" size={135} strokeWidth={1} />
               <p className="mt-2">APBD</p>

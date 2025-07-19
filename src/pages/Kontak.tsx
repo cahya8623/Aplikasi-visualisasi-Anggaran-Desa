@@ -15,13 +15,19 @@ export default function Kontak() {
           </p>
 
           <div className="Contacs">
-            <Link href="https://www.instagram.com/desagending13/">
+            <Link
+              href="https://www.instagram.com/desagending13/ "
+              className="text-decoration-none"
+            >
               <h5 className="ms-2 me-2 bi bi-instagram gap-3 text-white">
                 Instagram
               </h5>
             </Link>
             <h5 className="bi bi-telegram"> Telegram</h5>
-            <Link href="https://chat.whatsapp.com/FMTZF4cGh4dFy8DvpUSst6">
+            <Link
+              href="https://chat.whatsapp.com/FMTZF4cGh4dFy8DvpUSst6"
+              className="text-decoration-none"
+            >
               <h5 className="bi bi-whatsapp text-white"> Whatsapp</h5>
             </Link>
           </div>
