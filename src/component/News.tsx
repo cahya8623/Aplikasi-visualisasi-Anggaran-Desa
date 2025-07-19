@@ -41,7 +41,7 @@ export default function App() {
       className=" position-absolute rounded"
       style={{ left: "-5px", width: "100vw" }}
     >
-      {Data.map((item: Database, index) => (
+      {Data.map((item: Database, index: number) => (
         <SwiperSlide
           className=" hover-box d-flex flex-column justify-content-center align-center"
           key={index}

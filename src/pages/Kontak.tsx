@@ -1,5 +1,4 @@
 import Navbar from "@/component/Navbar";
-import { Instagram } from "lucide-react";
 import Link from "next/link";
 
 export default function Kontak() {

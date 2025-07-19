@@ -1,5 +1,12 @@
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  ChartOptions,
+} from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { useEffect, useState } from "react";
 import { useYear } from "./ContexAPI";
@@ -52,11 +59,11 @@ export default function DoughnutChart({
       },
     ],
   };
-  const options = {
+  const options: ChartOptions<"pie"> = {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: "top" as const,
       },
       title: {
         display: true,

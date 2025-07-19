@@ -49,7 +49,7 @@ export default function Expense({
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [submit, selectedYear, confirm]);
+  }, [isShow, submit, selectedYear, confirm]);
 
   function onClickEdit(item: any) {
     setInputValue(item);
