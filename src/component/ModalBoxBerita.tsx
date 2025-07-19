@@ -116,7 +116,7 @@ export default function Berita(props: ModalBoxProps) {
 
   const handleButtonClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    inputRef.current.click();
+    inputRef.current?.click();
   };
   return (
     <div
@@ -193,14 +193,7 @@ export default function Berita(props: ModalBoxProps) {
                     Submit
                   </button>
                 ) : (
-                  <button
-                    onClick={(e) => onClickEdit(props.selectedValue, e)}
-                    type="submit"
-                    className="btn  btn-outline-success"
-                    style={{ marginRight: "110px" }}
-                  >
-                    Simpan
-                  </button>
+                  ""
                 )}
               </form>
             </div>
