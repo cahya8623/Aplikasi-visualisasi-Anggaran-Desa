@@ -28,7 +28,7 @@ export default function APDES() {
   return (
     <div>
       <div className="main max-vh-100  ">
-        <div className="p-3 ps-2 pb-1">
+        <div className=" pb-1" style={{ paddingTop: "100px" }}>
           {/* Navbar */}
           <Navbar />
 
