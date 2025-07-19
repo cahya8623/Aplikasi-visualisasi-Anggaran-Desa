@@ -81,8 +81,6 @@ export default function TableIncome({
       .catch((error) => console.error("Error fetching data:", error));
   }, [submit, selectedYear, confirm, nyala]);
 
-  console.log("Lampu State:" + lampuState);
-
   const limit = 5;
   const maxVisible = 3;
   const totalPage = Math.ceil(data.length / limit);

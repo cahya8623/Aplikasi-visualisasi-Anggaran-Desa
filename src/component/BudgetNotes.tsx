@@ -7,8 +7,6 @@ export default function Notes() {
   const [DataExpenses, setDataExpenses] = useState<{ total: string }[]>([]);
   const { selectedYear } = useYear();
 
-  console.log("Data Budget " + DataBudget);
-
   useEffect(() => {
     fetch(`/api/income?year=${selectedYear}`)
       .then((res) => res.json())

@@ -11,20 +11,22 @@ type Database = {
 };
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { useContext, useEffect } from "react";
-import { adminContext } from "./LoginContex";
+import { useEffect, useState } from "react";
+// import { adminContext } from "./LoginContex";
 import { useYear } from "./ContexAPI";
 
 export default function App() {
   const { selectedYear, confirm } = useYear();
-  const { Data, setSubmit, Submit, setData } = useContext(adminContext);
+  // const { Data, setSubmit, Submit, setData } = useContext(adminContext);
+  const [Data, setData] = useState<Database[]>([]);
   useEffect(() => {
-    setSubmit(false);
     fetch(`/api/Image?year=${selectedYear}`)
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [Submit, confirm]);
+  }, [confirm]);
+
+  console.log(Data);
 
   return (
     <Swiper
@@ -49,7 +51,7 @@ export default function App() {
           <div className="Box-Gambar">
             <Image
               className="gambar"
-              src={`/uploads/${item.gambar}`}
+              src={item.gambar}
               alt={`Foto ${index + 1}`}
               width={400}
               height={300}

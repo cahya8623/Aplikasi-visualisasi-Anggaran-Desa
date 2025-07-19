@@ -46,9 +46,6 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
   const [Belanja, setBelanja] = useState("");
   const { setEdit, setConfirm } = useYear();
 
-  console.log("Anggaran : " + Anggaran);
-  console.log("Belanja : " + Belanja);
-
   useEffect(() => {
     setAnggaran(props.selectedValue);
     setBelanja(props.selectedValue);

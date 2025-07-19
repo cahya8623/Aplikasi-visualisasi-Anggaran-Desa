@@ -5,8 +5,6 @@ export default function Filter() {
   const [data, setData] = useState<{ tahun: number }[]>([]);
   const { selectedYear, setSelectedYear } = useYear();
 
-  console.log("select year :" + selectedYear);
-
   useEffect(() => {
     fetch("/api/filter")
       .then((res) => res.json())

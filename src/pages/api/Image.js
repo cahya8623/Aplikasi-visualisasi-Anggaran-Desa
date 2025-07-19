@@ -1,22 +1,11 @@
-import fs from 'fs';
-import path from 'path';
 import multer from 'multer';
 import { pool } from './ConfigDB';
+import cloudinary from "../../component/cloudinary"
+import fs from "fs";
 
 
-const uploadDir = path.join(process.cwd(), 'public/uploads');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
 
-const storage = multer.diskStorage({
-    destination: uploadDir,
-    filename: (req, file, cb) => {
-        const uniqueName = Date.now() + '-' + file.originalname;
-        cb(null, uniqueName);
-    },
-});
-const upload = multer({ storage });
+const upload = multer({ dest: '/tmp' });
 
 export const config = {
     api: {
@@ -49,16 +38,24 @@ export default async function handler(req, res) {
             }
 
 
-            const filename = file.filename;
-            const query = 'INSERT INTO berita (gambar,title,description) VALUES (?, ?, ?)';
-            const [result] = await pool.execute(query, [filename, title, description]);
+            // Upload ke Cloudinary
+            const result = await cloudinary.uploader.upload(file.path, {
+                folder: "berita",
+            });
+
+            // Hapus file lokal sementara
+            fs.unlinkSync(file.path);
+
+            const imageUrl = result.secure_url;
+
+            const query = "INSERT INTO berita (gambar, title, description) VALUES (?, ?, ?)";
+            const [insert] = await pool.execute(query, [imageUrl, title, description]);
 
             res.status(201).json({
                 success: true,
-                message: 'Gambar berhasil diupload dan nama disimpan ke database',
-                insertId: result.insertId,
-                filename,
-                url: `/uploads/${filename}`,
+                message: "Gambar berhasil diupload dan disimpan ke database",
+                insertId: insert.insertId,
+                url: imageUrl,
             });
         } catch (error) {
             console.error('Upload Error:', error);

@@ -243,7 +243,7 @@ export default function Experiment() {
                       <td>
                         <Image
                           className="gambar"
-                          src={`/uploads/${item.gambar}`}
+                          src={item.gambar}
                           alt={`Foto ${index + 1}`}
                           width={150}
                           height={190}
