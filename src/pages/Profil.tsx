@@ -5,7 +5,7 @@ import logo from "@/asset/WhatsApp Image 2025-02-13 at 20.02.39.jpeg";
 export default function Profil() {
   return (
     <div>
-      <Navbar BackgroundColor="#222831" />
+      <Navbar />
 
       <div className="bg-content">
         <div className="sub-content">
