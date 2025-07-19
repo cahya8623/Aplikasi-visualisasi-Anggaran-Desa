@@ -12,7 +12,7 @@ export default function Navbar() {
             <Image src={logo} alt="Logo Desa" width={50} height={60} />
           </Link>
           <div className="font lh-2 py-1 ms-3">
-            <p className="fw-bold fst-italic m-0">Desa Gending</p>
+            <p className=" m-0">Desa Gending</p>
             <p className="m-0 fw-light fst-italic">Kabupaten Probolinggo</p>
           </div>
         </div>

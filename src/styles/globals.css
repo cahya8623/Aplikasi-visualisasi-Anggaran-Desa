@@ -419,11 +419,10 @@ margin-left: 35px;
 
 .font {
   font-family: "instrument sans",sans-serif;
+  text-shadow: 1px 2px 1px rgba(0,0,0,0.6);
+  font-weight: 700;
 }
 
-.font p{
-  text-shadow: 1px 2px 1px rgba(0,0,0,0.6)
-}
 .Box{
   margin-left: 10px;
   position: relative;
