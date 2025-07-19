@@ -339,7 +339,7 @@
   color: rgb(245, 245, 245);
   position: fixed;
   top: 0;
-  background-color: transparent;
+  background-color: red;
   left: 0;
   right: 0;
   box-shadow: 0px 2px 30px 0px black;
