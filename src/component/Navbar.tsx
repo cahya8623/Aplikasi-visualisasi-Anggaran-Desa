@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="navbar  vw-100 px-4 py-3">
+    <div className="navbar-custom  vw-100 px-4 py-3">
       <div className="d-flex p-1 justify-content-around container-fluid">
         {/* Logo dan Nama Desa */}
         <div className="d-flex align-items-center">
