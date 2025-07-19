@@ -11,6 +11,9 @@
   font-weight: normal;
   font-style: normal;
 }
+a {
+  text-decoration: none;
+}
 
 :root {
   --background: #ffffff;

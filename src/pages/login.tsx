@@ -73,7 +73,7 @@ export default function LoginPage() {
             <div className="card-front">
               <div className="center-wrap">
                 <div className="section text-center">
-                  <h4 className="mb-4 pb-3">Bendahara</h4>
+                  <h4 className="mb-4 pb-3 text-white">Bendahara</h4>
                   <div className="form-group">
                     <input
                       onChange={(e) => setBendahara(e.target.value)}
@@ -111,7 +111,7 @@ export default function LoginPage() {
             <div className="card-back">
               <div className="center-wrap">
                 <div className="section text-center">
-                  <h4 className="mb-4 pb-3">Admin</h4>
+                  <h4 className="mb-4 pb-3 text-white">Admin</h4>
                   <div className="form-group">
                     <input
                       onChange={(e) => setAdmin(e.target.value)}

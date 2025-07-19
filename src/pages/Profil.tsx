@@ -25,7 +25,9 @@ export default function Profil() {
         </div>
       </div>
       <div className="bg-content mt-0">
-        <h1 style={{ fontFamily: "monospace" }}>Sejarah Desa</h1>
+        <h1 style={{ fontFamily: "monospace", color: "white" }}>
+          Sejarah Desa
+        </h1>
 
         <div className="sejarah ">
           Pada jaman Majapahit ada seorang raja bernama Prabu Minak Jinggo dari
@@ -56,7 +58,7 @@ export default function Profil() {
           Desa Gending.
         </div>
         <div className="bagan">
-          <h1 className="mb-5 fs-italic text-center fw-bold">
+          <h1 className="mb-5 fs-italic text-white text-center fw-bold">
             Struktur Organisasi Desa
           </h1>
           <Image alt="logo" src={logo} width={1190} height={700} />
