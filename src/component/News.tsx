@@ -56,8 +56,8 @@ export default function App() {
               width={400}
               height={300}
             />
-            <h1 className="text-center">{item.title}</h1>
-            <p>{item.description}</p>
+            <h1 className="text-white text-center">{item.title}</h1>
+            <p className="text-white">{item.description}</p>
           </div>
         </SwiperSlide>
       ))}
