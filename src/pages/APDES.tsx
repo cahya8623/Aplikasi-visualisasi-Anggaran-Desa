@@ -26,35 +26,33 @@ ChartJS.register(
 
 export default function APDES() {
   return (
-    <div>
-      <div className="main max-vh-100  ">
-        <div className=" pb-1" style={{ paddingTop: "100px" }}>
-          {/* Navbar */}
-          <Navbar />
+    <div className="main max-vh-100  ">
+      <div className=" pb-1" style={{ paddingTop: "100px" }}>
+        {/* Navbar */}
+        <Navbar />
 
-          {/* Box Content */}
+        {/* Box Content */}
 
-          {/* Budget Notes */}
-          {/* <Notes /> */}
+        {/* Budget Notes */}
+        {/* <Notes /> */}
 
-          <div style={{ width: "100vw", height: "500px" }}>
-            <Filter />
-            <DoughnutChart />
-          </div>
-          <p className="mt-5 fw-3 fs-5 text-center">
-            Diagram di atas menunjukkan presentase alokasi dana anggaran desa,
-            menggambarkan bagaimana setiap pos anggaran dialokasikan untuk
-            berbagai kebutuhan
-          </p>
+        <div style={{ width: "100vw", height: "500px" }}>
+          <Filter />
+          <DoughnutChart />
+        </div>
+        <p className="mt-5 fw-3 fs-5 text-center">
+          Diagram di atas menunjukkan presentase alokasi dana anggaran desa,
+          menggambarkan bagaimana setiap pos anggaran dialokasikan untuk
+          berbagai kebutuhan
+        </p>
 
-          <TableInfo />
+        <TableInfo />
 
-          <h1 className="ms-3" style={{ marginTop: "150px" }}>
-            Perbandingan Anggaran Tahunan
-          </h1>
-          <div style={{ width: "98vw", height: "70vh" }}>
-            <ComparationChart />
-          </div>
+        <h1 className="ms-3" style={{ marginTop: "150px" }}>
+          Perbandingan Anggaran Tahunan
+        </h1>
+        <div style={{ width: "98vw", height: "70vh" }}>
+          <ComparationChart />
         </div>
       </div>
     </div>

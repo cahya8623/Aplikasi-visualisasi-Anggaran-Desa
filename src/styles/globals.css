@@ -365,10 +365,8 @@ background-color: #D9D9D9;
 color: #0a0a0a;
 }
 .main{
-  /* padding-top: 70px; */
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   background-color: rgb(255, 255, 255);
   color: black;
 }
