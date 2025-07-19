@@ -72,8 +72,8 @@ export default function Coba() {
           </div>
           <div className="w-50 d-flex justify-content-center flex-column">
             <h1 className="fw-bold text-info">Sambutan Kepala Desa</h1>
-            <p className="w-100 lh-lg">
-              <span className="fs-5 fw-bold">
+            <p className="text-white w-100 lh-lg">
+              <span className="text-white fs-5 fw-bold">
                 Assalamu Alaikum Warohmatullahi Wabarakatu
               </span>{" "}
               <br />
