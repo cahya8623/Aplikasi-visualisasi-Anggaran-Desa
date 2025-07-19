@@ -340,7 +340,7 @@
   color: rgb(245, 245, 245);
   position: fixed;
   top: 0;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, .2);
   left: 0;
   right: 0;
   box-shadow: 0px 2px 30px 0px black;

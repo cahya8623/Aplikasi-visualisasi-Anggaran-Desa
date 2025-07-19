@@ -27,9 +27,9 @@ ChartJS.register(
 export default function APDES() {
   return (
     <div className="main max-vh-100  ">
+      <Navbar />
       <div className=" pb-1" style={{ paddingTop: "100px" }}>
         {/* Navbar */}
-        <Navbar />
 
         {/* Box Content */}
 
