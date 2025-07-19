@@ -20,7 +20,7 @@ export default function App() {
   const { Data, setSubmit, Submit, setData } = useContext(adminContext);
   useEffect(() => {
     setSubmit(false);
-    fetch(`http://localhost:3000/api/Image?year=${selectedYear}`)
+    fetch(`/api/Image?year=${selectedYear}`)
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));

@@ -8,7 +8,7 @@ export default function Filter() {
   console.log("select year :" + selectedYear);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/filter")
+    fetch("/api/filter")
       .then((res) => res.json())
       .then((data) => {
         setData(data.data);

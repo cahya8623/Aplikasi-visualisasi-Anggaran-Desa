@@ -99,14 +99,11 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/pemasukan?id=${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ jmlPendapatan, Source }),
-        }
-      );
+      const response = await fetch(`/api/pemasukan?id=${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jmlPendapatan, Source }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -137,7 +134,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
       return alert("Masukkan Data Sesuai Format");
     }
     try {
-      const response = await fetch("http://localhost:3000/api/pemasukan", {
+      const response = await fetch("/api/pemasukan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ jmlPendapatan, Source }),

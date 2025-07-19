@@ -1,14 +1,4 @@
-import mysql from "mysql2/promise";
-
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "db_desa",
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+import { pool } from './ConfigDB';
 
 
 export default async function handler(req, res) {

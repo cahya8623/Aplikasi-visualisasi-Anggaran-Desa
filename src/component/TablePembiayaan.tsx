@@ -42,8 +42,8 @@ export default function TableIncome({
   console.log(data);
   useEffect(() => {
     const url = isShow
-      ? `http://localhost:3000/api/pembiayaan?year=${selectedYear}`
-      : `http://localhost:3000/api/pembiayaan`;
+      ? `/api/pembiayaan?year=${selectedYear}`
+      : `/api/pembiayaan`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data.data))
@@ -122,7 +122,7 @@ export default function TableIncome({
           {data.slice(start, end).map((item: Databases, index) => (
             <tr key={item.id}>
               <td>{(page - 1) * limit + index + 1}</td>
-              <td>{item.Penerimaan.toLocaleString()}</td>
+              <td>Rp.{item.Penerimaan.toLocaleString()}</td>
               <td>Rp.{item.Pengeluaran.toLocaleString()}</td>
               {showTable && (
                 <td>

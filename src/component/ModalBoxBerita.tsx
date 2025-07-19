@@ -3,7 +3,6 @@ import { useYear } from "./ContexAPI";
 import Image from "next/image";
 import { ImageUp } from "lucide-react";
 import { adminContext } from "./LoginContex";
-import { useRouter } from "next/router";
 
 export const useModal = () => {
   const [isModalShow, setIsModalShow] = useState(false);
@@ -24,7 +23,10 @@ export const useModal = () => {
     closeModal,
   };
 };
-
+interface DataItem {
+  Anggaran: number;
+  Belanja: string;
+}
 export type ModalBoxProps = {
   first?: string;
   second?: string;
@@ -46,11 +48,9 @@ export default function Berita(props: ModalBoxProps) {
   const [Preview, setPreview] = useState<string | null>(null);
   const [status, setStatus] = useState<status>("Browse");
   const [Description, setDescription] = useState("");
-  const [isReady, setIsReady] = useState(false);
   const [Title, setTitle] = useState("");
   const { setData, setSubmit, Submit } = useContext(adminContext);
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
 
   function HandleInput(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -64,7 +64,7 @@ export default function Berita(props: ModalBoxProps) {
   }
   useEffect(() => {
     setSubmit(false);
-    fetch("http://localhost:3000/api/Image")
+    fetch("/api/Image")
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -89,7 +89,7 @@ export default function Berita(props: ModalBoxProps) {
     formData.append("description", Description);
 
     try {
-      const response = await fetch("http://localhost:3000/api/Image", {
+      const response = await fetch("/api/Image", {
         method: "POST",
         body: formData,
       });

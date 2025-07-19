@@ -67,9 +67,7 @@ export default function TableIncome({
   };
 
   useEffect(() => {
-    const url = isShow
-      ? `http://localhost:3000/api/Belanja?year=${selectedYear}`
-      : `http://localhost:3000/api/Belanja`;
+    const url = isShow ? `/api/Belanja?year=${selectedYear}` : `/api/Belanja`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {

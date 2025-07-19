@@ -26,7 +26,7 @@ export default function DoughnutChart({
 
   useEffect(() => {
     if (!selectedYear) return;
-    fetch(`http://localhost:3000/api/pengeluaran?year=${selectedYear}`)
+    fetch(`/api/pengeluaran?year=${selectedYear}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);

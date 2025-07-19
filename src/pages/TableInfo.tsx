@@ -44,18 +44,16 @@ export default function APDES() {
         slidesPerView={1}
       >
         <SwiperSlide>
-          <div className="d-flex flex-column justify-content-center">
-            <h1 className="my-4 text-center">Realisasi</h1>
-            <Expense
-              isShow={true}
-              submit={expenseSubmit}
-              setSubmit={setExpenseSubmit}
-              TableHead="table-dark"
-              ShowTable={false}
-              width="20vw"
-              height="10vh"
-            />
-          </div>
+          <h1 className="my-4 text-center">Pendapatan</h1>
+          <TableIncome
+            isShow={true}
+            submit={incomeSubmit}
+            setSubmit={setIncomeSubmit}
+            showTable={false}
+            TableHead="table-dark"
+            width="80vw"
+            height="50vh"
+          />
         </SwiperSlide>
 
         <SwiperSlide>
@@ -72,6 +70,21 @@ export default function APDES() {
         </SwiperSlide>
 
         <SwiperSlide>
+          <div className="d-flex flex-column justify-content-center">
+            <h1 className="my-4 text-center">Realisasi</h1>
+            <Expense
+              isShow={true}
+              submit={expenseSubmit}
+              setSubmit={setExpenseSubmit}
+              TableHead="table-dark"
+              ShowTable={false}
+              width="20vw"
+              height="10vh"
+            />
+          </div>
+        </SwiperSlide>
+
+        <SwiperSlide>
           <h1 className="my-4 text-center">Pembiayaan</h1>
           <TablePembiayaan
             isShow={true}
@@ -79,19 +92,6 @@ export default function APDES() {
             setSubmit={setPembiayaan}
             TableHead="table-dark"
             showTable={false}
-          />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <h1 className="my-4 text-center">Pendapatan</h1>
-          <TableIncome
-            isShow={true}
-            submit={incomeSubmit}
-            setSubmit={setIncomeSubmit}
-            showTable={false}
-            TableHead="table-dark"
-            width="80vw"
-            height="50vh"
           />
         </SwiperSlide>
       </Swiper>

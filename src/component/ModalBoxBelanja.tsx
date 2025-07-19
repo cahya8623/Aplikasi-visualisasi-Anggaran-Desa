@@ -71,14 +71,11 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/Belanja?id=${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ Anggaran, Belanja }),
-        }
-      );
+      const response = await fetch(`/api/Belanja?id=${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ Anggaran, Belanja }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -100,7 +97,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/Belanja", {
+      const response = await fetch("/api/Belanja", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Anggaran, Belanja }),

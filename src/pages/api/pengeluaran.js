@@ -1,14 +1,4 @@
-import mysql from "mysql2/promise";
-
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "db_desa",
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+import { pool } from './ConfigDB';
 
 export default async function handler(req, res) {
     if (req.method === "GET") {
@@ -40,11 +30,12 @@ export default async function handler(req, res) {
         try {
 
             const { kebutuhan, total, Realisasi } = req.body;
+            const regexAngka = /\d/
 
 
-            if (kebutuhan === "" || total <= 0 || Realisasi == 0) {
+            if (kebutuhan === "" || total <= 0 || Realisasi <= 0) {
                 return res.status(400).json({ success: false, message: "Isi Data Terlebih Dahulu" });
-            } else if (isNaN(total) || typeof kebutuhan !== "string" || typeof Realisasi === "string") {
+            } else if (isNaN(total) || regexAngka.test(kebutuhan) || isNaN(Realisasi)) {
                 return res.status(400).json({ success: false, message: "Isi Data Sesuai Format" });
 
             }
@@ -88,16 +79,17 @@ export default async function handler(req, res) {
     } else if (req.method === "PUT") {
         const { id } = req.query;
         const { kebutuhan, total, Realisasi } = req.body;
+        const regexAngka = /\d/
 
         if (kebutuhan === "" || total <= 0 || Realisasi == 0) {
-            alert("Isi Data Terlebih Dahulu");
-            return;
+            return res.status(400).json({ success: false, message: "Isi Data Terlebih Dahulu" });
+
         } else if (
             isNaN(total) ||
-            typeof kebutuhan !== "string" ||
+            regexAngka.test(kebutuhan) ||
             isNaN(Realisasi)
         ) {
-            return alert("Isi Data Sesuai Format");
+            return res.status(400).json({ success: false, message: "Isi Data Sesuai Format" });
         }
 
         try {

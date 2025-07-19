@@ -1,17 +1,7 @@
-import mysql from "mysql2/promise";
 import fs from 'fs';
 import path from 'path';
 import multer from 'multer';
-
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "db_desa",
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+import { pool } from './ConfigDB';
 
 
 const uploadDir = path.join(process.cwd(), 'public/uploads');

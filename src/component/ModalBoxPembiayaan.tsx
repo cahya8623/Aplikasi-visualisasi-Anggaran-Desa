@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useYear } from "./ContexAPI";
 
@@ -22,7 +23,6 @@ export const useModal = () => {
 };
 
 interface DataItem {
-  // Kode: number;
   Penerimaan: number;
   Pengeluaran: number;
 }
@@ -36,19 +36,17 @@ export type ModalBoxProps = {
   submit: DataItem[];
   ShowValue: boolean;
   ShowSubmit: boolean;
-  selectedValue?: string | number;
+  selectedValue?: any;
   setSubmit: React.Dispatch<React.SetStateAction<DataItem[]>>;
 };
 
 export default function ModalBoxIncome(props: ModalBoxProps) {
-  // const [Kode, setKode] = useState<number>(0);
   const [Penerimaan, setPenerimaan] = useState(0);
   const [Pengeluaran, setPengeluaran] = useState(0);
 
   const { setEdit, setConfirm } = useYear();
 
   useEffect(() => {
-    // setKode(props.selectedValue);
     setPenerimaan(props.selectedValue);
     setPengeluaran(props.selectedValue);
   }, [props.selectedValue]);
@@ -65,14 +63,11 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/pembiayaan?id=${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ Penerimaan, Pengeluaran }),
-        }
-      );
+      const response = await fetch(`/api/pembiayaan?id=${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ Penerimaan, Pengeluaran }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -99,7 +94,7 @@ export default function ModalBoxIncome(props: ModalBoxProps) {
       return alert("Masukkan Data Sesuai Format");
     }
     try {
-      const response = await fetch("http://localhost:3000/api/pembiayaan", {
+      const response = await fetch("/api/pembiayaan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Penerimaan, Pengeluaran }),

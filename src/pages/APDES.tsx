@@ -47,53 +47,14 @@ export default function APDES() {
             berbagai kebutuhan
           </p>
 
-          {/* Rincian Anggaran */}
-          {/* <div className="vw-100 d-flex flex-column align-center ps-5 justify-content-center">
-          <div className="p-1 px-5 text-center" style={{ width: "90vw" }}>
-            <h1 className="my-4">Realisasi</h1>
-            <Expense
-              isShow={true}
-              submit={expenseSubmit}
-              setSubmit={setExpenseSubmit}
-              TableHead="table-dark"
-              ShowTable={false}
-              width="20vw"
-              height="10vh"
-            />
-          </div>
-          <div className="p-1 px-5 text-center" style={{ width: "90vw" }}>
-            <TableBelanja
-              isShow={true}
-              submit={Belanja}
-              setSubmit={setBelanja}
-              showTable={false}
-              TableHead="table-dark"
-              width="80vw"
-              height="50vh"
-            />
-          </div>
-          <div className="p-1 px-5 text-center" style={{ width: "90vw" }}>
-            <h1 className="my-4">Pembiayaan</h1>
-            <TablePembiayaan
-              isShow={true}
-              submit={Pembiayaan}
-              setSubmit={setPembiayaan}
-              TableHead="table-dark"
-              showTable={false}
-              width="20vw"
-              height="10vh"
-            />
-          </div>
-          {/* Pie Chart */}
-
-          {/* </div> */}
-
           <TableInfo />
 
           <h1 className="ms-3" style={{ marginTop: "150px" }}>
             Perbandingan Anggaran Tahunan
           </h1>
-          <ComparationChart />
+          <div style={{ width: "98vw", height: "70vh" }}>
+            <ComparationChart />
+          </div>
         </div>
       </div>
     </div>

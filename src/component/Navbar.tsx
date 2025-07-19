@@ -65,49 +65,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-
-    // <div className="navbar vw-100 px-5 py-4 ">
-    //   <div className="d-flex ms-4">
-    //     <Link href="/">
-    //       <Image src={logo} alt="Logo Desa" width={50} height={60} />
-    //     </Link>
-    //     <div className="font lh-2 py-1 ms-3">
-    //       <p className=" fw-bold fst-italic m-0">Desa Gending</p>
-    //       <p className="m-0  fw-light fst-italic">Kabupaten Probolinggo</p>
-    //     </div>
-    //   </div>
-    //   <div className=" d-flex justify-content-around align-items-center me-5 ">
-    //     <ul
-    //       className="list-unstyled fs-5 d-flex justify-content-between around text-center m-0 "
-    //       style={{ width: "400px" }}
-    //     >
-    //       <li>
-    //         <Link href="/">
-    //           <p className="nav-font">Home</p>
-    //         </Link>
-    //       </li>
-    //       <li>
-    //         <Link href="/Profil">
-    //           <p className="nav-font">Profil Desa</p>
-    //         </Link>
-    //       </li>
-    //       <li>
-    //         <Link href="/Kontak">
-    //           <p className="nav-font">Kontak</p>
-    //         </Link>
-    //       </li>
-    //       <li>
-    //         <Link href="/APDES">
-    //           <p className="nav-font">Transparansi</p>
-    //         </Link>
-    //       </li>
-    //       <li>
-    //         <Link href="/login">
-    //           <p className="terakhir">Login</p>
-    //         </Link>
-    //       </li>
-    //     </ul>
-    //   </div>
-    // </div>
   );
 }

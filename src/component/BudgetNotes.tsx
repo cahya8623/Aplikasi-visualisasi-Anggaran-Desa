@@ -10,16 +10,16 @@ export default function Notes() {
   console.log("Data Budget " + DataBudget);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/income?year=${selectedYear}`)
+    fetch(`/api/income?year=${selectedYear}`)
       .then((res) => res.json())
       .then((data) => setDataBudget(data.data))
       .catch((err) => console.log(`error fetching${err}`));
 
-    fetch(`http://localhost:3000/api/expense?year=${selectedYear}`)
+    fetch(`/api/expense?year=${selectedYear}`)
       .then((res) => res.json())
       .then((data) => setDataAlokasi(data.data))
       .catch((err) => console.log(`error fetching${err}`));
-    fetch(`http://localhost:3000/api/expense?year=${selectedYear}`)
+    fetch(`/api/expense?year=${selectedYear}`)
       .then((res) => res.json())
       .then((data) => setDataExpenses(data.data))
       .catch((err) => console.log(`error fetching${err}`));

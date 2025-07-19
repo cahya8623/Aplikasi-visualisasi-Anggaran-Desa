@@ -44,10 +44,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
   const [kebutuhan, setKebutuhan] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
   const [Realisasi, setRealisasi] = useState<number>(0);
-  // const [Image, setImage] = useState<string>("");
   const { setEdit, setConfirm } = useYear();
-
-  console.log("Image : " + Image);
 
   useEffect(() => {
     setKebutuhan(props.selectedValue);
@@ -72,14 +69,11 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/pengeluaran?id=${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ kebutuhan, total, Realisasi }),
-        }
-      );
+      const response = await fetch(`/api/pengeluaran?id=${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kebutuhan, total, Realisasi }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -110,7 +104,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
       return alert("Isi Data Sesuai Format");
     }
     try {
-      const response = await fetch("http://localhost:3000/api/pengeluaran", {
+      const response = await fetch("/api/pengeluaran", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ kebutuhan, total, Realisasi }),
@@ -119,6 +113,7 @@ export default function ModalBoxExpense(props: ModalBoxProps) {
       const data = await response.json();
       if (response.ok) {
         props.setSubmit((item) => [...item, { kebutuhan, total, Realisasi }]);
+        alert("Data Sudah Ditambahkan");
       } else {
         alert(data.message);
       }

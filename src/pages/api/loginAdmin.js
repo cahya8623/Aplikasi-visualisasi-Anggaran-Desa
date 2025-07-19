@@ -1,16 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import mysql from "mysql2/promise";
+import { pool } from './ConfigDB';
 
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "db_desa",
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+
 
 
 export default async function handler(req, res) {
@@ -24,7 +16,7 @@ export default async function handler(req, res) {
             return res.status(404).json({ message: "Tidak ada user di database" });
         }
 
-        const user = rows[0]; // Ambil hanya baris pertama
+        const user = rows[0];
         const match = await bcrypt.compare(Adminpassword, user.password);
         if (Admin !== user.username && !match) {
             return res.status(401).json({ message: "Username Salah & Password salah" });

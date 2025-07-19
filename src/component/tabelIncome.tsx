@@ -38,8 +38,8 @@ export default function TableIncome({
 
   useEffect(() => {
     const url = isShow
-      ? `http://localhost:3000/api/pemasukan?year=${selectedYear}`
-      : `http://localhost:3000/api/pemasukan`;
+      ? `/api/pemasukan?year=${selectedYear}`
+      : `/api/pemasukan`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data.data))

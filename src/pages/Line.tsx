@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TooltipItem } from "chart.js";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
@@ -8,13 +10,13 @@ export type measuringChart = {
 
 type Database = {
   tahun: number;
-  total: string;
+  total: number;
 };
 export default function ComparationChart() {
   const [dataChart, setdataChart] = useState<Database[]>([]);
-
+  // console.log(dataChart.total);
   useEffect(() => {
-    fetch("http://localhost:3000/api/lineChart")
+    fetch("/api/lineChart")
       .then((res) => res.json())
       .then((data) => setdataChart(data.data))
       .catch((err) => console.log(`error fetching${err}`));
@@ -27,7 +29,7 @@ export default function ComparationChart() {
     datasets: [
       {
         label: "Total",
-        data: dataChart.map((item) => item.total),
+        data: dataChart.map((item) => Number(item.total)),
         borderColor: "blue",
         backgroundColor: "rgba(0, 0, 255, 0.2)",
         borderWidth: 2,
@@ -46,29 +48,25 @@ export default function ComparationChart() {
       },
       tooltip: {
         callbacks: {
-          title: () => "",
-          label: (tooltipItem) => `Rp.${tooltipItem.raw.toLocaleString()}`,
+          label: function (context: TooltipItem<"line">) {
+            const value = context.parsed.y;
+            return `Rp ${value.toLocaleString("id-ID")}`;
+          },
         },
       },
     },
     scales: {
       y: {
         beginAtZero: true,
+        ticks: {
+          callback: function (value: number | string) {
+            const num = typeof value === "string" ? Number(value) : value;
+            return `Rp ${num.toLocaleString("id-ID")}`;
+          },
+        },
       },
     },
   };
 
-  return (
-    <div
-      className="d-flex justify-content-center"
-      style={{
-        width: "1200px",
-        padding: "20px",
-        paddingBottom: "20px",
-        height: "450px",
-      }}
-    >
-      <Line data={data} options={options} />
-    </div>
-  );
+  return <Line data={data} options={options} />;
 }

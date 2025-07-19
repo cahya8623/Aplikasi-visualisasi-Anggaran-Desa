@@ -41,7 +41,7 @@ export default function Experiment() {
   }
   useEffect(() => {
     setSubmit(false);
-    fetch("http://localhost:3000/api/Image")
+    fetch("/api/Image")
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -66,7 +66,7 @@ export default function Experiment() {
     formData.append("description", Description);
 
     try {
-      const response = await fetch("http://localhost:3000/api/Image", {
+      const response = await fetch("/api/Image", {
         method: "POST",
         body: formData,
       });
@@ -113,7 +113,7 @@ export default function Experiment() {
   }
   const handleButtonClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    inputRef.current.click();
+    inputRef.current?.click();
   };
   useEffect(() => {
     const token = localStorage.getItem("token");

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useModal } from "./ModalBoxExpense";
 import ModalBoxExpense from "./ModalBoxExpense";
@@ -42,15 +43,15 @@ export default function Expense({
 
   useEffect(() => {
     const url = isShow
-      ? `http://localhost:3000/api/pengeluaran?year=${selectedYear}`
-      : `http://localhost:3000/api/pengeluaran`;
+      ? `/api/pengeluaran?year=${selectedYear}`
+      : `/api/pengeluaran`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data.data))
       .catch((error) => console.error("Error fetching data:", error));
   }, [submit, selectedYear, confirm]);
 
-  function onClickEdit(item: number) {
+  function onClickEdit(item: any) {
     setInputValue(item);
     showModal();
   }
@@ -98,7 +99,6 @@ export default function Expense({
       })
       .then(() => {
         setData(data.filter((item) => item.id !== id));
-        alert("Data berhasil dihapus!");
       })
       .catch((error) => {
         console.error("Error:", error);

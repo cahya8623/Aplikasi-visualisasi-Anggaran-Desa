@@ -334,14 +334,11 @@
 }
 
 .navbar{
-  /* background-color: red; */
   color: whitesmoke;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  /* margin-bottom: 120px; */
-  /* height: 100px; */
   box-shadow: 0px 2px 30px 0px black;
   z-index: 1000;
 }
