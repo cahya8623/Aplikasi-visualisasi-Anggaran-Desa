@@ -6,7 +6,6 @@ export default function Profil() {
   return (
     <div>
       <Navbar />
-
       <div className="bg-content">
         <div className="sub-content">
           <h1 className="text-center">Visi</h1>
