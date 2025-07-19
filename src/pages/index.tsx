@@ -9,7 +9,7 @@ export default function Coba() {
   return (
     <div className="container-fluid p-0 m-0">
       <Navbar />
-      <div className="background"> </div>
+      <div className="background"></div>
       <h1 className="Heading">
         Selamat Datang <br />
         Website Resmi Desa Gending
