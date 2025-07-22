@@ -246,7 +246,7 @@ export default function Experiment() {
                           className="gambar"
                           src={item.gambar}
                           alt={`Foto ${index + 1}`}
-                          width={150}
+                          width={170}
                           height={190}
                         />
                       </td>
