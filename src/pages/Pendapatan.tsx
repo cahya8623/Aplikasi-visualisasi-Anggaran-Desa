@@ -21,6 +21,7 @@ export default function Pemasukan() {
     const role = localStorage.getItem("role");
     if (!token || role !== "bendahara") {
       router.replace("/login");
+      return;
     } else {
       setIsReady(true);
     }
@@ -38,13 +39,16 @@ export default function Pemasukan() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <div className="d-flex flex-column justify-content-center px-5">
+        <div
+          className="d-flex  flex-column justify-content-center px-5"
+          style={{ width: "70vw" }}
+        >
           <TableIncome
             isShow={false}
             setSubmit={setSubmit}
             submit={submit}
             showTable={true}
-            width="70vw"
+            width="20vw"
             height="70vh"
           />
         </div>

@@ -10,6 +10,7 @@ export default function Beranda() {
     const token = sessionStorage.getItem("token");
     if (!token) {
       router.replace("/login");
+      return;
     } else {
       setIsReady(true);
     }

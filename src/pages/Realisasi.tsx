@@ -20,6 +20,7 @@ export default function Pengeluaran() {
     const role = localStorage.getItem("role");
     if (!token || role !== "bendahara") {
       router.replace("/login");
+      return;
     } else {
       setIsReady(true);
     }
@@ -38,7 +39,7 @@ export default function Pengeluaran() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <div className="px-5">
+        <div className="px-5" style={{ width: "70vw" }}>
           <Expense
             isShow={false}
             setSubmit={setSubmit}

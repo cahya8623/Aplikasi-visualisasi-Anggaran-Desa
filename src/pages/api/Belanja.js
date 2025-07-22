@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         console.log(id)
         try {
 
-            const result = await pool.query("DELETE FROM Belanja WHERE id = ?", [id]);
+            const result = await pool.query("DELETE FROM belanja WHERE id = ?", [id]);
 
             if (result[0].affectedRows === 0) {
                 return res.status(404).json({ message: "Data tidak ditemukan" });

@@ -20,6 +20,7 @@ export default function Pembiayaan() {
     const role = localStorage.getItem("role");
     if (!token || role !== "bendahara") {
       router.replace("/login");
+      return;
     } else {
       setIsReady(true);
     }
@@ -37,7 +38,7 @@ export default function Pembiayaan() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <div className="px-5">
+        <div className="px-5" style={{ width: "70vw" }}>
           <TablePembiayaan
             isShow={false}
             setSubmit={setSubmit}

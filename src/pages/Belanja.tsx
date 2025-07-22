@@ -21,6 +21,7 @@ export default function Pemasukan() {
     const role = localStorage.getItem("role");
     if (!token || role !== "bendahara") {
       router.replace("/login");
+      return;
     } else {
       setIsReady(true);
     }

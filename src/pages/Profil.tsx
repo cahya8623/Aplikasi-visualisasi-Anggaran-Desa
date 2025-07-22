@@ -61,7 +61,7 @@ export default function Profil() {
           <h1 className="mb-5 fs-italic text-white text-center fw-bold">
             Struktur Organisasi Desa
           </h1>
-          <Image alt="logo" src={logo} width={1190} height={700} />
+          <Image alt="logo" src={logo} width={1000} height={600} />
         </div>
       </div>
     </div>

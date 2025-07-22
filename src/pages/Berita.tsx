@@ -120,6 +120,7 @@ export default function Experiment() {
     const role = localStorage.getItem("role");
     if (!token || role !== "admin") {
       router.replace("/login");
+      return;
     } else {
       setIsReady(true);
     }

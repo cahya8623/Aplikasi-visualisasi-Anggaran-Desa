@@ -53,7 +53,7 @@ export default async function handler(req, res) {
 
     else if (req.method === "DELETE") {
         if (req.method === "DELETE") {
-            const { id } = req.query; // Ambil ID dari query parameter
+            const { id } = req.query;
             console.log(id)
             if (!id) {
                 return res.status(400).json({ message: "ID diperlukan untuk menghapus data" });

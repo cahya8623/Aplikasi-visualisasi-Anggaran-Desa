@@ -9,13 +9,17 @@ export default function LoginPage() {
   const [Bendahara, setBendahara] = useState("");
   const [Bendaharapassword, setBendaharaPassword] = useState("");
 
-  async function SubmitAdmin() {
+  async function SubmitAdmin(e: { preventDefault: () => void }) {
+    e.preventDefault();
     if (Admin === "" && Adminpassword === "") {
       alert("Masukkan Username Dan Password Telebih Dahulu");
+      return;
     } else if (Admin === "") {
       alert("Masukkan Dulu Usernamenya");
+      return;
     } else if (Adminpassword === "") {
       alert("Masukkan Dulu Passwordnya");
+      return;
     }
     const res = await fetch("/api/loginAdmin", {
       method: "POST",
@@ -36,7 +40,18 @@ export default function LoginPage() {
       alert(data.message);
     }
   }
-  async function SubmitBendahara() {
+  async function SubmitBendahara(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (Bendahara === "" && Bendaharapassword === "") {
+      alert("Masukkan Username Dan Password Telebih Dahulu");
+      return;
+    } else if (Bendahara === "") {
+      alert("Masukkan Dulu Usernamenya");
+      return;
+    } else if (Bendaharapassword === "") {
+      alert("Masukkan Dulu Passwordnya");
+      return;
+    }
     const res = await fetch("/api/loginBendahara", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -74,37 +89,35 @@ export default function LoginPage() {
               <div className="center-wrap">
                 <div className="section text-center">
                   <h4 className="mb-4 pb-3 text-white">Bendahara</h4>
-                  <div className="form-group">
-                    <input
-                      onChange={(e) => setBendahara(e.target.value)}
-                      type="text"
-                      name="logemail"
-                      className="form-style"
-                      placeholder="Username"
-                      id="logemail"
-                      autoComplete="off"
-                    />
-                    <i className="input-icon uil uil-user"></i>
-                  </div>
-                  <div className="form-group mt-2">
-                    <input
-                      onChange={(e) => setBendaharaPassword(e.target.value)}
-                      type="password"
-                      name="logpass"
-                      className="form-style"
-                      placeholder="Password"
-                      id="logpass"
-                      autoComplete="off"
-                    />
-                    <i className="input-icon uil uil-lock-alt"></i>
-                  </div>
-                  <button
-                    onClick={SubmitBendahara}
-                    type="submit"
-                    className="submit mt-4"
-                  >
-                    submit
-                  </button>
+                  <form onSubmit={SubmitBendahara}>
+                    <div className="form-group">
+                      <input
+                        onChange={(e) => setBendahara(e.target.value)}
+                        type="text"
+                        name="logemail"
+                        className="form-style"
+                        placeholder="Username"
+                        id="logemail"
+                        autoComplete="off"
+                      />
+                      <i className="input-icon uil uil-user"></i>
+                    </div>
+                    <div className="form-group mt-2">
+                      <input
+                        onChange={(e) => setBendaharaPassword(e.target.value)}
+                        type="password"
+                        name="logpass"
+                        className="form-style"
+                        placeholder="Password"
+                        id="logpass"
+                        autoComplete="off"
+                      />
+                      <i className="input-icon uil uil-lock-alt"></i>
+                    </div>
+                    <button type="submit" className="submit mt-4">
+                      submit
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -112,37 +125,35 @@ export default function LoginPage() {
               <div className="center-wrap">
                 <div className="section text-center">
                   <h4 className="mb-4 pb-3 text-white">Admin</h4>
-                  <div className="form-group">
-                    <input
-                      onChange={(e) => setAdmin(e.target.value)}
-                      type="text"
-                      name="logemail"
-                      className="form-style"
-                      placeholder="Username"
-                      id="logemail"
-                      autoComplete="off"
-                    />
-                    <i className="input-icon uil uil-user"></i>
-                  </div>
-                  <div className="form-group mt-2">
-                    <input
-                      onChange={(e) => setAdminPassword(e.target.value)}
-                      type="password"
-                      name="logpass"
-                      className="form-style"
-                      placeholder="Password"
-                      id="logpass"
-                      autoComplete="off"
-                    />
-                    <i className="input-icon uil uil-lock-alt"></i>
-                  </div>
-                  <button
-                    onClick={SubmitAdmin}
-                    type="submit"
-                    className="submit mt-4"
-                  >
-                    submit
-                  </button>
+                  <form onSubmit={SubmitAdmin}>
+                    <div className="form-group">
+                      <input
+                        onChange={(e) => setAdmin(e.target.value)}
+                        type="text"
+                        name="logemail"
+                        className="form-style"
+                        placeholder="Username"
+                        id="logemail"
+                        autoComplete="off"
+                      />
+                      <i className="input-icon uil uil-user"></i>
+                    </div>
+                    <div className="form-group mt-2">
+                      <input
+                        onChange={(e) => setAdminPassword(e.target.value)}
+                        type="password"
+                        name="logpass"
+                        className="form-style"
+                        placeholder="Password"
+                        id="logpass"
+                        autoComplete="off"
+                      />
+                      <i className="input-icon uil uil-lock-alt"></i>
+                    </div>
+                    <button type="submit" className="submit mt-4">
+                      submit
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

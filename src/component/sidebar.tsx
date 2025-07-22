@@ -40,7 +40,7 @@ export default function Sidebar() {
           <li className={` ${!token || role !== "bendahara" ? "disable" : ""}`}>
             <Link
               href="/Pendapatan"
-              className={`nav-link d-flex text-center align-item-center gap-3 text-white ${
+              className={`nav-link d-flex text-center align-items-center gap-3 text-white ${
                 pathName === "/Pendapatan" ? "clicked" : ""
               }`}
             >
@@ -51,7 +51,7 @@ export default function Sidebar() {
           <li className={`${!token || role !== "bendahara" ? "disable" : ""}`}>
             <Link
               href="/Belanja"
-              className={`nav-link d-flex text-center align-item-center gap-3 text-white ${
+              className={`nav-link d-flex text-center align-items-center gap-3 text-white ${
                 pathName === "/Belanja" ? "clicked" : ""
               }`}
             >
@@ -62,7 +62,7 @@ export default function Sidebar() {
           <li className={`${!token || role !== "bendahara" ? "disable" : ""}`}>
             <Link
               href="/Realisasi"
-              className={`nav-link d-flex text-center align-item-center gap-3 text-white ${
+              className={`nav-link d-flex text-center align-items-center gap-3 text-white ${
                 pathName === "/Realisasi" ? "clicked" : ""
               }`}
             >
@@ -73,7 +73,7 @@ export default function Sidebar() {
           <li className={`${!token || role !== "bendahara" ? "disable" : ""}`}>
             <Link
               href="/Pembiayaan"
-              className={`nav-link d-flex text-center align-item-center gap-3 text-white ${
+              className={`nav-link d-flex text-center align-items-center gap-3 text-white ${
                 pathName === "/Pembiayaan" ? "clicked" : ""
               }`}
             >
@@ -84,7 +84,7 @@ export default function Sidebar() {
           <li className={`${!token || role !== "admin" ? "disable" : ""}`}>
             <Link
               href="/Berita"
-              className={`nav-link d-flex text-center align-item-center gap-3 text-white ${
+              className={`nav-link d-flex text-center align-items-center gap-3 text-white ${
                 pathName === "/Berita" ? "clicked " : ""
               }`}
             >
