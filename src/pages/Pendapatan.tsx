@@ -41,7 +41,7 @@ export default function Pemasukan() {
         </button>
         <div
           className="d-flex  flex-column justify-content-center px-5"
-          style={{ width: "70vw" }}
+          style={{ width: "78vw" }}
         >
           <TableIncome
             isShow={false}

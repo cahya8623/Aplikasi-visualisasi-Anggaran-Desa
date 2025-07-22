@@ -42,7 +42,7 @@ export default function Pemasukan() {
         >
           <i className="bi bi-plus-circle"></i> Tambah
         </button>
-        <div className="px-5" style={{ width: "70vw" }}>
+        <div className="px-5" style={{ width: "78vw" }}>
           <TableBelanja
             isShow={false}
             setSubmit={setSubmit}
