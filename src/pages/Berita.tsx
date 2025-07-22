@@ -128,8 +128,8 @@ export default function Experiment() {
 
   if (!isReady) return null;
 
-  const limit = 3;
-  const maxVisible = 2;
+  const limit = 2;
+  const maxVisible = 3;
   const totalPage = Math.ceil(data.length / limit);
 
   const getPaginationRange = () => {
