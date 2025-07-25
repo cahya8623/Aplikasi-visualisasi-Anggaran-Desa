@@ -7,7 +7,7 @@ import News from "@/component/News";
 
 export default function Coba() {
   return (
-    <div className="">
+    <div className="vw-100">
       <Navbar />
       <div className="background"></div>
       <h1 className="Heading">
